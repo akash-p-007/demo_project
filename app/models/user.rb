@@ -5,4 +5,32 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :role
   has_many :items
+  validates_presence_of :name
+	before_save :assign_role
+
+	def assign_role
+	  self.role = Role.find_by name: "Regular" if self.role.nil?
+	end
+	def admin?
+  self.role.name == "Admin"
+	end
+	def superadmin?
+  self.role.name == "Superadmin"
+	end
+	def regular?
+  self.role.name == "Regular"
+	end
+
+	def active_for_authentication? 
+    super && approved? 
+  end 
+  
+  def inactive_message 
+    if !approved? 
+      :not_approved 
+    else 
+      super # Use whatever other message 
+    end 
+  end
+  
 end

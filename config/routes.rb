@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-  root to: "items#index" 
-  devise_for :users
-  scope "/admin" do
-    resources :users
-  end  
+  devise_for :users 
+   scope "/admin" do  
+   resources :users
+   end 
+   resources :items
+   resources :roles 
+   authenticated :user do  
+   root :to => 'items#index', as: :authenticated_root  
+   end  
+   root to: "welcome#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
