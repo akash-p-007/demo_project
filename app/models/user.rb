@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :items
   validates_presence_of :name
 	before_save :assign_role
+	after_create :send_admin_mail  
 
 	def assign_role
 	  self.role = Role.find_by name: "Regular" if self.role.nil?
@@ -32,5 +33,7 @@ class User < ActiveRecord::Base
       super # Use whatever other message 
     end 
   end
-  
+  def send_admin_mail
+  	UserMailer.send_welcome_email(self).deliver_later
+  end
 end
