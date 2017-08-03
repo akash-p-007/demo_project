@@ -6,6 +6,8 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Demo Project" %></title>
     <!-- Latest compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 		<!-- Optional theme -->
@@ -14,7 +16,6 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
 
@@ -35,20 +36,19 @@
               </nav>
             </div>
           </div>
-          <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-<% if user_signed_in? %>
-  Signed in as <%= current_user.email %>. Not you?
-  <%= link_to "Edit profile", edit_user_registration_path %>
-  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-<% end %>
+          
+          <% if user_signed_in? %>
+            Signed in as <%= current_user.email %>. Not you?
+            <%= link_to "Edit profile", edit_user_registration_path %>
+            <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+          <% end %>
 
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, id: "flash_#{name}" %>
-<% end %>
-    
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, id: "flash_#{name}" %>
+          <% end %>
+              
           <div class="inner cover">
             <h1 class="cover-heading"><%= yield %></h1>
             <p class="lead"></p>

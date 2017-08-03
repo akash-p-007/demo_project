@@ -5,7 +5,8 @@ class Ability
     user ||= User.new     # Guest user
     if user.superadmin?   # Super Admin can access all
       can :manage, :all
-    elsif user.admin?     # Admin have limited access
+  end
+    if user.admin?     # Admin have limited access
       can :read, Item
       can :create, Item
       can :update, Item do |item|
@@ -14,8 +15,13 @@ class Ability
       can :destroy, Item do |item|
         item.try(:user) == user
       end
-    elsif user.regular?  # Regular user can only view
+      can :read, User
+      can :create, User
+      
+    end
+
+    if user.regular?  # Regular user can only view
       can :read, Item
     end
-      end
+end
 end

@@ -25,11 +25,18 @@
 </div>
   <div class="field">
     <%= f.label :role_id %><br>
-    <%= f.text_field :role_id %>
+    <%= f.select(:role_id) do %>
+      <% [['Regular', 1], ['Admin', 2]].each do |c| -%>
+      <%= content_tag(:option, c.first, value: c.last) %>
+      <% end %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :approved %><br>
-    <%= f.text_field :approved %>
+    <%= f.label :Yes, "Yes", :value => "true"  %>
+    <%= f.radio_button :approved, true %>
+    <%= f.label :approved, "No", :value => "false" %>
+    <%= f.radio_button :approved, false %>
   </div>
 
   <div class="actions">

@@ -18,6 +18,9 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
       user:
         not_approved: "You are yet to be approved by Admin"
+      registrations:
+        user:
+          signed_up_but_not_approved: "You are yet to be approved by Admin"  
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"

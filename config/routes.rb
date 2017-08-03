@@ -4,7 +4,7 @@ Rails.application.routes.draw do
    resources :users
    end 
    resources :items
-   resources :roles 
+   #resources :roles 
    authenticated :user do  
    root :to => 'items#index', as: :authenticated_root  
    end  

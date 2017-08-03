@@ -9,9 +9,9 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_tree .
  *= require_self
+ *= require dataTables/src/demo_table_jui
+ *= require_tree .
  
 
  */
@@ -31,10 +31,12 @@
  */
 
 /* Links */
-a,
 a:focus,
 a:hover {
   color: #fff;
+}
+a{
+  color: grey;
 }
 
 /* Custom default button */
@@ -46,7 +48,10 @@ a:hover {
   background-color: #fff;
   border: .05rem solid #fff;
 }
-
+#flash_error,
+#flash_alert{
+  color: red;
+}
 
 /*
  * Base structure
@@ -90,7 +95,6 @@ body {
 /*
  * Header
  */
-
 .masthead {
   margin-bottom: 2rem;
 }
