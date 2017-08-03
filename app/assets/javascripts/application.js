@@ -17,4 +17,5 @@
 //= require_tree .
 
 $("#users").dataTable()
-
+		sPaginationType: "full_numbers"
+    bJQueryUI: true

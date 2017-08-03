@@ -49,6 +49,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap_form (2.7.0)
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (1.10.0)
@@ -175,6 +176,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap_form
   byebug
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
