@@ -1,28 +1,20 @@
 class ItemsController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!
+  before_action :authenticate_user!           #user should authorise to get access
   
-  # GET /items
-  # GET /items.json
-  def index
+  def index                                   #display all items 
     @items = Item.all
   end
 
-  # GET /items/1
-  # GET /items/1.json
-  def show
+  def show                                   
   end
 
-  # GET /items/new
   def new
   end
 
-  # GET /items/1/edit
   def edit
   end
 
-  # POST /items
-  # POST /items.json
   def create
     @item.user_id =current_user.id
     respond_to do |format|
@@ -36,8 +28,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /items/1
-  # PATCH/PUT /items/1.json
   def update
     respond_to do |format|
       if @item.update(item_params)
@@ -50,8 +40,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # DELETE /items/1
-  # DELETE /items/1.json
   def destroy
     @item.destroy
     respond_to do |format|

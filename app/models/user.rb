@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :items
   validates_presence_of :name
-	before_save :assign_role
-	after_create :send_admin_mail  
+	before_save :assign_role                 # By default role will be regular if not specified 
+	after_create :send_admin_mail            # Send welcome mail after user is successfully registered
 
 	def assign_role
 	  self.role = Role.find_by name: "Regular" if self.role.nil?
