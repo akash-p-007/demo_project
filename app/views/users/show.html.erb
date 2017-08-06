@@ -1,32 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
+<div class="form-group">
 <p>
-  <strong>Name:</strong>
+  <strong class="label label-info">Name:</strong>
   <%= @user.name %>
+ </div> 
 </p>
+<div class="form-group">
 <p>
-  <strong>Email:
+  <strong class="label label-info">Email:</strong>
   <%= @user.email %>
 </p>
+
 <p>
-  <strong>Role:</strong>
+  <strong class="label label-info">Role:</strong>
   <%= @user.role.name %>
 </p>
 <p>
-  <strong>Approval Status:</strong>
+  <strong class="label label-info">Approval Status:</strong>
   <%= @user.approved %>
 </p>
 <p>
-  <strong>Joined on:</strong>
+  <strong class="label label-info">Joined on:</strong>
   <%= @joined_on %>
 </p>
 <p>
-  <strong>Last logged in on:</strong>
+  <strong class="label label-info">Last logged in on:</strong>
   <%= @last_login %>
 </p>
 <p>
-  <strong>No. times logged in:</strong>
+  <strong class="label label-info">No. times logged in:</strong>
   <%= @user.sign_in_count %>
 </p>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+</div>
+<%= link_to 'Edit', edit_user_path(@user),:class => "btn" %> |
+<%= link_to 'Back', users_path,  :class => "btn" %>

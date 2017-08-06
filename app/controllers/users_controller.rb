@@ -35,6 +35,7 @@ class UsersController < ApplicationController # controller for handling users.
   def create  
     respond_to do |format|
       if @user.save
+        #User.invite!(:email => @user.email, :name=> @user.name) 
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -59,6 +60,7 @@ class UsersController < ApplicationController # controller for handling users.
     respond_to do |format|
       if successfully_updated
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.js  
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -67,7 +69,12 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
- 
+  def unapproved
+      @users = User.where(approved: false)   
+    
+  end
+
+
 
 
   # DELETE /users/1

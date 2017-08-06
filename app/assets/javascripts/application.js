@@ -15,7 +15,9 @@
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require_tree .
-
-$("#users").dataTable()
+$(document).ready(function() {
+$("#users-table").dataTable()
 		sPaginationType: "full_numbers"
     bJQueryUI: true
+    
+} );

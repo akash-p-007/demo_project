@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :invitable, :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true, :invite_for => 2.weeks 
   belongs_to :role
   has_many :items
   validates_presence_of :name
@@ -15,8 +15,6 @@ class User < ActiveRecord::Base
 	def assign_role
 	  self.role = Role.find_by name: "Regular" if self.role.nil?
 	end
-
-
 
 	def admin?
   self.role.name == "Admin"

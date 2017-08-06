@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users 
    scope "/admin" do  
-   resources :users
+   resources :users do
+    member do
+      get :unapproved
+    end
+    end
    end 
    resources :items
    #resources :roles 

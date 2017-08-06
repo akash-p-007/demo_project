@@ -68,6 +68,9 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    devise_invitable (1.7.2)
+      actionmailer (>= 4.1.0)
+      devise (>= 4.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -181,6 +184,7 @@ DEPENDENCIES
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
   devise
+  devise_invitable (~> 1.7.0)
   jbuilder (~> 2.0)
   jquery-datatables-rails!
   jquery-rails
