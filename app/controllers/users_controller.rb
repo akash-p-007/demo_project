@@ -22,6 +22,13 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
+  def invitation
+    if params[:invitation_accepted_at] == nil
+      @users = User.where.not(invitation_accepted_at: nil)    
+    else
+      @users = User.all
+    end
+  end
   # GET /users/new
   def new
   end
@@ -70,8 +77,8 @@ class UsersController < ApplicationController # controller for handling users.
   end
 
   def unapproved
-      @users = User.where(approved: false)   
-    
+      @users = User.where(approved: false) 
+      format.js  
   end
 
 

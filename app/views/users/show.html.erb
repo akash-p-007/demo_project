@@ -1,12 +1,10 @@
 <div class="container">
-
-<div class="form-group">
+<div id="form">
+<h1>
 <p>
   <strong class="label label-info">Name:</strong>
-  <%= @user.name %>
- </div> 
+  <%= @user.name %> 
 </p>
-<div class="form-group">
 <p>
   <strong class="label label-info">Email:</strong>
   <%= @user.email %>
@@ -32,6 +30,8 @@
   <strong class="label label-info">No. times logged in:</strong>
   <%= @user.sign_in_count %>
 </p>
-</div>
+</h1>
 <%= link_to 'Edit', edit_user_path(@user),:class => "btn" %> |
-<%= link_to 'Back', users_path,  :class => "btn" %>
+<%= link_to 'Back', users_path,  :class => "btn " %>
+</div>
+</div>

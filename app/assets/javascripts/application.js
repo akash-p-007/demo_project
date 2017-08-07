@@ -16,8 +16,10 @@
 //= require dataTables/jquery.dataTables
 //= require_tree .
 $(document).ready(function() {
-$("#users-table").dataTable()
+$("#users-table").dataTable({
+
 		sPaginationType: "full_numbers"
-    bJQueryUI: true
-    
+		//"pageLength": 5
+	});
+  	bJQueryUI: true     
 } );

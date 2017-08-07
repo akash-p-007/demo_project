@@ -38,11 +38,18 @@ div.background {
 #form{
   padding-right: 350px;
   padding-left: 350px;
+  
 }
 #users-table{
  background-color: lightblue;
 }
 td,th{
+  color: black;
+  padding: 5px;
+  width: "10";
+  height: 5px;
+}
+p{
   color: black;
 }
 /*
@@ -58,6 +65,9 @@ a{
   color: grey;
 }
 
+#landing-page{
+  overflow: hidden;
+}
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
@@ -74,7 +84,9 @@ a{
 #flash_notice{
   color: green;
 }
-
+.label:label-info{
+text-align: left
+}
 /*
  * Base structure
  */

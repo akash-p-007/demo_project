@@ -8,9 +8,14 @@ class User < ActiveRecord::Base
   validates_presence_of :name
 	before_save :assign_role                 # By default role will be regular if not specified 
 	
-  def after_confirmation
-     send_admin_mail 
-  end           # Send welcome mail after user is successfully registered
+  def after_confirmation # Send welcome mail after user is successfully registered
+     send_user_mail
+  end           
+
+  def after_invitation!
+    send_invite_mail
+    super
+  end
 
 	def assign_role
 	  self.role = Role.find_by name: "Regular" if self.role.nil?
@@ -39,10 +44,6 @@ class User < ActiveRecord::Base
       super 
     end 
   end
-  
-  def send_admin_mail
-  	UserMailer.send_welcome_email(self).deliver_later
-  end
 
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
@@ -53,4 +54,15 @@ class User < ActiveRecord::Base
     end
     recoverable
   end
+
+
+  private
+    def send_user_mail
+      UserMailer.send_welcome_email(self).deliver_later
+    end
+
+    def send_invite_mail
+      UserMailer.send_admin_mail(self).deliver_later
+    end
+
 end
