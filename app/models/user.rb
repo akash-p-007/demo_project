@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
      send_user_mail
   end           
 
-  def after_invitation!
+  def accept_invitation!
     send_invite_mail
     super
   end
