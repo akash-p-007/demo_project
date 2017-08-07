@@ -1,25 +1,95 @@
-
+<!--This is index page visible to only superadmin and admin.It consists of all the registered user in Table.Panel gived various status information about user depending upon their Approval status-->
 <h3>Listing Users</h3>
 
-<%= link_to 'Unapproved Users', unapproved_user_path(@users),  remote: true %>
 <div id="exTab1" class="container"> 
-<ul  class="nav nav-pills">
-      <li class="active">
-        <a  href="#1a" data-toggle="tab">All Users</a>
-      </li>
-      <li><a href="#2a" data-toggle="tab">Un-Approved Users</a>
-      </li>
-      <li><a href="#3a" data-toggle="tab">Approved Users</a>
-      </li>
-      <li><%= link_to 'Create new User', new_user_path %></a>
-      </li>
-      </ul>
+  <ul  class="nav nav-pills">
+    <li class="active">
+      <a  href="#1a" data-toggle="tab">All Users</a>
+    </li>
+    <li><a href="#2a" data-toggle="tab">Un-Approved Users</a>
+    </li>
+    <li><a href="#3a" data-toggle="tab">Approved Users</a>
+    </li>
+    <li><%= link_to 'Create new User', new_user_path %></a>
+    </li>
+  </ul>
 
-      <div class="tab-content clearfix">
-        <div class="tab-pane active" id="1a">
-          
-          <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
-            <thead>
+  <div class="tab-content clearfix">
+    <div class="tab-pane active" id="1a">        
+      <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th> Approval status </th>
+            <th >Show </th>
+            <th >Edit </th>
+            <th >Destroy </th>
+           </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.role.name %></td>
+            <td><%= user.email %></td>
+            <td id="<%= user.id %>"><%= user.approved %>
+              <%= form_for user, remote: true do |f| %>
+              <%= f.check_box :approved %>
+              <%= f.submit "change status"%>
+              <%end%>
+            </td>
+            <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
+            <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
+            <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
+          </tr>
+              <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane" id="2a">
+      <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th> Approval status </th>
+            <th >Show </th>
+            <th >Edit </th>
+            <th>Destroy </th>
+          </tr> 
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <%if !user.approved%>
+          <tr>
+              <td><%= user.name %></td>
+              <td><%= user.role.name %></td>
+              <td><%= user.email %></td>
+              <td id="<%= user.id %>"><%= user.approved %>
+                <%= form_for user, remote: true do |f| %>
+                <%= f.check_box :approved %>
+                <%= f.submit "change status",class: "btn btn-danger"%>
+                <%end%>
+
+
+              </td>
+              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
+          </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+      <div class="tab-pane" id="3a">
+        <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
+          <thead>
             <tr>
               <th>Name</th>
               <th>Role</th>
@@ -27,132 +97,51 @@
               <th> Approval status </th>
               <th >Show </th>
               <th >Edit </th>
-              <th >Destroy </th>
-             </th>
-              
+              <th>Destroy </th>
+             </th>  
             </tr>
-            </thead>
-
-            <tbody>
-              <% @users.each do |user| %>
-              
-                <tr>
-                  <td><%= user.name %></td>
-                  <td><%= user.role.name %></td>
-                  <td><%= user.email %></td>
-                  <td id="<%= user.id %>"><%= user.approved %>
-                    <%= form_for user, remote: true do |f| %>
-                    <%= f.check_box :approved %>
-                    <%= f.submit "change status"%>
-                    <%end%>
-
-
-                  </td>
-                  <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
-                  <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
-                  <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="tab-pane" id="2a">
-<table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
-   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Role</th>
-      <th>Email</th>
-      <th> Approval status </th>
-      <th >Show </th>
-      <th >Edit </th>
-      <th>Destroy </th>
-     </th>
-      
-    </tr> 
-   </thead>
-
-  <tbody>
-
-    <% @users.each do |user| %>
-    <%if !user.approved%>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.role.name %></td>
-        <td><%= user.email %></td>
-        <td id="<%= user.id %>"><%= user.approved %>
-          <%= form_for user, remote: true do |f| %>
-          <%= f.check_box :approved %>
-          <%= f.submit "change status",class: "btn btn-danger"%>
-          <%end%>
-
-
-        </td>
-        <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
-                  <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
-                  <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
-      </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-        </div>
-        <div class="tab-pane" id="3a">
-           <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
-            <thead>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+            <%if user.approved%>
               <tr>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th> Approval status </th>
-                <th >Show </th>
-                <th >Edit </th>
-                <th>Destroy </th>
-               </th>
-                
+                <td><%= user.name %></td>
+                <td><%= user.role.name %></td>
+                <td><%= user.email %></td>
+                <td id="<%= user.id %>"><%= user.approved %>
+                  <%= form_for user, remote: true do |f| %>
+                  <%= f.check_box :approved %>
+                  <%= f.submit "Change status" , class: "btn btn-success" %>
+                  <%end%>
+                </td>
+                <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
+                <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
+                <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
               </tr>
-            </thead>
-         <tbody>
-
-          <% @users.each do |user| %>
-          <%if user.approved%>
-            <tr>
-              <td><%= user.name %></td>
-              <td><%= user.role.name %></td>
-              <td><%= user.email %></td>
-              <td id="<%= user.id %>"><%= user.approved %>
-                <%= form_for user, remote: true do |f| %>
-                <%= f.check_box :approved %>
-                <%= f.submit "Change status" , class: "btn btn-success" %>
-                <%end%>
-              </td>
-              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
-            </tr>
-          <% end %>
-
-          <% end %>
-        </tbody>
-</table>
-</div>      
-</div>
+              <% end %>
+              <% end %>
+          </tbody>
+        </table>
+      </div>      
+    </div>
 </div>
 
+<%= link_to 'Unapproved Users', unapproved_user_path(@users),  remote: true %>
 <div>
-    <h3 class="margin-top">Invite User</h3>
-    <%= form_for(User.new, url: user_invitation_path, html: {class: "form-inline"}) do |f|%>
-      <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
-      <div class="field">
-      <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
-      <%= f.hidden_field :approved, :value => true %>
-      </div>
+  <h3 class="margin-top">Invite User</h3>
+  <%= form_for(User.new, url: user_invitation_path, html: {class: "form-inline"}) do |f|%>
+  <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
+  <div class="field">
+    <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
+    <%= f.hidden_field :approved, :value => true %>
+  </div>
 
-  
   <td>
-  <%= link_to 'Invitation list', invitations_path(invitation_accepted_at: nil) %></td> 
       <%= f.submit "Invite user" , class: "btn btn-success" %>
-    <% end %>
-    <br>
-    <br>
+      <%= link_to 'Invitations Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success" %>
+  </td> 
+  <% end %>
+  <br>
+  <br>
 </div>
+

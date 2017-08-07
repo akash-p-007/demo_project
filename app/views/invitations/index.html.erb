@@ -1,3 +1,24 @@
+<div>
+    <h3 class="margin-top">Invite User</h3>
+    <%= form_for(User.new, url: user_invitation_path, html: {class: "form-inline"}) do |f|%>
+      <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
+      <div class="field">
+      <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
+      <%= f.hidden_field :approved, :value => true %>
+      </div>
+
+  
+  <td>
+      <%= f.submit "Invite user" , class: "btn btn-success" %>
+    <% end %>
+    <br>
+    <br>
+</div>
+
+
+
+
+
 <div id="exTab1" class="container"> 
 <ul  class="nav nav-pills">
       <li class="active">
@@ -32,7 +53,7 @@
                   <td><%= i.invitation_accepted_at %></td>
               		  <% invitee = User.find(i.invited_by_id) %>
               		<td><%= invitee.name %></td>
-             		
+             			
              		</tr>
              <% end %>
              </tbody>

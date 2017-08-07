@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
+  root to: "welcome#index"
   devise_for :users, :controllers => { :invitations =>'users/invitations'} 
-      scope "/admin" do  
+    scope "/admin" do  
       resources :users do
         member do
-        get :unapproved
+          get :unapproved
         end  
       end
    end 
    resources :invitations, only:[:index]
    resources :items
-   #resources :roles 
-    authenticated :user do  
-      root :to => 'items#index', as: :authenticated_root  
-    end  
-  root to: "welcome#index"
+   
+   authenticated :user do  
+    root :to => 'items#index', as: :authenticated_root  
+   end  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

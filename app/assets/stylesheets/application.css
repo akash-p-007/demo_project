@@ -28,7 +28,7 @@
 
 }
 div.background {
-    background: url(/projectcover.jpg) ;
+    background: url(/projectcover.jpg) repeat ;
     background-size: cover;
      
      background-position: center;
