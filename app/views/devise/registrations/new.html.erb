@@ -10,7 +10,7 @@
   <br />
     <%= f.email_field :email, autofocus: true %>
   </div>
-
+  <% if f.object.password_required? %>
   <div class="field">
     
     <%= f.password_field :password, autocomplete: "off" %>
@@ -22,7 +22,7 @@
   <div class="field">
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-
+  <% end %>
   <div class="actions">
     <%= f.submit "Sign up", class: "btn btn-success"%>
   </div>

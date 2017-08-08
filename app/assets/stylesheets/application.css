@@ -39,7 +39,7 @@
     height: 100%;
     background-size: cover;
     filter: blur(2px);
-    opacity: 0.8;
+  opacity: 0.8;
 }
 #form{
   padding-right: 350px;
