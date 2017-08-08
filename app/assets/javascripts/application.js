@@ -14,11 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require dataTables/jquery.dataTables
+//= require bootstrap-sweetalert
 //= require_tree .
 $(document).ready(function() {
 $("#users-table").dataTable({
-
-		sPaginationType: "full_numbers"
+		    "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+        "iDisplayLength": 5,
+		     //sPaginationType: "full_numbers"
 		//"pageLength": 5
 	});
   	bJQueryUI: true     

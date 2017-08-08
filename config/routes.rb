@@ -8,6 +8,9 @@ Rails.application.routes.draw do
         end  
       end
    end 
+    resources :user do
+    get :unapproved
+    end
    resources :invitations, only:[:index]
    resources :items
    

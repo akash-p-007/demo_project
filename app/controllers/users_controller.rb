@@ -22,7 +22,6 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  
   # GET /users/new
   def new
   end
@@ -70,9 +69,9 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  def unapproved
-      @users = User.where(approved: false) 
-      format.js  
+  def unapproved(user)
+      #@users = User.where(approved: false) 
+      format.js {render :file => "unapproved.js.erb"} 
   end
 
 

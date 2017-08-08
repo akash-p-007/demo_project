@@ -12,6 +12,7 @@
  *= require_self
  *= require rails_bootstrap_forms 
  *= require dataTables/src/demo_table_jui
+ *= require bootstrap-sweetalert
  *= require_tree .
  
 
@@ -27,17 +28,23 @@
   color: white;
 
 }
-div.background {
-    background: url(/projectcover.jpg) repeat ;
+#imagica{
+    background-image: url("/projectcover.jpg") ;
+    position: fixed;
+    display: block;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
     background-size: cover;
-     
-     background-position: center;
-   height: 100%
-   
+    filter: blur(2px);
+    opacity: 0.8;
 }
 #form{
   padding-right: 350px;
   padding-left: 350px;
+
   
 }
 #users-table{
@@ -67,6 +74,7 @@ a{
 
 #landing-page{
   overflow: hidden;
+  background-color: transparent;
 }
 /* Custom default button */
 .btn-secondary,
@@ -267,8 +275,4 @@ body {
   background-color: #428bca;
   padding : 5px 15px;
 }
-
-
-
-
 

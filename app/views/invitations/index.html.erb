@@ -1,15 +1,14 @@
 <!--Panel to display invited users by admin-->
 <div>
   <h3 class="margin-top">Invite User</h3>
-  <%= form_for(User.new, url: user_invitation_path, html: {class: "form-inline"}) do |f|%>
-  <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
+  <%= form_for(User.new, html: {class: "form-inline"}) do |f|%>
+  <%= f.text_field :name, class: "form-control",placeholder: "Username",:required => true%>
   <div class="field">
-    <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
+    <%= f.text_field :email, class: "form-control", placeholder:"Email",:required => true %>
     <%= f.hidden_field :approved, :value => true %>
   </div>
   <%= f.submit "Invite user" , class: "btn btn-success" %>
   <% end %>
-  <br>
   <br>
 </div>
 <div id="exTab1" class="container"> 
@@ -19,7 +18,7 @@
     </li>
     <li><a href="#2a" data-toggle="tab">Pending Invitation</a>
     </li>
-    <li><a href="#3a" data-toggle="tab">Users created by invitations</a>
+    <li><a href="#3a" data-toggle="tab">All Users created by invitations</a>
     </li>
     </ul>
       <div class="tab-content clearfix">

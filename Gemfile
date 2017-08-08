@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'cancancan','~> 1.10'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'rails-assets-bootstrap-sweetalert', source: 'https://rails-assets.org'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
