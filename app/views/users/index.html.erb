@@ -75,8 +75,6 @@
                 <%= f.check_box :approved %>
                 <%= f.submit "change status",class: "btn btn-danger"%>
                 <%end%>
-
-
               </td>
               <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
               <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
@@ -125,7 +123,8 @@
       </div>      
     </div>
 </div>
-
+<br><br>
+<div id = "container">
 <%= link_to 'Unapproved Users', unapproved_user_path(@users),  remote: true %>
 <div>
   <h3 class="margin-top">Invite User</h3>
@@ -143,5 +142,6 @@
   <% end %>
   <br>
   <br>
+ </div> 
 </div>
 

@@ -3,16 +3,17 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true, :invite_for => 2.weeks 
+          # Invitable module is added as invitations is to be send to users by admin
   belongs_to :role
   has_many :items
   validates_presence_of :name
-	before_save :assign_role                 # By default role will be regular if not specified 
+	before_save :assign_role # By default role will be regular if not specified 
 	
-  def after_confirmation # Send welcome mail after user is successfully registered
+  def after_confirmation   # Send welcome mail after user is successfully registered
      send_user_mail
   end           
 
-  def accept_invitation!
+  def accept_invitation!   # when invite is accepted then admin is informed reagrding this
     send_invite_mail
     super
   end

@@ -1,45 +1,40 @@
 <!--Panel to display invited users by admin-->
 <div>
-    <h3 class="margin-top">Invite User</h3>
-    <%= form_for(User.new, url: user_invitation_path, html: {class: "form-inline"}) do |f|%>
-      <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
-      <div class="field">
-      <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
-      <%= f.hidden_field :approved, :value => true %>
-      </div>
-
-  
-  <td>
-      <%= f.submit "Invite user" , class: "btn btn-success" %>
-    <% end %>
-    <br>
-    <br>
+  <h3 class="margin-top">Invite User</h3>
+  <%= form_for(User.new, url: user_invitation_path, html: {class: "form-inline"}) do |f|%>
+  <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
+  <div class="field">
+    <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
+    <%= f.hidden_field :approved, :value => true %>
+  </div>
+  <%= f.submit "Invite user" , class: "btn btn-success" %>
+  <% end %>
+  <br>
+  <br>
 </div>
 <div id="exTab1" class="container"> 
-<ul  class="nav nav-pills">
-      <li class="active">
-        <a  href="#1a" data-toggle="tab">Accepted Invitations</a>
-      </li>
-      <li><a href="#2a" data-toggle="tab">Pending Invitation</a>
-      </li>
-      <li><a href="#3a" data-toggle="tab">Users created by invitations</a>
-      </li>
-      </ul>
+  <ul  class="nav nav-pills">
+    <li class="active">
+    <a  href="#1a" data-toggle="tab">Accepted Invitations</a>
+    </li>
+    <li><a href="#2a" data-toggle="tab">Pending Invitation</a>
+    </li>
+    <li><a href="#3a" data-toggle="tab">Users created by invitations</a>
+    </li>
+    </ul>
       <div class="tab-content clearfix">
-        <div class="tab-pane active" id="1a">
-          
+        <div class="tab-pane active" id="1a">    
           <table   class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%" >
             <thead>
-            <tr>
-              <th>Invitee Name</th>
-              <th>Invitee Email</th>
-              <th>Invitation Send At</th>
-              <th>Invitation Accepted At</th>
-              <th >Invited By</th>              
-            </tr>
+              <tr><b>
+                <td>Invitee Name</td>
+                <td>Invitee Email</td>
+                <td>Invitation Send At</td>
+                <td>Invitation Accepted At</td>
+                <td>Invited By</td> </b>             
+              </tr>
             </thead>
-<% @invites = User.where.not(invitation_accepted_at: nil).where(invited_by_id: 13) %>
-	      
+            <% @invites = User.where.not(invitation_accepted_at: nil).where(invited_by_id: 13) %>
             <tbody>
               <% @invites.each do |i| %>
                 <tr>
@@ -49,24 +44,23 @@
                   <td><%= i.invitation_accepted_at %></td>
               		  <% invitee = User.find(i.invited_by_id) %>
               		<td><%= invitee.name %></td>
-             			
              		</tr>
-             <% end %>
+              <% end %>
              </tbody>
-            </table>
-         
+          </table>
         </div>
+
         <div class="tab-pane" id="2a">
-<% @invites = User.invitation_not_accepted %>
-	<p>
+          <% @invites = User.invitation_not_accepted %>
+	         <p>
           <table    class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%" >
             <thead>
-            <tr>
-              <th>Invitee Name</th>
-              <th>Invitee Email</th>
-              <th>Invitation Send At</th>
-              <th >Invited By</th>              
-            </tr>
+              <tr>
+                <td>Invitee Name</td>
+                <td>Invitee Email</td>
+                <td>Invitation Send At</td>
+                <td>Invited By</td>              
+              </tr>
             </thead>
 
             <tbody>
@@ -79,37 +73,38 @@
               		<td><%= invitee.name %></td>
              		
              		</tr>
-             <% end %>
-             </tbody>
-            </table> 
+              <% end %>
+            </tbody>
+          </table> 
         </div>
-        <div class="tab-pane" id="3a">
-<% @invites = User.created_by_invite %>
-	  <p>
-          <table   class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%" >
-            <thead>
-            <tr>
-              <th>Invitee Name</th>
-              <th>Invitee Email</th>
-              <th>Invitation Send At</th>
-              <th>Invitation Accepted At</th>
-              <th >Invited By</th>              
-            </tr>
-            </thead>
 
-            <tbody>
-              <% @invites.each do |i| %>
+        <div class="tab-pane" id="3a">
+          <% @invites = User.created_by_invite %>
+	         <p>
+            <table   class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%" >
+              <thead>
                 <tr>
-                  <td><%= i.name %></td>
-                  <td><%= i.email %></td>
-                  <td><%= i.invitation_sent_at %></td>
-                  <td>	<%= i.invitation_accepted_at %></td>
-                  <% invitee = User.find(i.invited_by_id) %>
-              		<td><%= invitee.name %></td>
-             		</tr>
-             <% end %>
-             </tbody>
+                  <td>Invtee Name</td>
+                  <td>Invitee Email</td>
+                  <td>Invitation Send At</th>
+                  <td>Invitation Accepted At</td>
+                  <td>Invited By</td>              
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @invites.each do |i| %>
+                  <tr>
+                    <td><%= i.name %></td>
+                    <td><%= i.email %></td>
+                    <td><%= i.invitation_sent_at %></td>
+                    <td>	<%= i.invitation_accepted_at %></td>
+                    <% invitee = User.find(i.invited_by_id) %>
+                		<td><%= invitee.name %></td>
+               		</tr>
+               <% end %>
+               </tbody>
             </table>       
-</div>      
-</div>
+        </div>      
+      </div>
 </div>
