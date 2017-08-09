@@ -2,7 +2,7 @@
 <div>
   <h3 class="margin-top">Invite User</h3>
   <%= form_for(User.new, html: {class: "form-inline"}) do |f|%>
-  <%= f.text_field :name, class: "form-control",placeholder: "Username",:required => true%>
+  <%= f.text_field :name, class: "form-control",placeholder: "Name",:required => true%>
   <div class="field">
     <%= f.text_field :email, class: "form-control", placeholder:"Email",:required => true %>
     <%= f.hidden_field :approved, :value => true %>

@@ -9,5 +9,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		 	redirect_to new_user_registration_url
 		end 
 	end
+	def failure
+		redirect_to root_path
+	end
 	alias_method :twitter, :all
+	alias_method :facebook, :all
 end
