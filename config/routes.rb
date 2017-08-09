@@ -3,15 +3,12 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :invitations =>'users/invitations'},
                       :controllers => { :omniauth_callbacks => "omniauth_callbacks"} 
     scope "/admin" do  
-      resources :users do
+      resources :users, defaults: { format: 'html' } do
         member do
-          get :unapproved
+          put :unapproved
         end  
       end
    end 
-    resources :user do
-    get :unapproved
-    end
    resources :invitations, only:[:index]
    resources :items
    

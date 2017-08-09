@@ -8,7 +8,14 @@ class ApplicationController < ActionController::Base
   flash[:error] = "Access denied!"
   redirect_to root_url
 	end
-	
+	 
+   def after_sign_in_path_for(resource) # after sigin admin or super admin are directed to admin dashboard
+	    if current_user.role.name == "Admin" or current_user.role.name == "Superadmin"
+	      users_path
+	    else
+	      root_url
+	    end
+   end 
 
 	protected
 		def configure_permitted_parameters

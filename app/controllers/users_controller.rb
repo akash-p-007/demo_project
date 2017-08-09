@@ -1,6 +1,7 @@
 class UsersController < ApplicationController # controller for handling users.
   before_filter :authenticate_user!
   load_and_authorize_resource
+
   # GET /users
   # GET /users.json
   def index                                   #if user is permitted by admin then only it gets access
@@ -69,13 +70,21 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  def unapproved(user)
-      #@users = User.where(approved: false) 
-      format.js {render :file => "unapproved.js.erb"} 
+  def unapproved
+      @user = User.find(params[:id])
+      respond_to do |format|
+      if (params[:approved] == "true")
+        @user.update(approved: true)
+         format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.js 
+       else
+        @user.update(approved: false)
+        format.js
+      end
+    end
+    #@users = User.where(approved: false) 
+   # format.js {render :file => "unapproved.js.erb"} 
   end
-
-
-
 
   # DELETE /users/1
   # DELETE /users/1.json

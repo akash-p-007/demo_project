@@ -2,9 +2,6 @@
 
 en:
   devise:
-    registrations:
-      user:
-        signed_up_but_not_approved: "You are yet to be approved by Admin"  
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
@@ -21,6 +18,9 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
       user:
         not_approved: "You are yet to be approved by Admin"
+    registrations:
+      user:
+        signed_up_but_not_approved: "You are yet to be approved by Admin"  
       
     mailer:
       confirmation_instructions:

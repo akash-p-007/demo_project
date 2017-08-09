@@ -14,6 +14,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
     <%= stylesheet_link_tag   "application" %>
     <%= csrf_meta_tags %>
   </head>
@@ -53,9 +55,7 @@
               <li> <%= link_to "Edit profile", edit_user_registration_path %></li>
               <% else %>
               <li><%= link_to "Sign up", new_user_registration_path , class: "btn" %></li> 
-              <li><%= link_to "Sign in", new_user_session_path , class: "btn"  %></li>
-              <li><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %></li>
-              <li><%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path %></li>              
+              <li><%= link_to "Sign in", new_user_session_path , class: "btn"  %></li>      
               <% end %>
             </ul>
           </div>

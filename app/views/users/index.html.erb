@@ -22,7 +22,7 @@
             <th>Name</th>
             <th>Role</th>
             <th>Email</th>
-            <th> Approval status </th>
+            <th> Approved </th>
             <th >Show </th>
             <th >Edit </th>
             <th >Destroy </th>
@@ -36,11 +36,15 @@
             <td><%= user.name %></td>
             <td><%= user.role.name %></td>
             <td><%= user.email %></td>
-            <td id="<%= user.id %>"><%= user.approved %>
+            <td id="<%= user.id %>">
               <%= form_for user, remote: true do |f| %>
               <%= f.check_box :approved %>
-              <%= f.submit "change status"%>
+              <%= f.submit "change status", class: "btn btn-success" %>
               <%end%>
+             <!--  <td>
+             <span id="unapproved_status">
+             <%= link_to "Approve", unapproved_user_path(user.id), class: "btn btn-success", :method => :put, remote: true %> -->
+            </span>
             </td>
             <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
             <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
@@ -57,7 +61,7 @@
             <th>Name</th>
             <th>Role</th>
             <th>Email</th>
-            <th> Approval status </th>
+            <th> Approved</th>
             <th >Show </th>
             <th >Edit </th>
             <th>Destroy </th>
@@ -70,7 +74,7 @@
               <td><%= user.name %></td>
               <td><%= user.role.name %></td>
               <td><%= user.email %></td>
-              <td id="<%= user.id %>"><%= user.approved %>
+              <td id="<%= user.id %>">
                 <%= form_for user, remote: true do |f| %>
                 <%= f.check_box :approved %>
                 <%= f.submit "change status",class: "btn btn-danger"%>
@@ -92,7 +96,7 @@
               <th>Name</th>
               <th>Role</th>
               <th>Email</th>
-              <th> Approval status </th>
+              <th> Approved</th>
               <th >Show </th>
               <th >Edit </th>
               <th>Destroy </th>
@@ -106,7 +110,7 @@
                 <td><%= user.name %></td>
                 <td><%= user.role.name %></td>
                 <td><%= user.email %></td>
-                <td id="<%= user.id %>"><%= user.approved %>
+                <td id="<%= user.id %>">
                   <%= form_for user, remote: true do |f| %>
                   <%= f.check_box :approved %>
                   <%= f.submit "Change status" , class: "btn btn-success" %>

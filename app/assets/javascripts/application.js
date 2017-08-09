@@ -25,3 +25,4 @@ $("#users-table").dataTable({
 	});
   	bJQueryUI: true     
 } );
+$("#unapproved_status").html('Approved');
