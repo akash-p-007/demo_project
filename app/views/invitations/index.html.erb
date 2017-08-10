@@ -4,12 +4,13 @@
   <%= form_for(User.new, html: {class: "form-inline"}) do |f|%>
   <%= f.text_field :name, class: "form-control",placeholder: "Name",:required => true%>
   <div class="field">
+  <br>
     <%= f.text_field :email, class: "form-control", placeholder:"Email",:required => true %>
     <%= f.hidden_field :approved, :value => true %>
   </div>
   <%= f.submit "Invite user" , class: "btn btn-success" %>
   <% end %>
-  <br>
+  <br><br>
 </div>
 <div id="exTab1" class="container"> 
   <ul  class="nav nav-pills">
