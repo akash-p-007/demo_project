@@ -39,7 +39,7 @@
     height: 100%;
     background-size: cover;
     filter: blur(2px);
-  opacity: 0.8;
+  opacity: 1.2;
 }
 #form{
   padding-right: 350px;
@@ -369,4 +369,8 @@ color: #999
 }
 .form-control::-webkit-input-placeholder {
 color: #999
+
+
+#invitation-button{
+  float:right;
 }

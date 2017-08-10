@@ -24,5 +24,5 @@ $("#users-table").dataTable({
 		//"pageLength": 5
 	});
   	bJQueryUI: true     
+  	$("#unapproved_status").html('Approved');
 } );
-$("#unapproved_status").html('Approved');

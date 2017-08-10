@@ -57,7 +57,7 @@
               <li><%= link_to "Sign up", new_user_registration_path , class: "btn" %></li> 
               <li><%= link_to "Sign in", new_user_session_path , class: "btn"  %></li>      
               <% end %>
-            </ul>
+              </ul>
           </div>
         </div>
       </nav>
@@ -65,9 +65,7 @@
       <%= content_tag :div, msg, id: "flash_#{name}" %>        
       </li>
       <% end %>    
-      <div class="inner cover">
-        <h1 class="cover-heading" id="landing-page"><%= yield %></h1>
-      </div>        
+      <%= yield %>
     	<footer id="footer">
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>&copy; 2016 Company, Inc. &middot; Privacy</a> &middot; Terms</p>

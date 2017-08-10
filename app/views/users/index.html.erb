@@ -1,4 +1,10 @@
 <!--This is index page visible to only superadmin and admin.It consists of all the registered user in Table.Panel gived various status information about user depending upon their Approval status-->
+  <div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+<%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
+
+</div>
+</div></div>
 <h3>Listing Users</h3>
 
 <div id="exTab1" class="container"> 
@@ -129,8 +135,7 @@
 </div>
 <br>
 <br>
-        <%= link_to 'Unapproved Users', unapproved_user_path(@users), remote: true %>
-        <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success" %>
+        <!--<%= link_to 'Unapproved Users', unapproved_user_path(@users), remote: true %> -->
     <br>
     <br>
   </div> 
