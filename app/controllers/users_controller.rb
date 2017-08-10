@@ -2,8 +2,6 @@ class UsersController < ApplicationController # controller for handling users.
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  # GET /users
-  # GET /users.json
   def index                                   #if user is permitted by admin then only it gets access
     if params[:approved] == "false"
       @users = User.where(approved: false)
@@ -12,9 +10,7 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  def show                                    
+  def show                                    # show details of particular user                          
     @joined_on = @user.created_at.to_formatted_s(:short)
     if @user.current_sign_in_at
       @last_login = @user.current_sign_in_at.to_formatted_s(:short)
@@ -23,17 +19,13 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  # GET /users/new
   def new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
-  # POST /users
-  # POST /users.json
-  def create  
+  def create                            #for creating new user 
     respond_to do |format|
       if @user.save
         #User.invite!(:email => @user.email, :name=> @user.name) 
@@ -46,9 +38,7 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
+  def update                          #for updating the details of an existing user
     if user_params[:password].blank?
       user_params.delete(:password)
       user_params.delete(:password_confirmation)
@@ -86,9 +76,7 @@ class UsersController < ApplicationController # controller for handling users.
    # format.js {render :file => "unapproved.js.erb"} 
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
+  def destroy                         # deleting user permanently
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }

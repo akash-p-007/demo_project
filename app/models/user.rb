@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
     super
   end
 
-	def assign_role
-	  self.role = Role.find_by name: "Regular" if self.role.nil?
+	def assign_role          # for assigning role to the newly registered user which is regular by default. 
+    self.role = Role.find_by name: "Regular" if self.role.nil? #Access to any role is controlled by CanCan in ability.rb
 	end
 
 	def admin?
@@ -47,17 +47,17 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.from_omniauth(auth)
+  def self.from_omniauth(auth)              # getting info from user social account and assigning them in table
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname || auth.info.name
-      user.skip_confirmation!
+      user.skip_confirmation!               # if user is following social account registration,then email confirmation is ignonred 
     end
   end
 
-  def self.new_with_session(params, session)
+  def self.new_with_session(params, session)         #creating session for an existing user
   if session["devise.user_attributes"]
     new(session["devise.user_attributes"], without_protection: true) do |user|
       user.email = data["email"] if user.email.blank? and params[:provider] == 'facebook'
@@ -69,11 +69,11 @@ class User < ActiveRecord::Base
   end
 end
 
-def password_required?
+def password_required?                            # password validation is avoided as authentication is done using registered accounts
   super && provider.blank?
 end
 
-def update_with_password(params, *options)
+def update_with_password(params, *options)        # to handle field which need current password in oder to update to a new password
   if encrypted_password.blank?
     update_attributes(params, *options)
   else
@@ -93,11 +93,11 @@ end
 
 
   private
-    def send_user_mail
+    def send_user_mail                        # sending welcome mail to newly registered user
       UserMailer.send_welcome_email(self).deliver_later
     end
 
-    def send_invite_mail
+    def send_invite_mail                      # sending mail to admin regarding acceptance of his mail
       UserMailer.send_admin_mail(self).deliver_later
     end
 
