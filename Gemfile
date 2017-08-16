@@ -27,7 +27,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'cancancan','~> 1.10'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'rails-assets-bootstrap-sweetalert', source: 'https://rails-assets.org'
-gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 # Use ActiveModel has_secure_password
