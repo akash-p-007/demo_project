@@ -26,7 +26,6 @@
   background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1)); /*Standard*/
   text-align: center;
   color: white;
-
 }
 #imagica{
     background-image: url("/projectcover.jpg") ;
@@ -44,8 +43,6 @@
 #form{
   padding-right: 350px;
   padding-left: 350px;
-
-  
 }
 #users-table{
  background-color: lightblue;
@@ -89,7 +86,6 @@ a{
 #flash_notice{
   color: green;
   background-color: white;
-}
 }
 .label:label-info{
 text-align: left
