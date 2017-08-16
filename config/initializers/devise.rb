@@ -300,7 +300,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook,Rails.application.secrets.FACEBOOK_ID , Rails.application.secrets.FACEBOOK_SECRET 
-  config.omniauth :google_oauth2, Rails.application.secrets.GOOGLE_ID , Rails.application.secrets.GOOGLE_SECRET , {redirect_uri: "http://localhost:3000/users/auth/google_oauth2/callback"}
+  config.omniauth :google_oauth2, Rails.application.secrets.GOOGLE_ID , Rails.application.secrets.GOOGLE_SECRET , {redirect_uri: "https://evening-springs-95001.herokuapp.com/users/auth/google_oauth2/callback"}
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
