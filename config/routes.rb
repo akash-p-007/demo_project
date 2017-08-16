@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     scope "/admin" do  
       resources :users, defaults: { format: 'html' } do
         member do
-          put :unapproved
+          patch :unapproved
         end  
       end
    end 

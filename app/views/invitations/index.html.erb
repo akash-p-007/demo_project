@@ -1,4 +1,11 @@
 <!--Panel to display invited users by admin-->
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+<%= link_to 'Dashboard', users_path, class: "btn btn-success"%>    
+
+</div>
+</div>
+</div>
 <div>
   <h3 class="margin-top">Invite User</h3>
   <%= form_for(User.new, html: {class: "form-inline"}) do |f|%>

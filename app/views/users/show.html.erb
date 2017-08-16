@@ -1,70 +1,53 @@
 <!--Displays User Information stored-->
-<div class="container">
-  <div id="form">
-   <div class="container">
-  <div class="row">
-  <br>
-        
-        <div class="col-sm-6">
-            <div class="panel panel-primary">
-              <div class="panel-heading">User Details</div>
-              <table class="table table-bordered">
-                
-                <tbody>
-                  <tr>
-                  <td> 1 </td>
-                    <td>Name</td>
-                    <td><%= @user.name %></td>
-           
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Email</td>
-                    <td><%= @user.email %></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Role</td>
-                    <td><%= @user.role.name %></td>
-                  </tr>
-                   <tr>
-                    <td>4</td>
-                    <td>Approval Status</td>
-                    <td><%= @user.approved %></td>
-                  </tr>
-                   <tr>
-                    <td>5</td>
-                    <td>Joined On</td>
-                    <td><%= @joined_on %></td>
-                  </tr>
-                   <tr>
-                    <td>6</td>
-                    <td>Last Login</td>
-                    <td><%= @last_login %></td>
-                  </tr>
-                   <tr>
-                    <td>7</td>
-                    <td>No. of times logged in</td>
-                    <td><%= @user.sign_in_count %></td>
-                  </tr>
-                   <tr>
-                    <td>8</td>
-                    <td>Last login</td>
-                    <td><%= @last_login %></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-         
-          </div>
-        
-        
-    </div>
-    </div>
-
- 
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+<%= link_to "<i class='glyphicon glyphicon-remove'></i>&nbsp; Close".html_safe, users_path %> 
+  
   </div>
-</div>
+  </div>
+  <h1>User Details</h1>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+      <td> 1 </td>
+        <td>Name</td>
+        <td><%= @user.name %></td>
+
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Email</td>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Role</td>
+        <td><%= @user.role.name %></td>
+      </tr>
+       <tr>
+        <td>4</td>
+        <td>Approval Status</td>
+        <td><%= @user.approved %></td>
+      </tr>
+       <tr>
+        <td>5</td>
+        <td>Joined On</td>
+        <td><%= @joined_on %></td>
+      </tr>
+       <tr>
+        <td>6</td>
+        <td>Last Login</td>
+        <td><%= @last_login %></td>
+      </tr>
+       <tr>
+        <td>7</td>
+        <td>No. of times logged in</td>
+        <td><%= @user.sign_in_count %></td>
+      </tr>
+       
+    </tbody>
+  </table>
+          
 <p>
   <%= link_to "<i class='glyphicon glyphicon-arrow-left'></i>&nbsp; Back".html_safe, users_path %>        |
   <%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe, edit_user_path(@user) %>

@@ -1,6 +1,0 @@
-<% if @user.approved %>
-	$("#<%= @user.id %>").html(true);
-	console.log("<%= @user.name%>")
-<%else%>
-	$("#<%= @user.id %>").html(false);
-<%end%>

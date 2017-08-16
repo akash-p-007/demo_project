@@ -10,13 +10,14 @@ class UsersController < ApplicationController # controller for handling users.
     end
   end
 
-  def show                                    # show details of particular user                          
-    @joined_on = @user.created_at.to_formatted_s(:short)
+  def show                        
+    @joined_on = @user.created_at.to_formatted_s(:short)  # show details of particular user   
     if @user.current_sign_in_at
       @last_login = @user.current_sign_in_at.to_formatted_s(:short)
     else
       @last_login = "never"
     end
+    render :layout => false
   end
 
   def new
@@ -61,19 +62,8 @@ class UsersController < ApplicationController # controller for handling users.
   end
 
   def unapproved
-      @user = User.find(params[:id])
-      respond_to do |format|
-      if (params[:approved] == "true")
-        @user.update(approved: true)
-         format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.js 
-       else
-        @user.update(approved: false)
-        format.js
-      end
-    end
-    #@users = User.where(approved: false) 
-   # format.js {render :file => "unapproved.js.erb"} 
+    user = User.find(params[:id])
+    user.update(approved: params[:approved])
   end
 
   def destroy                         # deleting user permanently
@@ -88,6 +78,7 @@ class UsersController < ApplicationController # controller for handling users.
     def needs_password?(user, params)
       params[:password].present?
     end
+    
   private
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :role_id, :approved)

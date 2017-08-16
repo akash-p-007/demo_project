@@ -14,10 +14,3 @@ u2 = User.create({name: "Admin1", email: "admin1@example.com", password: "123456
 u3 = User.create({name: "Admin2", email: "admin2@example.com", password: "123456", password_confirmation: "123456", role_id: r2.id})
 u4 = User.update({name: "Superadmin", email: "superadmin@example.com", password: "123456", password_confirmation: "123456", role_id: r3.id, approved: 't'})
 u5 = User.create({name: "Superadmin2",email: "superadmin2@example.com", password: "123456", password_confirmation: "123456", role_id: r3.id, approved: "t"})
-
-i1 = Item.create({name: "Rayban Sunglasses", description: "Stylish shades", price: 99.99, user_id: u2.id})
-i2 = Item.create({name: "Gucci watch", description: "Expensive timepiece", price: 199.99, user_id: u2.id})
-i3 = Item.create({name: "Henri Lloyd Pullover", description: "Classy knitwear", price: 299.99, user_id: u3.id})
-i4 = Item.create({name: "Porsche socks", description: "Cosy footwear", price: 399.99, user_id: u3.id})
-
-
