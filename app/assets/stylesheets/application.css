@@ -59,11 +59,7 @@ td,th{
 p{
   color: white;
 }
-/*
- * Globals
- */
 
-/* Links */
 a:focus,
 a:hover {
   color: #fff;

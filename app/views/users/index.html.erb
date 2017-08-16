@@ -1,10 +1,8 @@
 <!--This is index page visible to only superadmin and admin.It consists of all the registered user in Table.Panel gived various status information about user depending upon their Approval status-->
-  <div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-<%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
-
-</div>
-</div>
+<div class='btn-toolbar pull-right'>
+  <div class='btn-group'>
+    <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
+  </div>
 </div>
 <br>
 <h3>Listing Users</h3>
@@ -45,27 +43,25 @@
             <td><%= user.role.name %></td>
             <td><%= user.email %></td>
             <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-
-
             <div class="container">
-            <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %>                
+              </td>
               <div class="modal fade" id="showModal">
                 <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Show</h3>
+                  <div class="modal-content">                      
+                  </div>
                 </div>
-                <div class="modal-body">
-                
+              </div>
+             </div> 
+            <div class="container"> 
+            <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user),"data-toggle" => "modal", 'data-target' => '#editModal'  %></td>
+            <div class="modal fade" id="editModal">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">                      
+                  </div>
                 </div>
-                <dir class="modal-footer">
-                  
-                </dir>
-                </div>
-                </div>
-            </div>
-            <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
+              </div>
+             </div>
             <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
           </tr>
               <% end %>
@@ -93,8 +89,17 @@
               <td><%= user.role.name %></td>
               <td><%= user.email %></td>
               <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
+              <div class="container">
+              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal2' %>                
+              </td>
+              <div class="modal fade" id="showModal2">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">                      
+                  </div>
+                </div>
+              </div>
+             </div> 
+             <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
               <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
           </tr>
           <% end %>
@@ -124,8 +129,17 @@
                 <td><%= user.role.name %></td>
                 <td><%= user.email %></td>
                 <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-                <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user %></td>
-                <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
+              <div class="container">
+              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal3' %>                
+              </td>
+              <div class="modal fade" id="showModal3">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">                      
+                  </div>
+                </div>
+              </div>
+             </div> 
+             <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
                 <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
               </tr>
               <% end %>

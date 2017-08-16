@@ -13,15 +13,11 @@
       </ul>
     </div>
   <% end %>
-
-    <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
   <div class="field">
-  <%= f.text_field :email, class: "form-control" %>
-</div>
-<div class="field">
-  
+  <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
+  <%= f.text_field :email, class: "form-control" %>  
   <%= f.password_field :password, placeholder: "Leave blank if unchanged" %>
-</div>
+  </div>
   <div class="field" >
     <%= f.select(:role_id) do %>
       <% [['Regular', 1], ['Admin', 2]].each do |c| -%>
@@ -30,7 +26,6 @@
     <% end %>
   </div>
   <div class="field">
-
     <%= f.label :approved %>
     <%= f.radio_button :approved, true, label: "True", checked: true %>
     <%= f.radio_button :approved, false, label: "False" %>

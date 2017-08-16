@@ -1,10 +1,15 @@
 <!-- This is form foe editing user details. It do not contain Password field-->
-<h1>Editing User</h1>
-<div class="container">
-<div id="form">
+<div class='btn-toolbar pull-right'>
+  <div class='btn-group'>
+  <%= link_to "<i class='glyphicon glyphicon-remove'></i>&nbsp; Close".html_safe, users_path %> 
+  </div>
+</div>
+<fieldset>
+  <legend><h1>Editing User</h1></legend> 
+
 <%= bootstrap_form_for(@user) do |f| %>
-      <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
   <div class="field">
+  <%= f.text_field :name, class: "form-control",placeholder: "Username"%>
   <%= f.text_field :email, class: "form-control" %>
 </div>
   <div class="field" >
@@ -27,5 +32,7 @@
 <% end %>
 </div>
 </div>
+</fieldset>
+
 <%= link_to "<i class='glyphicon glyphicon-arrow-left'></i>&nbsp; Back".html_safe, users_path %> |
-  <%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Show".html_safe, @user %>
+<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Show".html_safe, @user %>

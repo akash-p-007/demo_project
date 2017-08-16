@@ -24,6 +24,7 @@ class UsersController < ApplicationController # controller for handling users.
   end
 
   def edit
+     render :layout => false
   end
 
   def create                            #for creating new user 
