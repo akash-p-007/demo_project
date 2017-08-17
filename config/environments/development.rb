@@ -23,7 +23,7 @@ Rails.application.configure do
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => "gmail.com",
-    :authentication => :login,
+    :authentication => :plain,
     :user_name => "attributeencryption@gmail.com",
     :password => "akashmangal"
   } 
@@ -49,6 +49,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = {:host => 'evening-springs-95001.herokuapp.com'}
+  config.action_mailer.default_url_options = {:host => 'localhost:3000'}
 
 end
