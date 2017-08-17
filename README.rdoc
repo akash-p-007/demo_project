@@ -20,3 +20,8 @@ Composed of 3 users.
       gem 'coffee-rails', '~> 4.1.0'
       gem 'devise'
       gem 'cancancan', '~> 1.10'
+
+Superadmin has full access over app and is create first time when application starts.
+This is done because all other user in order to access the app have to get approved by Admin or Superadmin.
+Admin and SuperAdmin can access invitation portal too which is to invite new user to sign up.
+Regular user can see only welcome page and its accessible content can be controlled by items controller.All this which you wants to show to regular user can be controlled by items_controllers in app/comntroller folder of the application.
