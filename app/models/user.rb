@@ -58,16 +58,16 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)         #creating session for an existing user
-  if session["devise.user_attributes"]
-    new(session["devise.user_attributes"], without_protection: true) do |user|
+    if session["devise.user_attributes"]
+      new(session["devise.user_attributes"], without_protection: true) do |user|
       user.email = data["email"] if user.email.blank? and params[:provider] == 'facebook'
       user.attributes = params
       user.valid?
+      end
+    else
+      super
     end
-  else
-    super
   end
-end
 
 def password_required?                            # password validation is avoided as authentication is done using registered accounts
   super && provider.blank?
