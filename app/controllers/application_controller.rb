@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
 	private
 	 def set_mailer_host
-	 	ActionMailer::Base.default_url_options[:host] = "localhost:3000"
+	 	ActionMailer::Base.default_url_options[:host] = 'evening-springs-95001.herokuapp.com'
 	 end
 
 	 def after_invite_path_for(resource)
