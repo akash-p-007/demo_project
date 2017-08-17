@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root to: "welcome#index"
-  devise_for :users, :controllers => { :invitations =>'users/invitations'},
-                      :controllers => { :omniauth_callbacks => "omniauth_callbacks"} 
+  devise_for :users, :controllers => { :invitations =>'users/invitations', :omniauth_callbacks => "omniauth_callbacks"} 
     scope "/admin" do  
       resources :users, defaults: { format: 'html' } do
         member do
