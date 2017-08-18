@@ -81,7 +81,6 @@ a{
 #flash_error,
 #flash_alert{
   color: red;
-  background-color: white;
 }
 #flash_notice{
   color: green;
