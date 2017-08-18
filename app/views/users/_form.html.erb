@@ -2,6 +2,7 @@
 <div class="container">
 <div id="form">
 <%= bootstrap_form_for(@user) do |f| %>
+
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -31,6 +32,8 @@
     <%= f.radio_button :approved, false, label: "False" %>
   </div>
 
+  <%= recaptcha_tags%>
+  <div class="g-recaptcha" data-sitekey="6LfWVi0UAAAAAGnr2VEsEvGSkxF-Kvu6uipCKBgI"></div>
   <div class="actions">
     <%= f.submit "Submit" , class: "btn btn-success" %>
   </div>

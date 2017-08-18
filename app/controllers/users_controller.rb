@@ -29,7 +29,7 @@ class UsersController < ApplicationController # controller for handling users.
 
   def create                            #for creating new user 
     respond_to do |format|
-      if @user.save
+      if verify_recaptcha(model: @user) && @user.save
         #User.invite!(:email => @user.email, :name=> @user.name) 
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
