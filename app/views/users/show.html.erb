@@ -4,6 +4,7 @@
   <%= link_to "<i class='glyphicon glyphicon-remove'></i>&nbsp; Close".html_safe, users_path %> 
   </div>
 </div>
+<div id="modal">
   <h1>User Details</h1>
   <table class="table table-bordered">
     <tbody>
@@ -46,8 +47,7 @@
        
     </tbody>
   </table>
-          
+</div>          
 <p>
-  <%= link_to "<i class='glyphicon glyphicon-arrow-left'></i>&nbsp; Back".html_safe, users_path %>        |
-  <%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe, edit_user_path(@user) %>
+  <%= link_to "<i class='glyphicon glyphicon-arrow-left'></i>&nbsp; Back".html_safe, users_path %>       
 </p>

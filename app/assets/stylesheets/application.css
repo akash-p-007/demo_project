@@ -362,3 +362,7 @@ color: #999
  #welcome-content{
  padding-top: 30%;
  }   
+#modal
+{
+  background-color: lightblue;
+}
