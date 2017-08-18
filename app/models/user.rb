@@ -73,7 +73,7 @@ def password_required?                            # password validation is avoid
   super && provider.blank?
 end
 
-def update_with_password(params, *options)        # to handle field which need current password in oder to update to a new password
+def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
   if encrypted_password.blank?
     update_attributes(params, *options)
   else

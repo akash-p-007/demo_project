@@ -42,7 +42,7 @@
 }
 #form{
   padding-right: 350px;
-  padding-left: 350px;
+  padding-left: 290px;
 }
 #users-table{
  background-color: lightblue;
@@ -55,6 +55,10 @@ td,th{
 }
 p{
   color: white;
+}
+#content
+{
+  overflow: scroll;
 }
 
 a:focus,
