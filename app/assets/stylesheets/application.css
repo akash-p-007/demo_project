@@ -58,7 +58,7 @@ p{
 }
 #content
 {
-  overflow: scroll;
+  padding-bottom: 40px;
 }
 
 a:focus,
