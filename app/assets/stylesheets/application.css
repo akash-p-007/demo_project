@@ -28,7 +28,7 @@
   color: white;
 }
 #imagica{
-    background-image: url("/projectcover.jpg") ;
+    background-image: url("http://www.wallpaperup.com/uploads/wallpapers/2014/09/18/446494/big_thumb_c784eb9363fd0fc832bd36f648c50529.jpg") ;
     position: fixed;
     display: block;
     left: 0;
@@ -64,9 +64,6 @@ p{
 a:focus,
 a:hover {
   color: #fff;
-}
-a{
-  color: grey;
 }
 
 #landing-page{
@@ -108,6 +105,7 @@ body {
   color: #fff;
   text-align: center;
   text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);
+  padding : 10px ;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -133,10 +131,6 @@ body {
   padding: 2rem;
 }
 
-
-/*
- * Header
- */
 .masthead {
   margin-bottom: 2rem;
 }
@@ -176,13 +170,9 @@ body {
   }
 }
 
-
-
-
 /*
  * Affix and center
  */
-
 @media (min-width: 40em) {
   /* Pull out the header and footer */
   .masthead {
@@ -219,18 +209,6 @@ html {
     height: 100%;
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
-}
-
-
 footer {
     padding: 50px 0;
     background-color: #f8f8f8;
@@ -239,10 +217,7 @@ footer {
 p.copyright {
     margin: 15px 0 0;
 }
-body {
-  padding : 10px ;
-  
-}
+
 
 #exTab1 .tab-content {
   color : white;
@@ -346,7 +321,9 @@ body {
 .form-control{border:0; box-shadow:none}
 .form-control:focus{box-shadow:none;}
 
-label{color:#999;  padding-top: 5px; display:block; left:0; width:100%}
+label{
+  color:#c5c5c5;  padding-top: 5px; display:block; left:0; width:100%
+}
 
 .panel{border-width:2px; border-radius:7px}
 
@@ -362,12 +339,15 @@ label{color:#999;  padding-top: 5px; display:block; left:0; width:100%}
 color: #999;
 opacity: 1
 }
+
 .form-control:-ms-input-placeholder {
 color: #999
 }
+
 .form-control::-webkit-input-placeholder {
 color: #999
 }
+
 .full-screen {
     left: 0;
     right: 0;
@@ -378,7 +358,7 @@ color: #999
     display: inline;
     filter: blur(1px);
     }
+
  #welcome-content{
  padding-top: 30%;
-
  }   
