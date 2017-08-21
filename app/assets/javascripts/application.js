@@ -12,44 +12,35 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require dataTables/jquery.dataTables
-//= require bootstrap-sweetalert
 //= require_tree .
 $(document).ready(function() {
 $("#users-table").dataTable({
 		    "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
         "iDisplayLength": 5,
-		     //sPaginationType: "full_numbers"
-		//"pageLength": 5
 	});
-  	bJQueryUI: true     
-  	$("#unapproved_status").html('Approved');
-
-  	var $item = $('.carousel .item'); 
-var $wHeight = $(window).height();
-$item.eq(0).addClass('active');
-$item.height($wHeight); 
-$item.addClass('full-screen');
-
-$('.carousel img').each(function() {
-  var $src = $(this).attr('src');
-  var $color = $(this).attr('data-color');
-  $(this).parent().css({
-    'background-image' : 'url(' + $src + ')',
-    'background-color' : $color
-  });
-  $(this).remove();
+  bJQueryUI: true     
+  $("#unapproved_status").html('Approved');
+ 	var $item = $('.carousel .item'); 
+	var $wHeight = $(window).height();
+	$item.eq(0).addClass('active');
+	$item.height($wHeight); 
+	$item.addClass('full-screen');
+	$('.carousel img').each(function() {
+	  var $src = $(this).attr('src');
+	  var $color = $(this).attr('data-color');
+	  $(this).parent().css({
+	    'background-image' : 'url(' + $src + ')',
+	    'background-color' : $color
+	  });
+  	$(this).remove();
+	});
+	$(window).on('resize', function (){
+  	$wHeight = $(window).height();
+  	$item.height($wHeight);
+	});
+	$('.carousel').carousel({
+  	interval: 6000,
+  	pause: "false"
+	});
 });
-
-$(window).on('resize', function (){
-  $wHeight = $(window).height();
-  $item.height($wHeight);
-});
-
-$('.carousel').carousel({
-  interval: 6000,
-  pause: "false"
-});
-
-} );
