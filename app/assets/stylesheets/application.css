@@ -366,3 +366,11 @@ color: #999
 {
   background-color: lightblue;
 }
+.modal-body{
+  background-image: url("http://www.wallpaperup.com/uploads/wallpapers/2014/09/18/446494/big_thumb_c784eb9363fd0fc832bd36f648c50529.jpg") ;
+ 
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+ 
+}

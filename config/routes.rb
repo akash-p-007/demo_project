@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root to: "welcome#index"
+   get 'contact', :to => "welcome#contact"
+   get 'about', :to => "welcome#about"
   devise_for :users, :controllers => { :invitations =>'users/invitations', :omniauth_callbacks => "omniauth_callbacks"} 
     scope "/admin" do  
       resources :users, defaults: { format: 'html' } do
