@@ -26,6 +26,9 @@ gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'haml', '~> 4.0.5'
+gem 'bootstrap-sass', '~> 3.2.0.2'
+gem 'simple_form', '~> 3.0.2'	
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server
