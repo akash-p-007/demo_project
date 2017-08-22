@@ -69,17 +69,17 @@ class User < ActiveRecord::Base
     end
   end
 
-def password_required?                            # password validation is avoided as authentication is done using registered accounts
-  super && provider.blank?
-end
-
-def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
-  if encrypted_password.blank?
-    update_attributes(params, *options)
-  else
-    super
+  def password_required?                            # password validation is avoided as authentication is done using registered accounts
+    super && provider.blank?
   end
-end  
+
+  def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end  
 
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)

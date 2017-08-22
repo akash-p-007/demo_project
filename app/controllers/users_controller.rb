@@ -27,6 +27,9 @@ class UsersController < ApplicationController # controller for handling users.
     render :layout => false
   end
 
+ 
+
+
   def create                            #for creating new user 
     respond_to do |format|
       if verify_recaptcha(model: @user) && @user.save
