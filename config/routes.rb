@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end 
     resources :invitations, only:[:index]
     resources :items
-   
+       
   authenticated :user do  
     root :to => 'items#index', as: :authenticated_root  
   end  
