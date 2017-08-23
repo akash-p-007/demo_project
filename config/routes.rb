@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "welcome#index"
+  root to: "pins#index"
    get 'contact', :to => "welcome#contact"
    get 'about', :to => "welcome#about"
   devise_for :users, :controllers => { :invitations =>'users/invitations', :omniauth_callbacks => "omniauth_callbacks"} 
@@ -12,7 +12,13 @@ Rails.application.routes.draw do
    end 
    resources :invitations, only:[:index]
    resources :items
-   
+   resources :pins do
+    member do
+      put "like", to:"pins#upvote"
+    end
+    mount Commontator::Engine => '/commontator'
+
+  end
    authenticated :user do  
     root :to => 'items#index', as: :authenticated_root  
    end  

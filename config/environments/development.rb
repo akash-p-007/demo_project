@@ -7,7 +7,7 @@ Rails.application.configure do
   config.cache_classes = false
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
-  
+  Paperclip.options[:command_path] = "/usr/bin/"  
   # Do not eager load code on boot.
   config.eager_load = false
 

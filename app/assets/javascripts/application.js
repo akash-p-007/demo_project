@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require masonry/jquery.masonry
+//= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require_tree .
 $(document).ready(function() {

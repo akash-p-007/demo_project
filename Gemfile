@@ -28,7 +28,11 @@ gem 'omniauth-google-oauth2'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'haml', '~> 4.0.5'
 gem 'bootstrap-sass', '~> 3.2.0.2'
-gem 'simple_form', '~> 3.0.2'	
+gem 'simple_form', '~> 3.0.2'
+gem 'paperclip', '~> 4.2.0'	
+gem 'masonry-rails','~>0.2.4'
+gem 'acts_as_votable','~> 0.10.0'
+gem 'commontator', '~> 4.11.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server

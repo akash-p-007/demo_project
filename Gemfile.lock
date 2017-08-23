@@ -45,6 +45,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_votable (0.10.0)
     arel (6.0.4)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
@@ -55,6 +56,9 @@ GEM
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (1.17.0)
+    climate_control (0.2.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -62,6 +66,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    commontator (4.11.1)
+      jquery-rails
+      rails (>= 3.1)
     concurrent-ruby (1.0.5)
     debug_inspector (0.0.3)
     devise (4.3.0)
@@ -97,6 +104,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    masonry-rails (0.2.4)
+      railties
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -127,6 +136,11 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    paperclip (4.2.4)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
     pg (0.21.0)
     rack (1.6.8)
     rack-test (0.6.3)
@@ -213,19 +227,23 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_votable (~> 0.10.0)
   bootstrap-sass (~> 3.2.0.2)
   bootstrap_form
   byebug
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
+  commontator (~> 4.11.1)
   devise
   devise_invitable (~> 1.7.0)
   haml (~> 4.0.5)
   jbuilder (~> 2.0)
   jquery-datatables-rails!
   jquery-rails
+  masonry-rails (~> 0.2.4)
   omniauth-facebook
   omniauth-google-oauth2
+  paperclip (~> 4.2.0)
   pg (~> 0.15)
   rails (= 4.2.9)
   recaptcha
