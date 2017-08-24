@@ -2,11 +2,12 @@ class UsersController < ApplicationController # controller for handling users.
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  def index                                   #if user is permitted by admin then only it gets access
+  def index     
+                                  #if user is permitted by admin then only it gets access
     if params[:approved] == "false"
       @users = User.where(approved: false)
     else
-      @users = User.all
+      @users = User.all.where.not(id: current_user.id)
     end
   end
 
@@ -48,14 +49,18 @@ class UsersController < ApplicationController # controller for handling users.
       user_params.delete(:password)
       user_params.delete(:password_confirmation)
     end
-    successfully_updated = if needs_password?(@user, user_params)
-                             @user.update(user_params)
-                           else
-                             @user.update_without_password(user_params)
-                           end
-    respond_to do |format|
+    if @user == current_user
+      successfully_updated = @user.update(user_params_restricted)
+    else   
+      successfully_updated = if needs_password?(@user, user_params)
+                               @user.update(user_params)
+                             else
+                               @user.update_without_password(user_params)
+                            end  
+    end
+      respond_to do |format|
       if successfully_updated
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
         format.js  
         format.json { head :no_content }
       else
@@ -87,4 +92,7 @@ class UsersController < ApplicationController # controller for handling users.
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :role_id, :approved)
     end
+    def user_params_restricted
+      params.require(:user).permit(:email, :password, :password_confirmation,:name)
+    end 
 end
