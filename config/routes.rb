@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'events/index'
+
   root to: "welcome#index"
   get 'contact', :to => "welcome#contact"
   get 'about', :to => "welcome#about"

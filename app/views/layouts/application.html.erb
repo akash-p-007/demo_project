@@ -66,6 +66,7 @@
               <li>Signed in as <%= current_user.email %>. Not you?</li>
               <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
               <li> <%= link_to "Edit profile", edit_user_registration_path %></li>
+              <li> <%= link_to "My events", events_index_path if current_user.email.include? "gmail.com" %></li> 
               <% else %>
               <li><%= link_to "Sign up", new_user_registration_path , class: "btn" %></li> 
               <li><%= link_to "Sign in", new_user_session_path , class: "btn"  %></li>      

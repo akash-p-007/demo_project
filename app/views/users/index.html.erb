@@ -26,7 +26,7 @@
           <% @users.each do |user| %>
           <tr>
             <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></td>
-            <td><%= user.role_id %></td>
+            <td><%= user.role.name %></td>
             <td><%= user.email %></td>
             <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
               
@@ -47,7 +47,7 @@
           <%if !user.approved%>
           <tr>
             <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal2' %></td>
-            <td><%= user.role_id %></td>
+            <td><%= user.role.name %></td>
               <td><%= user.email %></td>
               <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
               <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role_id = 3 %></td>
@@ -66,7 +66,7 @@
             <%if user.approved%>
               <tr>
               <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal3' %></td>
-                <td><%= user.role_id %></td>
+                <td><%= user.role.name %></td>
                 <td><%= user.email %></td>
                 <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
                 <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin'  %></td>

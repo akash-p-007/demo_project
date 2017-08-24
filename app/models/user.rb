@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :confirmable, :omniauthable, 
-         :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true, :invite_for => [2.weeks] 
+         :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true 
           # Invitable module is added as invitations is to be send to users by admin
   belongs_to :role
   has_many :items
@@ -91,9 +91,9 @@ class User < ActiveRecord::Base
     credentials = oauth.credentials
     data = oauth.info
     user = User.where(email: data["email"]).first
-
-
-    # Uncomment the section below if you want users to be created if they don't exist
+    if user
+      user.token = credentials.token
+    end
     unless user
      user = User.new({
         name: data["name"],
@@ -104,8 +104,8 @@ class User < ActiveRecord::Base
     end
     user.skip_confirmation!
     user.save!
-    user.get_google_contacts   # Wait for next section
-    user.get_google_calendars  # Wait for next section
+    user.get_google_contacts   
+    user.get_google_calendars  
     user
   end
 
