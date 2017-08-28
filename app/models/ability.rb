@@ -10,6 +10,7 @@ class Ability             # model which tells the part of accessible to user dep
       can :read, Item
       can :create, Item
       can :read, Event
+      can :create, Event
       can :update, Item do |item|
         item.try(:user) == user
       end

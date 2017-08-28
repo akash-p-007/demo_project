@@ -49,20 +49,19 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.from_omniauth(auth)              # getting info from user social account and assigning them in table
+  def self.from_omniauth(auth)              # getting info from user facebook account and assigning them in table
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname || auth.info.name
       user.skip_confirmation!
-      @user = user               # if user is following social account registration,then email confirmation is ignonred 
+      @user = user               # if user is following facebook account registration,then email confirmation is ignonred 
     end
-    @user.get_google_calendars
   end
 
 
-  def self.new_with_session(params, session)         #creating session for an existing user
+  def self.new_with_session(params, session)         #creating session for an existing user signed with facebook
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"], without_protection: true) do |user|
       user.email = data["email"] if user.email.blank? and params[:provider] == 'facebook'
@@ -75,11 +74,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def password_required?                            # password validation is avoided as authentication is done using registered accounts
+  def password_required?    # password validation is avoided as authentication is done using registered accounts
     super && provider.blank?
   end
 
-  def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
+  def update_with_password(params, *options)   # to handle field which need current password in order to update to a new password
     if encrypted_password.blank?
       update_attributes(params, *options)
     else
@@ -87,7 +86,7 @@ class User < ActiveRecord::Base
     end
   end  
 
-  def self.find_for_google_oauth2(oauth, signed_in_resource=nil)
+  def self.find_for_google_oauth2(oauth, signed_in_resource=nil) # for autheticating user with his google account
     credentials = oauth.credentials
     data = oauth.info
     user = User.where(email: data["email"]).first
@@ -104,9 +103,10 @@ class User < ActiveRecord::Base
     end
     user.skip_confirmation!
     user.save!
-    user.get_google_contacts   
-    user.get_google_calendars  
-    user
+    #user.get_google_contacts # to fetch contacts stored in gmail, uncomment this  
+    user.get_google_calendars unless user.persisted?
+    user 
+    
   end
 
   def get_google_contacts
@@ -114,7 +114,6 @@ class User < ActiveRecord::Base
     response = open(url)
     json = JSON.parse(response.read)
     my_contacts = json['feed']['entry']
-
     my_contacts.each do |contact|
       name = contact['title']['$t'] || nil
       email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
@@ -129,35 +128,33 @@ class User < ActiveRecord::Base
   end
 
   def get_google_calendars
-  url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
-  response = open(url)
-  json = JSON.parse(response.read)
-  calendars = json["items"]
-  calendars.each { |cal| get_events_for_calendar(cal) }
-end
+    url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
+    response = open(url)
+    json = JSON.parse(response.read)
+    calendars = json["items"]
+    calendars.each { |cal| get_events_for_calendar(cal) }
+  end
 
-def get_events_for_calendar(cal)
-
-  url = "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal["id"])}/events?access_token=#{token}"
-  response = open(url)
-  json = JSON.parse(response.read)
-  my_events = json["items"]
-
-  my_events.each do |event|
-    name = event["summary"] || "no name"
-    creator = event["creator"] ? event["creator"]["email"] : nil
-    start = event["start"] ? event["start"]["dateTime"] : nil
-    status = event["status"] || nil
-    link = event["htmlLink"] || nil
-    calendar = cal["summary"] || nil
-
-    events.create(name: name,
-                  creator: creator,
-                  status: status,
-                  start: start,
-                  link: link,
-                  calendar: calendar
-                  )
+  def get_events_for_calendar(cal)
+    url = "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal["id"])}/events?access_token=#{token}"
+    response = open(url)
+    json = JSON.parse(response.read)
+    my_events = json["items"]
+    my_events.each do |event|
+      name = event["summary"] || "no name"
+      creator = event["creator"] ? event["creator"]["email"] : nil
+      start = event["start"] ? event["start"]["dateTime"] : nil
+      status = event["status"] || nil
+      link = event["htmlLink"] || nil
+      calendar = cal["summary"] || nil
+      events.find_or_create_by(name: name,
+                    creator: creator,
+                    status: status,
+                    start: start,
+                    link: link,
+                    calendar: calendar
+                    ) 
+  
     end
   end
 

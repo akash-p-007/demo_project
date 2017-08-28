@@ -376,6 +376,8 @@ color: #999
     text-decoration: none;
     background-color: #8c9aff;
 }
-#tab{
-  background-color: #8c9aff;
+#invitation-button{
+  margin-left: 55%;
+  display: inline;
+
 }

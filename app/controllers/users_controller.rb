@@ -2,8 +2,7 @@ class UsersController < ApplicationController # controller for handling users.
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  def index     
-                                  #if user is permitted by admin then only it gets access
+  def index                                       #if user is permitted by admin then only it gets access
     if params[:approved] == "false"
       @users = User.where(approved: false)
     else
@@ -80,6 +79,7 @@ class UsersController < ApplicationController # controller for handling users.
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+      format.js 
     end
   end
 
