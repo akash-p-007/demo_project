@@ -13,10 +13,15 @@ Rails.application.routes.draw do
       end
     end 
     resources :invitations, only:[:index]
-    resources :items
-       
+    resources :groups do
+      resources :posts, only: [:create, :destroy,:index]
+      member do
+        get 'add_members'
+        patch 'remove_member'
+      end
+    end     
   authenticated :user do  
-    root :to => 'items#index', as: :authenticated_root  
+    root :to => 'groups#index', as: :authenticated_root  
   end  
   
   # The priority is based upon order of creation: first created -> highest priority.

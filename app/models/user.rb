@@ -5,7 +5,11 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable, :confirmable, :omniauthable, 
          :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true 
           # Invitable module is added as invitations is to be send to users by admin
+  has_many :memberships, :dependent => :destroy
+  has_many :groups, through: :memberships        
   belongs_to :role
+  belongs_to :group
+  has_many :posts, :dependent => :destroy
   has_many :items
   has_many :events
   has_many :contacts

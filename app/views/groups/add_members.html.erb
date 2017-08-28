@@ -1,0 +1,26 @@
+<h5>Edit Group Members</h5>
+<center>
+<div class="container">
+<table id="users-table">
+<thead>
+<td>Name</td>
+<td>Add/Remove</td>
+</thead>
+<tbody>
+<% @users.each do |user| %>
+<tr>
+<td><center><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></center></td>
+<% if @group.users.include? user %>
+<td><center><%= link_to "Remove",remove_member_group_path(:group_id => @group.id, :user_id => user.id), class: "btn btn-danger", method: :patch %></center>
+<% else %>
+<td><center><%= link_to "Add",group_path(:group_id => @group.id, :user_id => user.id), class: "btn btn-success", method: :put %></center>
+<% end %>
+</td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+  <%= link_to "Back",groups_path, class:"btn btn-default"%>
+  <%= link_to "Finished",groups_path, class:"btn btn-default"%>     
+</div>
