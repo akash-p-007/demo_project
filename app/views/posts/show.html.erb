@@ -1,5 +1,5 @@
 <h1 class="title">
-	<%= @post.title%>
+<%= @post.title%>
 </h1>
 <p class="date">
 	Submitted <%= time_ago_in_words(@post.created_at) %>Ago
@@ -7,5 +7,4 @@
 <p class="body">
 	<%= @post.body %>
 </p>
-
-<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_group_post_path(id) %>
+<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit Post".html_safe, edit_group_post_path(@group,@post) %>

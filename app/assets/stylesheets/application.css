@@ -39,6 +39,10 @@
     filter: blur(2px);
   opacity: 1.2;
 }
+.post_wrapper{
+  background-color: #80cbc4;
+  box-shadow: 2px 3px 3px black ;
+}
 #form{
   padding-right: 350px;
   padding-left: 290px;
