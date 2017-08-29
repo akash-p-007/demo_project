@@ -71,9 +71,16 @@ ActiveRecord::Schema.define(version: 20170828135253) do
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -130,5 +137,7 @@ ActiveRecord::Schema.define(version: 20170828135253) do
   add_foreign_key "items", "users"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
+  add_foreign_key "posts", "groups"
+  add_foreign_key "posts", "users"
   add_foreign_key "users", "roles"
 end

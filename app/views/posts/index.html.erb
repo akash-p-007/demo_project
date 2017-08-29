@@ -1,1 +1,19 @@
-<h1>Post:</h1>
+<h1>Post</h1>
+<div class="buttons">
+	<button class="button"><%= link_to "New Post", new_group_post_path %></button>
+</div>
+<% @post.each do |post| %>
+	<div class="post_wrapper">
+	<h2 class="title">	<%= post.title%></h2>
+	<br>
+	<p class="body">
+	<%= post.body %>
+</p>
+	<p class="date">
+	Submitted <%= time_ago_in_words(post.created_at)%>Ago
+</p>
+<br>
+
+<hr>
+	<% end %>
+	</div>

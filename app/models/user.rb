@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :memberships        
   belongs_to :role
   belongs_to :group
-  has_many :posts, :dependent => :destroy
+  has_many :posts
   has_many :items
   has_many :events
   has_many :contacts

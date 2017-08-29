@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end 
     resources :invitations, only:[:index]
     resources :groups do
-      resources :posts, only: [:create, :destroy,:index]
+      resources :posts
       member do
         get 'add_members'
         patch 'remove_member'

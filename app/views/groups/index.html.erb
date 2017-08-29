@@ -21,7 +21,7 @@
 		<td><%= g.created_by %></td>
 		<td><%= link_to "Edit",add_members_group_path(g) %></td>
 		<td><%= link_to "View",group_posts_path(g)%></td>
-		<% if can? :destroy, g%>
+		<% if can? :destroy, g %>
 		<td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, g, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		<% end %>
 	</tr>	

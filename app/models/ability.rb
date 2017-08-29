@@ -7,17 +7,18 @@ class Ability             # model which tells the part of accessible to user dep
       can :manage, :all
   end
     if user.admin?     # Admin have limited access.It can read read and create user but deleting power is only to super admin
-      can :read, Group
-      can :create, Group
-      can :read, Event
-      can :update, Group do |group|
-        group.try(:user) == user
-      end
-      can :destroy, Group do |group|
-        group.try(:user) == user
-      end
-      can :read, User
-      can :create, User
+      can :manage, :all
+      # can :read, Group
+      # can :create, Group
+      # can :read, Event
+      # can :update, Group do |group|
+      #   group.try(:user) == user
+      # end
+      # can :destroy, Group do |group|
+      #   group.try(:user) == user
+      # end
+      # can :read, User
+      # can :create, User
       
     end
 
