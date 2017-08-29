@@ -1,3 +1,4 @@
+<div class="container">
 <h1 class="title">
 <%= @post.title%>
 </h1>
@@ -8,3 +9,11 @@
 	<%= @post.body %>
 </p>
 <%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit Post".html_safe, edit_group_post_path(@group,@post) %>
+</div>
+<hr>
+<div id="comments">
+	<h2><%= @post.comments.count %> Comments</h2>
+	<%= render @post.comments %>
+	<h3>Add a comment:</h3>
+	<%= render "comments/form"%>
+</div>
