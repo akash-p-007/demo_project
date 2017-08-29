@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'events/index'
-
   root to: "welcome#index"
   get 'contact', :to => "welcome#contact"
   get 'about', :to => "welcome#about"
@@ -12,16 +11,16 @@ Rails.application.routes.draw do
         end  
       end
     end 
-    resources :invitations, only:[:index]
     resources :groups do
       resources :posts do
-        resources :comments 
+        resources :comments,only: [:create, :destroy]
       end
       member do
         get 'add_members'
         patch 'remove_member'
       end
     end     
+  resources :invitations, only:[:index]
   authenticated :user do  
     root :to => 'groups#index', as: :authenticated_root  
   end  
