@@ -1,36 +1,41 @@
-<div class='btn-toolbar pull-right'>
-  <div class='btn-group'>
-  <%= link_to "<i class='glyphicon glyphicon-remove'></i>&nbsp; Close".html_safe, users_path %> 
-  </div>
-</div>
+
 <div id="modal">
   <center>
-  <h1>Group Details</h1>
-  <table id="users-table">
-    <tbody>
-      <tr>
-      <td> 1 </td>
-        <td>Group Name</td>
-        <td><%= @group.name%></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Created By</td>
-        <td><%= @group.created_by%></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Group Members</td>
-        <td><% @members.each do |member|%>  
-				<% if member.group_id == @group.id %>	
-		  	<% id = member.user_id %>		
-		  	<%= @users.find(id).name << ", " %>
-				<% end %>
-				<% end %>
-				</td>
-      </tr>
-    </tbody>
-  </table> 
+    <h1>Group Details</h1>
+    <table id="users-table">
+      <tbody>
+        <tr>
+        <td> 1 </td>
+          <td>Group Name</td>
+          <td><%= @group.name%></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Created By</td>
+          <td><%= @group.created_by%></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Public:</td>
+          <td><%= @group.is_public? %></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Group Members</td>
+          <td><% @members.each do |member|%>  
+  				<% if member.group_id == @group.id %>	
+  		  	<% id = member.user_id %>		
+  		  	<%= @users.find(id).name %>,
+  				<% end %>
+  				<% end %>
+  				</td>
+        </tr>
+      </tbody>
+    </table> 
   </center>    
 </div>
+<div class="modal-footer">
+    <center>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </center>
 </div>

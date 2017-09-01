@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
       user.skip_confirmation!
       @user = user               # if user is following social account registration,then email confirmation is ignonred 
     end
-    @user.get_google_calendars
+    @user.get_google_calendars 
   end
 
 
@@ -108,29 +108,29 @@ class User < ActiveRecord::Base
     end
     user.skip_confirmation!
     user.save!
-    user.get_google_contacts   
+    #user.get_google_contacts   
     user.get_google_calendars  
     user
   end
 
-  def get_google_contacts
-    url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
-    response = open(url)
-    json = JSON.parse(response.read)
-    my_contacts = json['feed']['entry']
+  # def get_google_contacts
+  #   url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
+  #   response = open(url)
+  #   json = JSON.parse(response.read)
+  #   my_contacts = json['feed']['entry']
 
-    my_contacts.each do |contact|
-      name = contact['title']['$t'] || nil
-      email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
-      tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
-      if contact['link'][1]['type'] == "image/*"
-        picture = "#{contact['link'][1]['href']}?access_token=#{token}"
-      else
-        picture = nil
-      end
-      contacts.create(name: name, email: email, tel: tel)
-    end
-  end
+  #   my_contacts.each do |contact|
+  #     name = contact['title']['$t'] || nil
+  #     email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
+  #     tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
+  #     if contact['link'][1]['type'] == "image/*"
+  #       picture = "#{contact['link'][1]['href']}?access_token=#{token}"
+  #     else
+  #       picture = nil
+  #     end
+  #     contacts.create(name: name, email: email, tel: tel)
+  #   end
+  # end
 
   def get_google_calendars
   url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"

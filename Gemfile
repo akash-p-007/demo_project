@@ -27,6 +27,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server

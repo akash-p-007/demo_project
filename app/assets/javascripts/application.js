@@ -20,13 +20,16 @@ $(document).ready(function() {
 		    "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
         "iDisplayLength": 5,
 	});
+
   bJQueryUI: true     
+  
   $("#unapproved_status").html('Approved');
  	var $item = $('.carousel .item'); 
 	var $wHeight = $(window).height();
 	$item.eq(0).addClass('active');
 	$item.height($wHeight); 
 	$item.addClass('full-screen');
+	
 	$('.carousel img').each(function() {
 	  var $src = $(this).attr('src');
 	  var $color = $(this).attr('data-color');
@@ -36,12 +39,23 @@ $(document).ready(function() {
 	  });
   	$(this).remove();
 	});
+
 	$(window).on('resize', function (){
   	$wHeight = $(window).height();
   	$item.height($wHeight);
 	});
+
 	$('.carousel').carousel({
   	interval: 6000,
   	pause: "false"
 	});
+$('#EditModal').on('hidden', function () {
+  document.location.reload();
+})
+onclick="javascript:window.location.reload()"
 });
+// $(document).on("click", "#EditModal", function(event){     
+//  $('body').on('hidden.bs.modal', '.modal', function () {
+//         $(this).removeData('bs.modal');
+//       });
+// });

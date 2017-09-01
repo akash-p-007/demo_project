@@ -1,25 +1,27 @@
+
 <h1>Create a new Group</h1>
-<%= form_for(@group) do |f| %>
-  <% if @group.errors.any? %>
+  <div class="container">
+  <div id="form">
+  <%= bootstrap_form_for(@group) do |f| %>
+    <% if @group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
-
       <ul>
-      <% @group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
-  <% end %>
-
-      <%= f.label :name, class: "right inline" %>
+    <% end %>
       <%= f.text_field :name %>
-      <%= f.label :description, class: "right inline" %>
       <%= f.text_field :desc %>
+      <%= f.radio_button :is_public, true, label: "Public", checked: true %>
+      <%= f.radio_button :is_public, false, label: "Private" %>
       <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
-      
       <br>
       <br>
       <%= f.submit "Create group",class: "btn btn-success" %>
-<% end %>
-</center>
+  <% end %>
+  </div>
+
+</div>

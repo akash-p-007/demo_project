@@ -1,30 +1,30 @@
-<h1>Group Name : <%= "#{@group.name}"%></h1>
+<h2>Group Name : <%= "#{@group.name}"%></h2>
 <div class='btn-toolbar pull-right'>
-  <div class='btn-group'>	
-	<%= link_to "Create New Post", new_group_post_path, class: "btn btn-default" %>
-</div>
+  <div class='btn-group'>
+		<%= link_to "Create New Post", new_group_post_path, class: "btn btn-default" %>
+	</div>
 </div>
 <div class="container" id="posts">
-<% @post.each do |post| %>
-
-	<div class="post_wrapper">
-
-		<div class='btn-toolbar pull-right'>
-  <div class='btn-group'><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Delete Post".html_safe,  group_post_path(@group,post), method: :delete, data: { confirm: 'Are you sure?' } %>
-  	<br>
-  </div>
-</div>
-
-		<h2 class="title">	<%= link_to "#{post.title}".html_safe, group_post_path(@group,post)%></h2>
+	<% @post.each do |post| %>
+		<div class="post_wrapper">
+			<div class='btn-toolbar pull-right'>
+			<% if can? :destroy, post%>
+	  		<div class='btn-group'><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Delete Post".html_safe,  group_post_path(@group,post), method: :delete, data: { confirm: 'Are you sure?' } %>
+	  		</div>
+	  	<% end %>	
+			</div>
+			<h2 class="title">	
+				<%= link_to "#{post.title}".html_safe, group_post_path(@group,post)%>		
+			</h2>
 			<br>
-		<p class="body">
-			<%= post.body %>
-		</p>
-		<p class="date">
-			Submitted <%= time_ago_in_words(post.created_at)%>Ago
-		</p>
-		<br>
-
-	</div>
-<% end %>
+			<p class="body">
+				<%= post.body %>
+			</p>
+			<p class="date">
+				Created <%= time_ago_in_words(post.created_at) %> Ago
+				by <blockquote><%= post.user.name %></blockquote>
+			</p>
+			<br>
+		</div>
+	<% end %>
 </div>

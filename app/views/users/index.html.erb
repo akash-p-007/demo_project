@@ -1,12 +1,13 @@
 <!--This is index page visible to only superadmin and admin.It consists of all the registered user in Table.Panel gived various status information about user depending upon their Approval status-->
 <div class='btn-toolbar pull-right'>
-  <div class='btn-group'>
-    <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
-  </div>
+  
 </div>
 <br>
-<h3>Listing Users</h3>
+<h2>Listing Users</h2>
 <br>
+<div class='btn-group' id="invitation">
+    <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
+  <br></div>
 <div id="exTab1" class="container"> 
   <ul  class="nav nav-pills">
     <li class="active">
@@ -16,7 +17,7 @@
     </li>
     <li><a href="#3a" data-toggle="tab" id="tab">Approved Users</a>
     </li>
-  <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    </ul>
+  
 
   <div class="tab-content clearfix">
     <div class="tab-pane active" id="1a">        
@@ -25,7 +26,7 @@
         <tbody>
           <% @users.each do |user| %>
           <tr>
-            <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></td>
+            <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' , "aria-hidden" => "true"%></td>
             <td><%= user.role.name %></td>
             <td><%= user.email %></td>
             <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
@@ -79,9 +80,10 @@
       </div>      
     </div>
 </div>
+
 <div class="modal fade" id="editModal">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">                      
+    <div class="modal-content" aria-hidden="true">                      
     </div>
   </div>
 </div>
