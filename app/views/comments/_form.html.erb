@@ -1,7 +1,10 @@
 <div class="container">
-	<%= bootstrap_form_for([@group,@post,@post.comments.build]) do |f| %>
+	<%= bootstrap_form_for([@group,@post]) do |f| %>
 	<p>
 		<%= f.hidden_field :name ,value: "#{current_user.name}"%>
+	</p>
+	<p> 
+		<%= f.hidden_field :parent_id, value: %>
 	</p>
 	<p>
 		<%= f.text_area :body%>

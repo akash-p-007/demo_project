@@ -2,49 +2,40 @@
 	<div id="comment-align">
   <div class="post-comments">
 		<div class="media-heading">
-      <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#collapse<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button> 
-      	<span class="label label-info"><%= comment.name %></span> 
-      	Commented <%= time_ago_in_words(comment.created_at) %> Ago
+      <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#collapse<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample">
+      <span class="glyphicon glyphicon-minus" aria-hidden="true">      	
+      </span>
+      </button> 
+      <span class="label label-info">
+      	<%= comment.name %>      		
+      </span> 
+      Commented <%= time_ago_in_words(comment.created_at) %> Ago
     </div>
-     <div class="panel-collapse collapse in" id="collapse<%= "#{comment.id}"%>">
-      <div class="media-left">
-        
-      </div>
+    <div class="panel-collapse collapse in" id="collapse<%= "#{comment.id}"%>">
 			<div class="media-body">
-				<p class="comment_body"><blockquote><%= comment.body %></blockquote></p>	
+				<p class="comment_body"><blockquote><p><%= comment.body %></p></blockquote></p>	
 			</div>
 			<div class="comment-meta">
-				<span><%if can? :edit, comment %>	
-					<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit ".html_safe, edit_group_post_comment_path(@group,@post,comment),"data-toggle" => "modal", 'data-target' => '#EditModal' %>
-				<% end %></span>
 				<span>
-				<% if can? :destroy, comment %>
+					<%if can? :edit, comment %>	
+					<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit ".html_safe, edit_group_post_comment_path(@group,@post,comment),"data-toggle" => "modal", 'data-target' => '#EditModal' %>
+					<% end %>		
+				</span>
+				<span>
+					<% if can? :destroy, comment %>
 					<%= link_to " Delete", group_post_comment_path(@group,@post,comment), method: :delete, class: "fi-minus" , data: { confirm: 'Are you Sure?', 'confirm-button-text': 'Yes I am' , 'cancel-button-text': 'No way', 'confirm-button-color': '#66CD00'}%>
-				<% end %></span>
-
+				<% end %>
+				</span>
 				<span>
           <a class="" role="button" data-toggle="collapse" href="#replyComment<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample">Reply</a>
         </span>
         <div class="collapse" id="replyComment<%= "#{comment.id}"%>">
-          <form>
-            <%= render("comments/form", collection: comment.comments)%>
-          </form>
-          
-        </div>
-        <% unless comment.comments.empty? %>
-				   
-				   <div id="#nest-comment"> <%= render :partial => 'comments/comment', :collection => comment.comments %>
-				    </div>
-				  <% end %>
-
-				
-
-			</div>	
-			
-		</div>	
-	</div>
+	        <%= render 'comments/form' %>
+       </div>
+		  </div>	
+	  </div>
 	<br>
-</div>
+  </div>
 </div>
 <div class="modal fade" id="EditModal">
   <div class="modal-dialog modal-lg">

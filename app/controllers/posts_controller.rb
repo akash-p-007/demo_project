@@ -15,7 +15,6 @@ load_and_authorize_resource
 	end
 
 	def create
-
 		member = Membership.where(user_id: current_user.id)
 		@group = Group.find(params[:group_id])
 		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
@@ -58,7 +57,6 @@ load_and_authorize_resource
 	   if current_user == @post.user
 	   @post.destroy
 	   respond_to do |format|
-	    
 	   	format.html { redirect_to group_posts_url, notice: 'Post was successfully destroyed.' }   
 	   end
 	   else

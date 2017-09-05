@@ -17,12 +17,12 @@
 <hr>
 
 <div id="comments">
-	<h2><%= @post.comments.count %> Comments</h2>
-		<%= render @post.comments %>
-	<h3>Add a comment:</h3>
-		<%= render("comments/form", collection: @post.comments)%>
-		
+<h2><%= @post.comments.count %> Comments</h2>
+	<%= render @post.comments %>
+<h2>Add a comment</h2>
+	<%= render 'comments/form'%>
 </div>
+
 <div class="modal fade" id="EditModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">                      

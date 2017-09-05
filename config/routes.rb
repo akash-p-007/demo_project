@@ -13,11 +13,11 @@ Rails.application.routes.draw do
     end 
     resources :groups do
       resources :posts do
-        resources :comments,only: [:create, :destroy,:update,:edit]
+        resources :comments,only: [:create, :destroy,:update,:edit] do
+          resources :comments
+        end
       end
-      resources :comments do
-    resources :comments
-  end
+  
       member do
         get 'add_members'
         patch 'remove_member'

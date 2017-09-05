@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
 	end
 
 	def new
+    @users = User.all
 	end
 
 	def show 
@@ -21,7 +22,8 @@ class GroupsController < ApplicationController
 		render :layout => false
 	end
 		 
-	def create                            
+	def create         
+    @group.created_by = current_user.name                   
   	respond_to do |format|
       if @group.save 
       	@group.users << current_user

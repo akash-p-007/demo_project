@@ -72,8 +72,7 @@ class User < ActiveRecord::Base
       user.email = data["email"] if user.email.blank? and params[:provider] == 'facebook'
       user.attributes = params
       user.valid?
-      end
-      
+      end 
     else
       super
     end

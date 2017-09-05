@@ -1,7 +1,6 @@
-
-<h1>Create a new Group</h1>
-  <div class="container">
+<div class="container">
   <div id="form">
+  <h1>Create New Group</h1>
   <%= bootstrap_form_for(@group) do |f| %>
     <% if @group.errors.any? %>
     <div id="error_explanation">
@@ -13,14 +12,14 @@
       </ul>
     </div>
     <% end %>
-      <%= f.text_field :name %>
-      <%= f.text_field :desc %>
+      <%= f.text_field :name, placeholder: "Group Name" %>
+      <%= f.text_field :desc,placeholder: "Group Description" %>
+      <%= f.label "Group Type"%>
       <%= f.radio_button :is_public, true, label: "Public", checked: true %>
       <%= f.radio_button :is_public, false, label: "Private" %>
-      <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
       <br>
       <br>
-      <%= f.submit "Create group",class: "btn btn-success" %>
+      <%= f.submit "Next",class: "btn btn-success" %>
   <% end %>
   </div>
 
