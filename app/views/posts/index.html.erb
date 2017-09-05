@@ -7,22 +7,28 @@
 <div class="container" id="posts">
 	<% @post.each do |post| %>
 		<div class="post_wrapper">
+			
 			<div class='btn-toolbar pull-right'>
 			<% if can? :destroy, post%>
 	  		<div class='btn-group'><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Delete Post".html_safe,  group_post_path(@group,post), method: :delete, data: { confirm: 'Are you sure?' } %>
 	  		</div>
 	  	<% end %>	
 			</div>
-			<h2 class="title">	
-				<%= link_to "#{post.title}".html_safe, group_post_path(@group,post)%>		
-			</h2>
+
+			<div class='btn-toolbar pull-left'>
+				<h4>
+				<%= link_to "#{post.title}".html_safe, group_post_path(@group,post)%>	<small>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;Created <%= time_ago_in_words(post.created_at) %> Ago
+				by<%= post.user.name %></p>	
+			</small>	
+			</h4>
+			</div>
+			<hr>
 			<br>
 			<p class="body">
+			<blockquote><p>Description:</p></blockquote>
 				<%= post.body %>
-			</p>
-			<p class="date">
-				Created <%= time_ago_in_words(post.created_at) %> Ago
-				by <blockquote><%= post.user.name %></blockquote>
+			
 			</p>
 			<br>
 		</div>

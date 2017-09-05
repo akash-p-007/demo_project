@@ -1,27 +1,36 @@
 class CommentsController < ApplicationController 
 	before_action :find_commentable
-
+	load_and_authorize_resource
 	def create
-
 		member = Membership.where(user_id: current_user.id)
 		@group = Group.find(params[:group_id])
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.Superadmin?
+		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
 		@post = @group.posts.find(params[:post_id])
-		@comment = @commentable.comments.create(comments_params)
-		#@comment = @post.comments.create(comments_params)
-		redirect_to group_post_path(@group,@post)
+		if @commentable
+		@comment = @commentable.comments.new comment_params
+	else
+		@comment = @post.comments.new comment_params
+	end
+		@comment.name = current_user.name
+		@comment.save!
+		if @comment.save
+        redirect_to :back, notice: 'Your comment was successfully posted!'
+    else
+        redirect_to :back, notice: "Your comment wasn't posted!"
+    end
 	end
 	end
 
 	def new
-      @comment = @commentable.comments.new
-    end
+      @comment = Comment.new
+  end
+
 	def destroy
 		@group = Group.find(params[:group_id])
 		member = Membership.where(user_id: current_user.id)
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.Superadmin?
+		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
 		@post = @group.posts.find(params[:post_id])
-		@comment = @post.comments.find(params[:id])
+		@comment = Comment.find(params[:id]) #|| @comments.comments.find(params[:id])
 		@comment.destroy
 		redirect_to group_post_path(@group,@post)
 	end
@@ -29,7 +38,7 @@ class CommentsController < ApplicationController
 	def edit
 		@group = Group.find(params[:group_id])
 		member = Membership.where(user_id: current_user.id)
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.Superadmin?
+		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
 		@post = @group.posts.find(params[:post_id])
 		@comment = @post.comments.find(params[:id])
 		end
@@ -39,10 +48,10 @@ class CommentsController < ApplicationController
 	def update
 		@group = Group.find(params[:group_id])
 		member = Membership.where(user_id: current_user.id)
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.Superadmin?
+		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
 		@post = Post.find(params[:post_id])
     	@comment = @post.comments.find(params[:id])
-    	if @comment.update(comments_params)
+    	if @comment.update(comment_params)
       		redirect_to group_post_path(@group,@post)
     	else
       		render 'edit'
@@ -51,11 +60,10 @@ class CommentsController < ApplicationController
     	
 	end
 	private
-    def comments_params
+    def comment_params
       params.require(:comment).permit(:name,:body,:post_id,:group_id,:id)
     end
     def find_commentable
-      @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
-      @commentable = Post.find_by_id(params[:post_id]) if params[:post_id]
+      @commentable = Comment.find(params[:comment_id]) if params[:comment_id]
     end
 end

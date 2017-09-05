@@ -11,11 +11,11 @@
         
       </div>
 			<div class="media-body">
-				<p class="comment_body"><blockquote><%= comment.body %></blockquote></p>	
+				<p class="comment_body"><blockquote><p><%= comment.body %></p></blockquote></p>	
 			</div>
 			<div class="comment-meta">
 				<span><%if can? :edit, comment %>	
-					<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit ".html_safe, edit_group_post_comment_path(@group,@post,comment),"data-toggle" => "modal", 'data-target' => '#EditModal' %>
+					<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit ".html_safe, edit_group_post_comment_path(@group,@post,comment),"data-toggle" => "modal", 'data-target' => "#EditModal"%>
 				<% end %></span>
 				<span>
 				<% if can? :destroy, comment %>
@@ -26,19 +26,15 @@
           <a class="" role="button" data-toggle="collapse" href="#replyComment<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample">Reply</a>
         </span>
         <div class="collapse" id="replyComment<%= "#{comment.id}"%>">
-          <form>
-            <%= render("comments/form", collection: comment.comments)%>
-          </form>
-          
+          <%= form_for [@group,@post,comment,Comment.new] do |f| %>
+      		<%= f.text_area :body, placeholder: "Add a Reply" %><br/>
+      		<%= f.submit "Reply"  %>
+      		<% end %>	
         </div>
         <% unless comment.comments.empty? %>
-				   
 				   <div id="#nest-comment"> <%= render :partial => 'comments/comment', :collection => comment.comments %>
 				    </div>
 				  <% end %>
-
-				
-
 			</div>	
 			
 		</div>	
