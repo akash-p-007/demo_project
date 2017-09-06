@@ -18,6 +18,7 @@ class Ability             # model which tells the part of accessible to user dep
        can :new, Post
        can :read, Post
        can :create, Post
+       can :create, Comment
        can :update, Group do |group|
          group.try(:user) == user || group.created_by == (user.name)
        end

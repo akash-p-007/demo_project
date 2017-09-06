@@ -1,31 +1,36 @@
-class GroupsController < ApplicationController
+class GroupsController < ApplicationController # Controller for handling CRUD in groups
   before_filter :authenticate_user!
   load_and_authorize_resource
 
 	def index
     @member = Membership.where(user_id: current_user.id)
-    #@groups = Group.all
-    if current_user.superadmin?
+    if current_user.superadmin? # only superadmin is allowed to see all the created groups
       @groups = Group.all
     else 
-      @groups = current_user.groups
+      @groups = current_user.groups # others can see only their created group or groups whose they are members
     end
 	end
 
-	def new
+	def new  
+    @group = Group.new
+    @users = User.all
+    @memberships = @users.map{ |user| @group.memberships.build({user_id: user.id}) }
 	end
 
-	def show 
+	def show   #Modal content for show is given by this
 		@members = Membership.all 
 		@users = User.all
 		render :layout => false
 	end
 		 
-	def create                            
+	def create   # First a group is created and then members in it are addded       
+    @user = User.find_by_id(:user_id)
+    @group = Group.new(group_params)
+    @group.created_by = current_user.name 
   	respond_to do |format|
-      if @group.save 
-      	@group.users << current_user
-        format.html { redirect_to add_members_group_path(@group), notice: 'Group was successfully created.' }
+      if @group.save
+        @group.users << current_user
+        format.html { redirect_to groups_url, notice: 'Group was successfully created.' }
       else
         format.html { render :new }
       end
@@ -65,7 +70,7 @@ end
 
 	private
     def group_params
-      params.require(:group).permit(:name,:desc,:created_by,:is_public)
+      params.require(:group).permit(:name,:desc,:created_by,:is_public,:user_id,memberships_attributes: [:user_id,[]])
     end
 end
 

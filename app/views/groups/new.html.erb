@@ -1,18 +1,19 @@
-
 <h1>Create a new Group</h1>
-  <div class="container">
+<div class="container">
   <div id="form">
-  <%= bootstrap_form_for(@group) do |f| %>
+  <%= bootstrap_form_for(@group) do |f| %> 
+<!-- To display any errors which may occur while group creation like name should be present -->
     <% if @group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
-      <ul>
-        <% @group.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-    <% end %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+        <ul>
+          <% @group.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    <!-- Form Fields for getting information about the new group -->
       <%= f.text_field :name %>
       <%= f.text_field :desc %>
       <%= f.radio_button :is_public, true, label: "Public", checked: true %>
@@ -20,8 +21,15 @@
       <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
       <br>
       <br>
-      <%= f.submit "Create group",class: "btn btn-success" %>
+      <h3>Select Group Members</h3>
+      <!-- Nested model form for selecting users after creation of group -->
+      <%= f.fields_for :memberships, @memberships do |m| %>
+        <div class="field">   
+        <br> 
+          <%= m.collection_select :user_id, User.all, :id, :name, prompt: true,:include_blank => true %>
+        </div> 
+      <% end %>
+    <%= f.submit "Create group",class: "btn btn-success" %>
   <% end %>
   </div>
-
 </div>

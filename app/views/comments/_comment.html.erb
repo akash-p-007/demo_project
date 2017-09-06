@@ -15,7 +15,7 @@
 			</div>
 			<div class="comment-meta">
 				<span><%if can? :edit, comment %>	
-					<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit ".html_safe, edit_group_post_comment_path(@group,@post,comment),"data-toggle" => "modal", 'data-target' => "#EditModal"%>
+					<%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit ".html_safe, edit_group_post_comment_path(@group,@post,comment),"data-toggle" => "modal", 'data-target' => "#EditModal" if comment.commentable_type == 'Post'%>
 				<% end %></span>
 				<span>
 				<% if can? :destroy, comment %>
@@ -27,7 +27,7 @@
         </span>
         <div class="collapse" id="replyComment<%= "#{comment.id}"%>">
           <%= form_for [@group,@post,comment,Comment.new] do |f| %>
-      		<%= f.text_area :body, placeholder: "Add a Reply" %><br/>
+      		<%= f.text_area :body, placeholder: "Add a Reply", cols:"30" %><br/>
       		<%= f.submit "Reply"  %>
       		<% end %>	
         </div>

@@ -13,9 +13,10 @@ class User < ActiveRecord::Base
   has_many :items
   has_many :events
   has_many :contacts
-  validates_presence_of :name
+  validates_presence_of :name # Name is mandatory
 	before_save :assign_role # By default role will be regular if not specified 
-	def after_confirmation   # Send welcome mail after user is successfully registered
+	
+  def after_confirmation   # Send welcome mail after user is successfully registered
      send_user_mail
   end           
 
@@ -113,6 +114,7 @@ class User < ActiveRecord::Base
     user
   end
 
+  # Uncomment this for getting the contacts stored in one's gmail account
   # def get_google_contacts
   #   url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
   #   response = open(url)
@@ -133,12 +135,12 @@ class User < ActiveRecord::Base
   # end
 
   def get_google_calendars
-  url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
-  response = open(url)
-  json = JSON.parse(response.read)
-  calendars = json["items"]
-  calendars.each { |cal| get_events_for_calendar(cal) }
-end
+    url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
+    response = open(url)
+    json = JSON.parse(response.read)
+    calendars = json["items"]
+    calendars.each { |cal| get_events_for_calendar(cal) }
+  end
 
 def get_events_for_calendar(cal)
 
@@ -184,5 +186,4 @@ def get_events_for_calendar(cal)
     def send_invite_mail                      # sending mail to admin regarding acceptance of his mail
       UserMailer.send_admin_mail(self).deliver_later
     end
-
 end

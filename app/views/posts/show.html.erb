@@ -19,7 +19,7 @@
 <div id="comments">
 	<h2><%= @post.comments.count %> Comments</h2>
 	<%= form_for [@group, @post, Comment.new] do |f| %>
-	<%= f.text_area :body, placeholder: "Add a comment" %><br/>
+	<%= f.text_area :body, placeholder: "Add a comment", cols: "90" %><br/>
 	<%= f.submit "Add Comment" %>
 	<% end %>
 	<ul>
