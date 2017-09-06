@@ -37,7 +37,7 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
     end
   end
 
-	def update
+	def update       #This is to change the group membership after the group is created.
 		respond_to do |format|
 		@group = Group.find(params[:group_id])  
 		@user = User.find(params[:user_id]) 

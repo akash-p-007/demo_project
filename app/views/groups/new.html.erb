@@ -1,3 +1,4 @@
+<!-- Form for creating New Group -->
 <h1>Create a new Group</h1>
 <div class="container">
   <div id="form">
@@ -19,8 +20,6 @@
       <%= f.radio_button :is_public, true, label: "Public", checked: true %>
       <%= f.radio_button :is_public, false, label: "Private" %>
       <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
-      <br>
-      <br>
       <h3>Select Group Members</h3>
       <!-- Nested model form for selecting users after creation of group -->
       <%= f.fields_for :memberships, @memberships do |m| %>

@@ -1,10 +1,13 @@
+<!-- A Page to diaplay that Post Created in that Group with all the related Comments by calling comments partial  -->
 <div class="container">
 	<h1 class="title">
 		<%= @post.title%>
 	</h1>
-	<p class="date"><small>
+	<p class="date">
+	<small>
 		Submitted <%= time_ago_in_words(@post.created_at) %>Ago
-	</small></p>
+	</small>
+	</p>
 	<p class="body">
 		<%= @post.body %>
 	</p>
@@ -15,12 +18,11 @@
 	<% end %>
 </div>
 <hr>
-
 <div id="comments">
 	<h2><%= @post.comments.count %> Comments</h2>
 	<%= form_for [@group, @post, Comment.new] do |f| %>
-	<%= f.text_area :body, placeholder: "Add a comment", cols: "90" %><br/>
-	<%= f.submit "Add Comment" %>
+		<%= f.text_area :body, placeholder: "Add a comment", cols: "90" %><br/>
+		<%= f.submit "Add Comment" %>
 	<% end %>
 	<ul>
   	<%= render(partial: 'comments/comment', collection: @post.comments) %>

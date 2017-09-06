@@ -7,5 +7,4 @@ class InvitationsController < ApplicationController
 		      @users = User.all
 		    end
 	  	end
-
 end  

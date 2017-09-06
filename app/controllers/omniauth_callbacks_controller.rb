@@ -1,4 +1,4 @@
-class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController # Only for authenticating users using their facebook or google account
 	
 	def facebook 						# all is Alias which will be called for facebook,google+ and twitter login 
 		user = User.from_omniauth(request.env["omniauth.auth"])
@@ -10,6 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		 	redirect_to new_user_registration_url
 		end 
 	end
+
 	def failure
 		redirect_to root_path
 	end
@@ -26,6 +27,5 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_registration_url
     end
   end
-
 
 end

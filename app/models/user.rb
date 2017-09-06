@@ -1,5 +1,6 @@
-require "open-uri"
-class User < ActiveRecord::Base 
+require "open-uri" # Needed for google calendar
+class User < ActiveRecord::Base # This model handles everything realted to users.Fetcing of data from google account as well as facebook or google authentication is done in this model.
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :confirmable, :omniauthable, 
@@ -109,7 +110,7 @@ class User < ActiveRecord::Base
     end
     user.skip_confirmation!
     user.save!
-    #user.get_google_contacts   
+    #user.get_google_contacts   # Uncomment this to get contacts stored in google account
     user.get_google_calendars  
     user
   end

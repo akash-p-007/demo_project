@@ -1,7 +1,8 @@
+<!-- Table displaying all the groups created.Superadmin can see all groups whereas others can see who belongs to that group -->
 <h1>Listing Groups</h1>
 <div class='btn-group'>
     <%= link_to 'Create New Group', new_group_path, class: "btn btn-default"%>    
-  </div>
+</div>
 <div class="container">
 	<table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
 		<thead>
@@ -15,24 +16,26 @@
 			<% @groups.each do |g|%>
 			<% if (g.is_public) || (@member.where(group_id: g.id).present?) || current_user.superadmin?%>
 			<tr>
-				<td><%= link_to "#{g.name}".html_safe, g, "data-toggle" => "modal", 'data-target' => '#showModal' %></td>
-				<td><%= g.created_by %></td>
-				
-					<td>
-							<% if can? :add_members, g %>	<%= link_to "Edit",add_members_group_path(g) %>
-							<% end %>
-					</td>
-					<td>
-
-							<% if can? :read, g %>	<%= link_to "Posts for this Group",group_posts_path(g)%>
-				 			<% end %>
-				 	</td>						
-					<td><% if can? :destroy, g %> <%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, g, method: :delete, data: { confirm: 'Are you sure?' } %>
-							<% end %>
-					</td>		
+				<td>
+					<%= link_to "#{g.name}".html_safe, g, "data-toggle" => "modal", 'data-target' => '#showModal'%>
+				</td>
+				<td>
+					<%= g.created_by %>						
+				</td>
+				<td>
+					<% if can? :add_members, g %>	<%= link_to "Edit",add_members_group_path(g) %>
+					<% end %>
+				</td>
+				<td>
+					<% if can? :read, g %>	<%= link_to "Posts for this Group",group_posts_path(g)%>
+		 			<% end %>
+				</td>						
+				<td>
+					<% if can? :destroy, g %> <%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, g, method: :delete, data: { confirm: 'Are you sure?' } %>
+					<% end %>
+				</td>		
 			</tr>	
 			<% end %>
-
 			<% end %>
 		</tbody>
 	</table>
