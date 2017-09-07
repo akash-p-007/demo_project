@@ -1,16 +1,16 @@
 <h2>Group Name : <%= "#{@group.name}"%></h2>
 <div class='btn-toolbar pull-right'>
   <div class='btn-group'>
-		<%= link_to "Create New Post", new_group_post_path, class: "btn btn-default" %>
+  	<%= link_to "Create New Post", new_group_post_path, class: "btn btn-default" %>
 	</div>
 </div>
 <div class="container" id="posts">
 	<% @post.each do |post| %>
 		<div class="post_wrapper">
-			
 			<div class='btn-toolbar pull-right'>
 			<% if can? :destroy, post%>
 	  		<div class='btn-group'><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Delete Post".html_safe,  group_post_path(@group,post), method: :delete, data: { confirm: 'Are you sure?' } %>
+				<%= link_to "Hide", class: 'hide', data: {'js-hide-link' => true} %>
 	  		</div>
 	  	<% end %>	
 			</div>
@@ -26,9 +26,8 @@
 			<hr>
 			<br>
 			<p class="body">
-			<blockquote><p>Description:</p></blockquote>
+				<blockquote><p>Description:</p></blockquote>
 				<%= post.body %>
-			
 			</p>
 			<br>
 		</div>

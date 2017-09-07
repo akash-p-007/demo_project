@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   
   rescue_from CanCan::AccessDenied do |exception|  # denying access until user signs in
   flash[:error] = "Access denied!"
-  redirect_to root_url
+  redirect_to root_path
 	end
 	 
    def after_sign_in_path_for(resource) # after sigin admin or super admin are directed to admin dashboard
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 		  devise_parameter_sanitizer.permit(:invite,keys: [:name,:approved])
 		end
 
-		def check_group_is_public # for checking access rights in posts and comments controller
+		def check_group_is_public # for checking access rights in posts and comments
 			member = Membership.where(user_id: current_user.id)
 			@group = Group.find(params[:group_id])
 			if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin? # 

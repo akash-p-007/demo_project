@@ -1,17 +1,18 @@
 <!-- A partial which is called to diaplay comments related to post or comments. -->
-<div class="container">
+
+<div class="comment-container">
 	<div id="comment-align">
   	<div class="post-comments">
+  		<div id="comment-container">
 			<div class="media-heading">
       	<button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#collapse<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button> 
       	<span class="label label-info"><%= comment.name %></span> 
       	Commented <%= time_ago_in_words(comment.created_at) %> Ago
     	</div>
      	<div class="panel-collapse collapse in" id="collapse<%= "#{comment.id}"%>">
-	      	<div class="media-left">        
-	      	</div>
+	      	
 				<div class="media-body">
-					<p class="comment_body"><blockquote><p><%= comment.body %></p></blockquote></p>	
+					<p class="comment_body"><%= comment.body %></p>	
 				</div>
 				<div class="comment-meta">
 					<span>
@@ -25,24 +26,30 @@
 						<% end %>						
 					</span>
 					<span>
-	          <a class="" role="button" data-toggle="collapse" href="#replyComment<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample">Reply</a>
+	          <a class="" role="button" data-toggle="collapse" href="#reply_comment<%= "#{comment.id}"%>" aria-expanded="false" aria-controls="collapseExample">Reply</a>
 	        </span>
-	        <div class="collapse" id="replyComment<%= "#{comment.id}"%>">
+	        <div class="collapse" id="reply_comment<%= "#{comment.id}"%>">
 	          <%= form_for [@group,@post,comment,Comment.new] do |f| %>
 	      		<%= f.text_area :body, placeholder: "Add a Reply", cols:"30" %><br/>
 	      		<%= f.submit "Reply"  %>
 	      		<% end %>	
 	        </div>
 	        <% unless comment.comments.empty? %>
-					  <div id="#nest-comment"> <%= render :partial => 'comments/comment', :collection => comment.comments %>
+					  <ul>
+					  <div id="nestcomment"> 
+					  <%= render :partial => 'comments/comment', :collection => comment.comments %>
 					  </div>
+					  </ul>
 					<% end %>
 				</div>	
-			</div>	
+			</div>
+			</div>
+			
 		</div>
-	<br>
+
 	</div>
 </div>
+
 <div class="modal fade" id="EditModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">                      
