@@ -1,8 +1,9 @@
 <!-- Form for creating New Group -->
-<h1>Create a new Group</h1>
 <div class="container">
+
+<legend><h1>Create a new Group</h1></legend>
   <div id="form">
-  <%= bootstrap_form_for(@group) do |f| %> 
+  <%= form_for(@group) do |f| %> 
 <!-- To display any errors which may occur while group creation like name should be present -->
     <% if @group.errors.any? %>
       <div id="error_explanation">
@@ -15,19 +16,36 @@
       </div>
       <% end %>
     <!-- Form Fields for getting information about the new group -->
+    <fieldset>
+      <%= f.label :Name %>
       <%= f.text_field :name %>
+      <br>
+      <%= f.label :Description %>
       <%= f.text_field :desc %>
-      <%= f.radio_button :is_public, true, label: "Public", checked: true %>
-      <%= f.radio_button :is_public, false, label: "Private" %>
+      <br>
+      <br>
+      <%= f.label :GroupType %>
+      <%= f.radio_button :is_public, true, label: "Public", checked: true %><%= f.label :Public %>
+      <%= f.radio_button :is_public, false, label: "Private" %><%= f.label :Private %>
+      <br>
+    </fieldset>  
       <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
+    </fieldset>
+    <legend>
       <h3>Select Group Members</h3>
+    </legend>
       <!-- Nested model form for selecting users after creation of group -->
-      <%= f.fields_for :memberships, @memberships do |m| %>
+      <%= f.fields_for :memberships, @memberships do |member| %>
         <div class="field">   
-        <br> 
-          <%= m.collection_select :user_id, User.all, :id, :name, prompt: true,:include_blank => true %>
+          <% if member.object.user.name != current_user.name %>
+          <table class="table table-striped dt-responsive nowrap">
+          <td><%= member.check_box :user_id, {checked: false}, member.object.user.id, nil %>    
+          <%= member.label :user_id, value: "#{member.object.user.name}"%></td>   
+          </table>
+          <% end %>
         </div> 
       <% end %>
+     </fieldset> 
     <%= f.submit "Create group",class: "btn btn-success" %>
   <% end %>
   </div>

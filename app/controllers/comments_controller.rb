@@ -4,9 +4,7 @@ class CommentsController < ApplicationController #Controller for handling CRUD f
 	load_and_authorize_resource
 
 	def create # For creating New Comment
-		member = Membership.where(user_id: current_user.id)
-		@group = Group.find(params[:group_id])
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin? # Checking Authenticity of user for posting that comment
+		if check_group_is_public # Checking Authenticity of user for posting that comment
 			@post = @group.posts.find(params[:post_id])
 			if @commentable # If this is not nil that that means comment to be created is a reply
 				@comment = @commentable.comments.new comment_params
@@ -27,20 +25,16 @@ class CommentsController < ApplicationController #Controller for handling CRUD f
   end
 
 	def destroy
-		@group = Group.find(params[:group_id])
-		member = Membership.where(user_id: current_user.id)
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
+		if check_group_is_public
 			@post = @group.posts.find(params[:post_id])
-			@comment = Comment.find(params[:id]) #|| @comments.comments.find(params[:id])
+			@comment = Comment.find(params[:id]) 
 			@comment.destroy
 			redirect_to group_post_path(@group,@post)
 		end
 	end
 
 	def edit
-		@group = Group.find(params[:group_id])
-		member = Membership.where(user_id: current_user.id)
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
+		if check_group_is_public
 			@post = @group.posts.find(params[:post_id])
 			@comment = @post.comments.find(params[:id])
 		end
@@ -48,9 +42,7 @@ class CommentsController < ApplicationController #Controller for handling CRUD f
 	end	
 
 	def update
-		@group = Group.find(params[:group_id])
-		member = Membership.where(user_id: current_user.id)
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
+		if check_group_is_public
 			@post = Post.find(params[:post_id])
     	@comment = @post.comments.find(params[:id])
     	if @comment.update(comment_params)

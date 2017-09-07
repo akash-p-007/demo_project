@@ -1,7 +1,7 @@
 class Ability             # model which tells the part of accessible to user depending upon their roles.
   include CanCan::Ability # Accessibilty is controlled using cancan
+  
   def initialize(user)    # For handling access to certain modules using cancan gem
-
     user ||= User.new     # Guest user
 
     if user.superadmin?   # Super Admin can access all 
@@ -38,7 +38,7 @@ class Ability             # model which tells the part of accessible to user dep
          group.try(:user) == user || group.created_by == (user.name)
        end
        can :destroy, Post do |post|
-         post.try(:user) == user || post.created_by == (user.name)
+         post.try(:user) == user || post.user_id == (user.id)
        end
        can [:update,:create,:destroy,:edit,:add_members], Group do |group|
          group.try(:user) == user || group.created_by== (user.name)
@@ -56,7 +56,14 @@ class Ability             # model which tells the part of accessible to user dep
          group.try(:user) == user || group.created_by== (user.name)
       end 
       can :read, Post
-      can [:update,:create,:destroy,:read,:edit], Comment do |comment|
+      can :create, Comment
+      can :update, Comment do |comment|
+         comment.try(:user) == user || comment.name == (user.name)
+      end
+      can :destroy, Comment do |comment|
+         comment.try(:user) == user || comment.name == (user.name)
+      end
+      can :read, Comment do |comment|
          comment.try(:user) == user || comment.name == (user.name)
       end   
     end

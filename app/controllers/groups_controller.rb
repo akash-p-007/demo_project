@@ -50,12 +50,11 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
 		@group = Group.find(params[:group_id])  
 		@user = User.find(params[:user_id])
     respond_to do |format|
-    member = Membership.where(user_id:@user.id,group_id:@group.id)
-  	Membership.delete(member)
-    format.html { redirect_to add_members_group_path(@group), notice: 'Member was successfully destroyed.' }
-    pend
-	end
-end
+      member = Membership.where(user_id:@user.id,group_id:@group.id)
+    	Membership.delete(member)
+      format.html { redirect_to add_members_group_path(@group), notice: 'Member was successfully destroyed.' }
+	  end
+  end
 
 	def add_members
 		@users = User.all 

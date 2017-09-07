@@ -3,9 +3,7 @@ before_filter :authenticate_user!
 load_and_authorize_resource
 
 	def index # only members of a group and superadmin is allowed to view the post created in that group
-		member = Membership.where(user_id: current_user.id)
-		@group = Group.find(params[:group_id])
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
+		if check_group_is_public
 			@post= Post.where(group_id: @group.id)
 		end
 	end
@@ -16,9 +14,7 @@ load_and_authorize_resource
 	end
 
 	def create
-		member = Membership.where(user_id: current_user.id)
-		@group = Group.find(params[:group_id])
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
+		if check_group_is_public
 			@post = Post.new(post_params)
    		@post.user_id = current_user.id
 			@post.group_id = @group.id
@@ -32,9 +28,7 @@ load_and_authorize_resource
 	end
 
 	def show
-		member = Membership.where(user_id: current_user.id)
-		@group = Group.find(params[:group_id])
-		if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin?
+		if check_group_is_public
 	    @post = Post.find(params[:id])
 		end
 	end

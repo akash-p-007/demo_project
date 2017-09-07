@@ -18,12 +18,23 @@ class ApplicationController < ActionController::Base
    end 
 
 	protected
+		
 		def configure_permitted_parameters
 		  devise_parameter_sanitizer.permit(:sign_up,keys: [:name])
 		  devise_parameter_sanitizer.permit(:account_update,keys: [:name])
 		  devise_parameter_sanitizer.permit(:accept_invitataion,keys: [:name])
 		  devise_parameter_sanitizer.permit(:invite,keys: [:name,:approved])
 		end
+
+		def check_group_is_public # for checking access rights in posts and comments controller
+			member = Membership.where(user_id: current_user.id)
+			@group = Group.find(params[:group_id])
+			if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin? # 
+				return true
+			else
+				return false
+			end		
+		end	
 
 	private
 	 def set_mailer_host
