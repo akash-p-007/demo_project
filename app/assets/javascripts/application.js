@@ -16,7 +16,9 @@
 //= require_tree .
 $(document).ready(function() {
 
-	
+	$('.fa').click(function(){
+  	$(this).toggleClass('blue');
+	});
 
 	$("#users-table").dataTable({
 		    "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],

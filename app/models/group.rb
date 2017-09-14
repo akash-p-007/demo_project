@@ -4,6 +4,6 @@ class Group < ActiveRecord::Base # Group model for handling Group which can have
 	has_many :users, through: :memberships
 	accepts_nested_attributes_for :memberships # this is done for allowing nested form while creating new group for selecting members
   has_many :posts, :dependent => :destroy
-  validates_presence_of :name
-
+  validates :name, presence: true, length: {minimum: 5}
+  validates :desc, presence: true
 end

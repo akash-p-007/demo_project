@@ -1,8 +1,7 @@
 <!-- This is registration form consisting for followinf fields Name, Email, Password, Role, Approved Status-->
 <div class="container">
 <div id="form">
-<%= bootstrap_form_for(@user) do |f| %>
-
+<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -14,11 +13,17 @@
       </ul>
     </div>
   <% end %>
+  <div class="row">
+      <div class="form-group col-xs-4 col-lg-12 col-md-12">
   <div class="field">
   <%= f.text_field :name, class: "form-control",placeholder: "Name"%>
   <%= f.text_field :email, class: "form-control" %>  
   <%= f.password_field :password, placeholder: "Leave blank if unchanged" %>
   </div>
+  </div>
+  </div>
+  <div class="row">
+      <div class="form-group col-xs-4 col-lg-12 col-md-12">
   <div class="field" >
     <%= f.select(:role_id) do %>
       <% [['Regular', 1], ['Admin', 2]].each do |c| -%>
@@ -26,12 +31,17 @@
       <% end %>
     <% end %>
   </div>
+  </div>
+  </div>
+  <div class="row">
+      <div class="form-group col-xs-4 col-lg-12 col-md-12">
   <div class="field">
     <%= f.label :approved %>
     <%= f.radio_button :approved, true, label: "True", checked: true %>
     <%= f.radio_button :approved, false, label: "False" %>
   </div>
-
+</div>
+</div>
   <%= recaptcha_tags%>
   <div class="g-recaptcha" data-sitekey="6LfWVi0UAAAAAGnr2VEsEvGSkxF-Kvu6uipCKBgI"></div>
   <div class="actions">

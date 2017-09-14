@@ -1,52 +1,89 @@
 <!-- Form for creating New Group -->
-<div class="container">
-
-<legend><h1>Create a new Group</h1></legend>
-  <div id="form">
-  <%= form_for(@group) do |f| %> 
-<!-- To display any errors which may occur while group creation like name should be present -->
-    <% if @group.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
-        <ul>
-          <% @group.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
+<div class="container-fluid">
+  <legend><h1>Create a new Group</h1></legend>
+      
+    <div class="row">
+      <div class="form-group col-xs-5 col-lg-4 col-md-4">      
       </div>
-      <% end %>
-    <!-- Form Fields for getting information about the new group -->
-    <fieldset>
-      <%= f.label :Name %>
-      <%= f.text_field :name %>
-      <br>
-      <%= f.label :Description %>
-      <%= f.text_field :desc %>
-      <br>
-      <br>
-      <%= f.label :GroupType %>
-      <%= f.radio_button :is_public, true, label: "Public", checked: true %><%= f.label :Public %>
-      <%= f.radio_button :is_public, false, label: "Private" %><%= f.label :Private %>
-      <br>
-    </fieldset>  
-      <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
-    </fieldset>
-    <legend>
+      <div class="form-group col-xs-5 col-lg-4 col-md-4">      
+      <%= form_for(@group) do |f| %> 
+      <!-- To display any errors which may occur while group creation like name should be present -->
+        <% if @group.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+            <ul>
+              <% @group.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>        
+        <!-- Form Fields for getting information about the new group -->    
+    <div class="row">   
+      <div class="form-group col-xs-4 col-lg-4 col-md-4">      
+      </div>
+      <div class="form-group col-xs-4 col-lg-4 col-md-4">           
+        <div class="row">
+          <div class="col-md-4 col-xs-4"> <%= f.label :Name %></div>
+          <div class="col-md-4 col-xs-4"> <%= f.text_field :name %> </div>
+          </div>
+      
+        <br>
+      </div>
+    </div>
+    <div class="row">   
+      <div class="form-group col-xs-4 col-lg-4 col-md-4">      
+      </div>
+      <div class="form-group col-xs-4 col-lg-4 col-md-4">           
+        <div class="row">
+          <div class="col-md-4 col-xs-4"> <%= f.label :Description %></div>
+          <div class="col-md-4 col-xs-4"> <%= f.text_area :desc %> </div>
+          </div>
+      
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-4 col-lg-4 col-md-4">  
+      </div>
+      <div class="form-group col-xs-4 col-lg-4 col-md-4">               
+        <div class="row">
+          <div class="col-md-4 col-xs-4">
+          <%= f.label :"Group Type" %>
+          </div>
+          <div class="col-md-4 col-xs-4">  
+           Public: <%= f.radio_button :is_public, true, label: "Public", checked: true , class: "form-check"%>
+           Private: <%= f.radio_button :is_public, false, label: "Private",class: "form-check" %>
+            <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
       <h3>Select Group Members</h3>
-    </legend>
-      <!-- Nested model form for selecting users after creation of group -->
-      <%= f.fields_for :memberships, @memberships do |member| %>
-        <div class="field">   
-          <% if member.object.user.name != current_user.name %>
-          <table class="table table-striped dt-responsive nowrap">
-          <td><%= member.check_box :user_id, {checked: false}, member.object.user.id, nil %>    
-          <%= member.label :user_id, value: "#{member.object.user.name}"%></td>   
-          </table>
-          <% end %>
-        </div> 
-      <% end %>
-     </fieldset> 
+          <!-- Nested model form for selecting users after creation of group -->
+    <div class="row">
+      <div class="form-group col-xs-5 col-lg-4 col-md-4">  
+      </div>
+      <div class="form-group col-xs-5 col-lg-4 col-md-4">  
+          <%= f.fields_for :memberships, @memberships do |member| %>
+            <% if member.object.user.name != current_user.name %>
+              <div class="row">
+              <div class="col-md-4 col-xs-4">
+              <%="#{member.object.user.name}"%>
+              </div>
+              <div class="col-md-2 col-xs-4">
+              <%= member.check_box :user_id, {checked: false}, member.object.user.id, nil %>
+              
+              </div>
+              </div>
+               <br>    
+             <% end %>
+        <% end %>
+     </div>
+    </div>      
     <%= f.submit "Create group",class: "btn btn-success" %>
-  <% end %>
-  </div>
+    <% end %>
 </div>

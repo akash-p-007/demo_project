@@ -1,18 +1,17 @@
 <!--Displays User Information stored-->
 <div class='btn-toolbar pull-right'>
-  <div class='btn-group'>
-  <%= link_to "<i class='glyphicon glyphicon-remove'></i>&nbsp; Close".html_safe, users_path %> 
-  </div>
+  <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
 </div>
 <div id="modal">
   <h1>User Details</h1>
-  <table class="table table-bordered">
+  <table class="table table-bordered" id="users-table" id="user_show">
     <tbody>
       <tr>
+      <p>
       <td> 1 </td>
         <td>Name</td>
         <td><%= @user.name %></td>
-
+      </p>
       </tr>
       <tr>
         <td>2</td>

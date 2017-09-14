@@ -45,6 +45,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_votable (0.10.0)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (6.0.4)
@@ -53,11 +54,11 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap_form (2.7.0)
     builder (3.2.3)
+    bullet (5.6.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.1.0)
     cancancan (1.17.0)
-    closure_tree (6.6.0)
-      activerecord (>= 4.1.0)
-      with_advisory_lock (>= 3.0.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -66,6 +67,12 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    css_parser (1.2.6)
+      addressable
+      rdoc
+    deadweight (0.2.2)
+      css_parser (~> 1.2.6)
+      nokogiri
     debug_inspector (0.0.3)
     declarative (0.0.9)
     declarative-option (0.1.0)
@@ -235,6 +242,7 @@ GEM
     uber (0.1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -242,19 +250,19 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    with_advisory_lock (3.1.1)
-      activerecord (>= 3.2)
-      thread_safe
+    will_paginate (3.1.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_votable (~> 0.10.0)
   bootstrap_form
+  bullet
   byebug
   cancancan (~> 1.10)
-  closure_tree
   coffee-rails (~> 4.1.0)
+  deadweight
   devise
   devise_invitable (~> 1.7.0)
   google-api-client (~> 0.11)
@@ -272,6 +280,7 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+  will_paginate (~> 3.1.0)
 
 BUNDLED WITH
    1.15.3

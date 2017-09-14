@@ -14,6 +14,11 @@ Rails.application.routes.draw do
 
     resources :groups do
       resources :posts do
+    
+        member do
+          put "like" => "posts#vote"
+        end  
+        
         resources :comments,only: [:create, :destroy,:update,:edit] do
         resources :comments
       end

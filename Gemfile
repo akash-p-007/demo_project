@@ -21,13 +21,26 @@ gem 'devise_invitable', '~> 1.7.0'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
 gem 'cancancan','~> 1.10'
+
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+
 gem 'omniauth-facebook'
+
 gem 'omniauth-google-oauth2'
+
 gem 'recaptcha', :require => 'recaptcha/rails'
+
 gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'
 
+gem 'will_paginate', '~> 3.1.0'
+
+gem 'acts_as_votable', '~> 0.10.0'
+
+gem 'bullet', group: :development
+
+gem 'deadweight'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server

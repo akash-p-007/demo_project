@@ -2,5 +2,4 @@ class Comment < ActiveRecord::Base # Polymorphic is done to create nested commen
 
   belongs_to :commentable, polymorphic: true
   has_many :comments, as: :commentable, dependent: :destroy
- 
-end
+ end

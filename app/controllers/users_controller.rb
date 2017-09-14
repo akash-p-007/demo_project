@@ -4,9 +4,9 @@ class UsersController < ApplicationController # controller for handling users.
 
   def index                                       #if user is permitted by admin then only it gets access
     if params[:approved] == "false"
-      @users = User.where(approved: false)
+      @users = User.where(approved: false).includes(:role)
     else
-      @users = User.all.where.not(id: current_user.id)
+      @users = User.all.where.not(id: current_user.id).includes(:role)
     end
   end
 

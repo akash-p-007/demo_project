@@ -19,6 +19,7 @@ class Ability             # model which tells the part of accessible to user dep
        can :read, Post
        can :create, Post
        can :create, Comment
+       can :like, Post
        can :update, Group do |group|
          group.try(:user) == user || group.created_by == (user.name)
        end
@@ -55,6 +56,7 @@ class Ability             # model which tells the part of accessible to user dep
       can [:update,:create,:destroy,:edit,:add_members], Group do |group|
          group.try(:user) == user || group.created_by== (user.name)
       end 
+      can :like, Post
       can :read, Post
       can :create, Comment
       can :update, Comment do |comment|
@@ -67,6 +69,14 @@ class Ability             # model which tells the part of accessible to user dep
          comment.try(:user) == user || comment.name == (user.name)
       end   
     end
+
+    
+
+
+
+
+
+
 
     # can :update, Group do |group|
     #   group.owners.include?(user)

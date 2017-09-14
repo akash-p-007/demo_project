@@ -1,7 +1,5 @@
+<center><h1>Edit Post</h1></center>
 
-  <h1>Edit Post</h1>
-
-  <div id="form">
     <%= bootstrap_form_for [@group, @post], url: group_post_path do |f|%>
     <% if @post.errors.any? %>
       <div class="error">
@@ -21,11 +19,10 @@
       <% f.hidden_field :user_id, value: "#{current_user.id}" %>  
     </p>
     <p>
-      <%= f.submit %>
+      <center><%= f.submit %></center>
     </p>
     <% end %>
   </div>
-</div>
 <div class="modal-footer">
     <center>
       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

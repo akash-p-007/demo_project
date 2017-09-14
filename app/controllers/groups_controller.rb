@@ -63,7 +63,10 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
 	def destroy # for destroying complete group
       @group.destroy
       respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { 
+        redirect_to groups_url, notice: 'Group was successfully destroyed.'
+       }
+      format.js 
      end
   end
 

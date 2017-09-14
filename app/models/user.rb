@@ -1,13 +1,16 @@
 require "open-uri" # Needed for google calendar
 class User < ActiveRecord::Base # This model handles everything realted to users.Fetcing of data from google account as well as facebook or google authentication is done in this model.
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+          # Include default devise modules. Others available are:
+          # :confirmable, :lockable, :timeoutable and :omniauthable
+  
   devise :invitable, :database_authenticatable, :registerable, :confirmable, :omniauthable, 
          :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true 
           # Invitable module is added as invitations is to be send to users by admin
   has_many :memberships, :dependent => :destroy
-  has_many :groups, through: :memberships        
+  has_many :groups, through: :memberships
+
+  acts_as_voter        
   belongs_to :role
   belongs_to :group
   has_many :posts
@@ -63,8 +66,7 @@ class User < ActiveRecord::Base # This model handles everything realted to users
       user.name = auth.info.nickname || auth.info.name
       user.skip_confirmation!
       @user = user               # if user is following social account registration,then email confirmation is ignonred 
-    end
-    @user.get_google_calendars 
+    end 
   end
 
 
@@ -75,7 +77,6 @@ class User < ActiveRecord::Base # This model handles everything realted to users
       user.attributes = params
       user.valid?
       end
-      
     else
       super
     end

@@ -4,7 +4,8 @@ load_and_authorize_resource
 
 	def index # only members of a group and superadmin is allowed to view the post created in that group
 		if check_group_is_public
-			@post= Post.where(group_id: @group.id)
+			@post= Post.where(group_id: @group.id).includes(:user)
+			@post = @post.paginate(:page => params[:page], :per_page => 2)
 		end
 	end
 
@@ -57,6 +58,14 @@ load_and_authorize_resource
 	   		redirect_to groups_url, :flash => { :error => "Post owner can only delete post" }   
 	   	end	 
 	end
+
+	def vote
+		if !current_user.liked? @post
+			@post.liked_by current_user
+		elsif current_user.liked? @post
+			@post.unliked_by current_user
+		end			
+	end	
 	
 	private
     def post_params
