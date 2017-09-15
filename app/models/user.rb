@@ -14,7 +14,6 @@ class User < ActiveRecord::Base # This model handles everything realted to users
   belongs_to :role
   belongs_to :group
   has_many :posts
-  has_many :items
   has_many :events
   has_many :contacts
   validates_presence_of :name # Name is mandatory
