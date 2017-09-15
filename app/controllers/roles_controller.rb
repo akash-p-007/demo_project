@@ -1,5 +1,6 @@
-class RolesController < ApplicationController
+class RolesController < ApplicationController #3 roles are defined at the time of creation,These are Superadmin,Admin and Regular User
   before_filter :authenticate_user! 
+  
   def index
     @roles = Role.all
   end

@@ -1,20 +1,25 @@
 <!--Displays User Information stored-->
 <div class='btn-toolbar pull-right'>
+<<<<<<< HEAD
   <div class='btn-group'>
   <button type="button" class="btn btn-danger" data-dismiss="modal"><h4 class="modal-title ng-binding">
         <a title="Close"><i ng-click="CloseModal()" class="glyphicon glyphicon-remove icon-arrow-right pull-right"></i></a> 
     </h4></button>
   </div>
+=======
+  <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+>>>>>>> group
 </div>
 <div id="modal">
   <h1>User Details</h1>
-  <table class="table table-bordered">
+  <table class="table table-bordered" id="users-table" id="user_show">
     <tbody>
       <tr>
+      <p>
       <td> 1 </td>
         <td>Name</td>
         <td><%= @user.name %></td>
-
+      </p>
       </tr>
       <tr>
         <td>2</td>

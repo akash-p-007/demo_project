@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   
+=======
+  get 'events/index'
+>>>>>>> group
   root to: "welcome#index"
   get 'contact', :to => "welcome#contact"
   get 'about', :to => "welcome#about"
@@ -11,12 +15,34 @@ Rails.application.routes.draw do
         end  
       end
     end 
+<<<<<<< HEAD
     resources :invitations, only:[:index]
     resources :items
     resources :events, only:[:index]
        
+=======
+
+    resources :groups do
+      resources :posts do
+    
+        member do
+          put "like" => "posts#vote"
+        end  
+        
+        resources :comments,only: [:create, :destroy,:update,:edit] do
+        resources :comments
+      end
+      end
+      
+      member do
+        get 'add_members'
+        patch 'remove_member'
+      end
+    end     
+  resources :invitations, only:[:index]
+>>>>>>> group
   authenticated :user do  
-    root :to => 'items#index', as: :authenticated_root  
+    root :to => 'groups#index', as: :authenticated_root  
   end  
   
   # The priority is based upon order of creation: first created -> highest priority.
