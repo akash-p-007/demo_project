@@ -14,9 +14,9 @@
         <td><%= i.name %></td>
         <td><%= i.email %></td>
         <td><%= i.invitation_sent_at %></td>
-         <% invitee = User.find(i.invited_by_id) %>
+        <% invitee = User.find(i.invited_by_id) %>
         <td><%= invitee.name %></td>
-       </tr>
+      </tr>
     <% end %>
   </tbody>
 </table> 

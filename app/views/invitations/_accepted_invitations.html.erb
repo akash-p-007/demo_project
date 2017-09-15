@@ -19,7 +19,7 @@
         <td><%= i.invitation_accepted_at %></td>
           <% invitee = User.find(i.invited_by_id) %>
         <td><%= invitee.name %></td>
-       </tr>
+      </tr>
     <% end %>
-   </tbody>
+  </tbody>
 </table>

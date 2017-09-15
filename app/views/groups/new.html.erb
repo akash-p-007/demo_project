@@ -28,11 +28,11 @@
         <div class="row">
           <div class="col-md-4 col-xs-4"> <%= f.label :Name %></div>
           <div class="col-md-4 col-xs-4"> <%= f.text_field :name %> </div>
-          </div>
-      
+        </div>
         <br>
       </div>
     </div>
+
     <div class="row">   
       <div class="form-group col-xs-4 col-lg-4 col-md-4">      
       </div>
@@ -40,22 +40,22 @@
         <div class="row">
           <div class="col-md-4 col-xs-4"> <%= f.label :Description %></div>
           <div class="col-md-4 col-xs-4"> <%= f.text_area :desc %> </div>
-          </div>
-      
+        </div>
         <br>
       </div>
     </div>
+    
     <div class="row">
       <div class="form-group col-xs-4 col-lg-4 col-md-4">  
       </div>
       <div class="form-group col-xs-4 col-lg-4 col-md-4">               
         <div class="row">
           <div class="col-md-4 col-xs-4">
-          <%= f.label :"Group Type" %>
+            <%= f.label :"Group Type" %>
           </div>
           <div class="col-md-4 col-xs-4">  
-           Public: <%= f.radio_button :is_public, true, label: "Public", checked: true , class: "form-check"%>
-           Private: <%= f.radio_button :is_public, false, label: "Private",class: "form-check" %>
+            Public: <%= f.radio_button :is_public, true, label: "Public", checked: true , class: "form-check"%>
+            Private: <%= f.radio_button :is_public, false, label: "Private",class: "form-check" %>
             <%= f.hidden_field :created_by, value: "#{current_user.name}" %>
           </div>
         </div>
@@ -68,21 +68,20 @@
       <div class="form-group col-xs-5 col-lg-4 col-md-4">  
       </div>
       <div class="form-group col-xs-5 col-lg-4 col-md-4">  
-          <%= f.fields_for :memberships, @memberships do |member| %>
-            <% if member.object.user.name != current_user.name %>
-              <div class="row">
+        <%= f.fields_for :memberships, @memberships do |member| %>
+          <% if member.object.user.name != current_user.name %>
+            <div class="row">
               <div class="col-md-4 col-xs-4">
-              <%="#{member.object.user.name}"%>
+                <%="#{member.object.user.name}"%>
               </div>
               <div class="col-md-2 col-xs-4">
-              <%= member.check_box :user_id, {checked: false}, member.object.user.id, nil %>
-              
+                <%= member.check_box :user_id, {checked: false}, member.object.user.id, nil %>
               </div>
-              </div>
-               <br>    
-             <% end %>
+            </div>
+            <br>    
+          <% end %>
         <% end %>
-     </div>
+      </div>
     </div>      
     <%= f.submit "Create group",class: "btn btn-success" %>
     <% end %>
