@@ -1,17 +1,26 @@
-require "open-uri"
-class User < ActiveRecord::Base 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+require "open-uri" # Needed for google calendar
+class User < ActiveRecord::Base # This model handles everything realted to users.Fetcing of data from google account as well as facebook or google authentication is done in this model.
+
+          # Include default devise modules. Others available are:
+          # :confirmable, :lockable, :timeoutable and :omniauthable
+  
   devise :invitable, :database_authenticatable, :registerable, :confirmable, :omniauthable, 
          :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true 
           # Invitable module is added as invitations is to be send to users by admin
+  has_many :memberships, :dependent => :destroy
+  has_many :groups, through: :memberships
+
+  acts_as_voter        
   belongs_to :role
+  belongs_to :group
+  has_many :posts
   has_many :items
   has_many :events
   has_many :contacts
-  validates_presence_of :name
+  validates_presence_of :name # Name is mandatory
 	before_save :assign_role # By default role will be regular if not specified 
-	def after_confirmation   # Send welcome mail after user is successfully registered
+	
+  def after_confirmation   # Send welcome mail after user is successfully registered
      send_user_mail
   end           
 
@@ -57,8 +66,7 @@ class User < ActiveRecord::Base
       user.name = auth.info.nickname || auth.info.name
       user.skip_confirmation!
       @user = user               # if user is following social account registration,then email confirmation is ignonred 
-    end
-    @user.get_google_calendars
+    end 
   end
 
 
@@ -69,7 +77,6 @@ class User < ActiveRecord::Base
       user.attributes = params
       user.valid?
       end
-      
     else
       super
     end
@@ -104,37 +111,38 @@ class User < ActiveRecord::Base
     end
     user.skip_confirmation!
     user.save!
-    user.get_google_contacts   
+    #user.get_google_contacts   # Uncomment this to get contacts stored in google account
     user.get_google_calendars  
     user
   end
 
-  def get_google_contacts
-    url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
-    response = open(url)
-    json = JSON.parse(response.read)
-    my_contacts = json['feed']['entry']
+  # Uncomment this for getting the contacts stored in one's gmail account
+  # def get_google_contacts
+  #   url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
+  #   response = open(url)
+  #   json = JSON.parse(response.read)
+  #   my_contacts = json['feed']['entry']
 
-    my_contacts.each do |contact|
-      name = contact['title']['$t'] || nil
-      email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
-      tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
-      if contact['link'][1]['type'] == "image/*"
-        picture = "#{contact['link'][1]['href']}?access_token=#{token}"
-      else
-        picture = nil
-      end
-      contacts.create(name: name, email: email, tel: tel)
-    end
-  end
+  #   my_contacts.each do |contact|
+  #     name = contact['title']['$t'] || nil
+  #     email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
+  #     tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
+  #     if contact['link'][1]['type'] == "image/*"
+  #       picture = "#{contact['link'][1]['href']}?access_token=#{token}"
+  #     else
+  #       picture = nil
+  #     end
+  #     contacts.create(name: name, email: email, tel: tel)
+  #   end
+  # end
 
   def get_google_calendars
-  url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
-  response = open(url)
-  json = JSON.parse(response.read)
-  calendars = json["items"]
-  calendars.each { |cal| get_events_for_calendar(cal) }
-end
+    url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
+    response = open(url)
+    json = JSON.parse(response.read)
+    calendars = json["items"]
+    calendars.each { |cal| get_events_for_calendar(cal) }
+  end
 
 def get_events_for_calendar(cal)
 
@@ -180,5 +188,4 @@ def get_events_for_calendar(cal)
     def send_invite_mail                      # sending mail to admin regarding acceptance of his mail
       UserMailer.send_admin_mail(self).deliver_later
     end
-
 end

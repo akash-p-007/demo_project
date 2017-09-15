@@ -2,12 +2,11 @@ class UsersController < ApplicationController # controller for handling users.
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  def index     
-                                  #if user is permitted by admin then only it gets access
+  def index                                       #if user is permitted by admin then only it gets access
     if params[:approved] == "false"
-      @users = User.where(approved: false)
+      @users = User.where(approved: false).includes(:role)
     else
-      @users = User.all.where.not(id: current_user.id)
+      @users = User.all.where.not(id: current_user.id).includes(:role)
     end
   end
 
@@ -28,10 +27,7 @@ class UsersController < ApplicationController # controller for handling users.
     render :layout => false
   end
 
- 
-
-
-  def create                            #for creating new user 
+  def create                   #for creating new user 
     respond_to do |format|
       if verify_recaptcha(model: @user) && @user.save
         #User.invite!(:email => @user.email, :name=> @user.name) 
