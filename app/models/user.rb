@@ -1,15 +1,17 @@
-class User < ActiveRecord::Base
+require "open-uri"
+class User < ActiveRecord::Base 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :confirmable, :omniauthable, 
-         :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true, :invite_for => 2.weeks 
+         :recoverable, :rememberable, :trackable, :validatable,:validate_on_invite => true 
           # Invitable module is added as invitations is to be send to users by admin
   belongs_to :role
   has_many :items
+  has_many :events
+  has_many :contacts
   validates_presence_of :name
 	before_save :assign_role # By default role will be regular if not specified 
-	
-  def after_confirmation   # Send welcome mail after user is successfully registered
+	def after_confirmation   # Send welcome mail after user is successfully registered
      send_user_mail
   end           
 
@@ -53,9 +55,12 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname || auth.info.name
-      user.skip_confirmation!               # if user is following social account registration,then email confirmation is ignonred 
+      user.skip_confirmation!
+      @user = user               # if user is following social account registration,then email confirmation is ignonred 
     end
+    @user.get_google_calendars
   end
+
 
   def self.new_with_session(params, session)         #creating session for an existing user
     if session["devise.user_attributes"]
@@ -64,22 +69,97 @@ class User < ActiveRecord::Base
       user.attributes = params
       user.valid?
       end
+      
     else
       super
     end
   end
 
-def password_required?                            # password validation is avoided as authentication is done using registered accounts
-  super && provider.blank?
+  def password_required?                            # password validation is avoided as authentication is done using registered accounts
+    super && provider.blank?
+  end
+
+  def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end  
+
+  def self.find_for_google_oauth2(oauth, signed_in_resource=nil)
+    credentials = oauth.credentials
+    data = oauth.info
+    user = User.where(email: data["email"]).first
+    if user
+      user.token = credentials.token
+    end
+    unless user
+     user = User.new({
+        name: data["name"],
+        email: data["email"],
+        password: Devise.friendly_token[0,20],
+        token: credentials.token
+     })
+    end
+    user.skip_confirmation!
+    user.save!
+    user.get_google_contacts   
+    user.get_google_calendars  
+    user
+  end
+
+  def get_google_contacts
+    url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
+    response = open(url)
+    json = JSON.parse(response.read)
+    my_contacts = json['feed']['entry']
+
+    my_contacts.each do |contact|
+      name = contact['title']['$t'] || nil
+      email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
+      tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
+      if contact['link'][1]['type'] == "image/*"
+        picture = "#{contact['link'][1]['href']}?access_token=#{token}"
+      else
+        picture = nil
+      end
+      contacts.create(name: name, email: email, tel: tel)
+    end
+  end
+
+  def get_google_calendars
+  url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
+  response = open(url)
+  json = JSON.parse(response.read)
+  calendars = json["items"]
+  calendars.each { |cal| get_events_for_calendar(cal) }
 end
 
-def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
-  if encrypted_password.blank?
-    update_attributes(params, *options)
-  else
-    super
+def get_events_for_calendar(cal)
+
+  url = "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal["id"])}/events?access_token=#{token}"
+  response = open(url)
+  json = JSON.parse(response.read)
+  my_events = json["items"]
+
+  my_events.each do |event|
+    name = event["summary"] || "no name"
+    creator = event["creator"] ? event["creator"]["email"] : nil
+    start = event["start"] ? event["start"]["dateTime"] : nil
+    status = event["status"] || nil
+    link = event["htmlLink"] || nil
+    calendar = cal["summary"] || nil
+
+    events.create(name: name,
+                  creator: creator,
+                  status: status,
+                  start: start,
+                  link: link,
+                  calendar: calendar
+                  )
+    end
   end
-end  
 
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)

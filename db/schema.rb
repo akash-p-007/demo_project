@@ -11,10 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808140310) do
+ActiveRecord::Schema.define(version: 20170824115104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.string   "tel"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.string   "creator"
+    t.datetime "start"
+    t.string   "status"
+    t.string   "link"
+    t.string   "calendar"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
@@ -64,6 +89,8 @@ ActiveRecord::Schema.define(version: 20170808140310) do
     t.integer  "invitations_count",      default: 0
     t.string   "provider"
     t.string   "uid"
+    t.string   "token"
+    t.datetime "token_expiry"
   end
 
   add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
@@ -75,6 +102,8 @@ ActiveRecord::Schema.define(version: 20170808140310) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
+  add_foreign_key "contacts", "users"
+  add_foreign_key "events", "users"
   add_foreign_key "items", "users"
   add_foreign_key "users", "roles"
 end

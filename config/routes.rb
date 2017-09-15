@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get 'events/index'
+
   root to: "welcome#index"
-   get 'contact', :to => "welcome#contact"
-   get 'about', :to => "welcome#about"
+  get 'contact', :to => "welcome#contact"
+  get 'about', :to => "welcome#about"
   devise_for :users, :controllers => { :invitations =>'users/invitations', :omniauth_callbacks => "omniauth_callbacks"} 
     scope "/admin" do  
       resources :users, defaults: { format: 'html' } do
@@ -9,13 +11,13 @@ Rails.application.routes.draw do
           patch :unapproved
         end  
       end
-   end 
-   resources :invitations, only:[:index]
-   resources :items
-   
-   authenticated :user do  
+    end 
+    resources :invitations, only:[:index]
+    resources :items
+       
+  authenticated :user do  
     root :to => 'items#index', as: :authenticated_root  
-   end  
+  end  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

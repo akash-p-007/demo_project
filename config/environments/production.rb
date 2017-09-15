@@ -22,7 +22,7 @@ Rails.application.configure do
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => "gmail.com",
-    :authentication => :plain,
+    :authentication => :plain,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
     :user_name => Rails.application.secrets.mail_username,
     :password => Rails.application.secrets.mail_password
   }  

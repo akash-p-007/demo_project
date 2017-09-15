@@ -9,6 +9,7 @@ class Ability             # model which tells the part of accessible to user dep
     if user.admin?     # Admin have limited access.It can read read and create user but deleting power is only to super admin
       can :read, Item
       can :create, Item
+      can :read, Event
       can :update, Item do |item|
         item.try(:user) == user
       end
@@ -22,6 +23,7 @@ class Ability             # model which tells the part of accessible to user dep
 
     if user.regular?  # Regular user can only view items.It cant even access admin panel
       can :read, Item
+      can :read, Event
     end
 end
 end

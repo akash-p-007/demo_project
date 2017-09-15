@@ -10,15 +10,13 @@
 <div id="exTab1" class="container"> 
   <ul  class="nav nav-pills">
     <li class="active">
-      <a  href="#1a" data-toggle="tab">All Users</a>
+      <a  href="#1a" data-toggle="tab" id="tab">All Users</a>
     </li>
-    <li><a href="#2a" data-toggle="tab">Un-Approved Users</a>
+    <li><a href="#2a" data-toggle="tab" id="tab">Un-Approved Users</a>
     </li>
-    <li><a href="#3a" data-toggle="tab">Approved Users</a>
+    <li><a href="#3a" data-toggle="tab" id="tab">Approved Users</a>
     </li>
-    <li><%= link_to 'Create new User', new_user_path %></a>
-    </li>
-  </ul>
+  <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    </ul>
 
   <div class="tab-content clearfix">
     <div class="tab-pane active" id="1a">        
@@ -27,16 +25,15 @@
         <tbody>
           <% @users.each do |user| %>
           <tr>
-            <td><%= user.name %></td>
+            <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></td>
             <td><%= user.role.name %></td>
             <td><%= user.email %></td>
             <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %>                
-              </td>
+              
                
             <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user),"data-toggle" => "modal", 'data-target' => '#editModal'  %></td>
             
-            <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
+            <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role_id !='3' %></td>
           </tr>
               <% end %>
         </tbody>
@@ -49,14 +46,12 @@
           <% @users.each do |user| %>
           <%if !user.approved%>
           <tr>
-              <td><%= user.name %></td>
-              <td><%= user.role.name %></td>
+            <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal2' %></td>
+            <td><%= user.role.name %></td>
               <td><%= user.email %></td>
               <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal2' %>                
-              </td>
-              <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin' %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role_id = 3 %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name != '3' %></td>
           </tr>
           <% end %>
           <% end %>
@@ -70,14 +65,12 @@
             <% @users.each do |user| %>
             <%if user.approved%>
               <tr>
-                <td><%= user.name %></td>
+              <td><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal3' %></td>
                 <td><%= user.role.name %></td>
                 <td><%= user.email %></td>
                 <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-              <td><%= link_to "<i class='glyphicon glyphicon-eye-open'></i>&nbsp; Show".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal3' %>                
-              </td>
-             <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin'  %></td>
-                <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name !='Superadmin' %></td>
+                <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role.name !='Superadmin'  %></td>
+                <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role_id != 3 %></td>
               </tr>
               <% end %>
               <% end %>
