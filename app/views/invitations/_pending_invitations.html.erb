@@ -4,7 +4,7 @@
       <td>Invitee Name</td>
       <td>Invitee Email</td>
       <td>Invitation Send At</td>
-      <td>Invited By</td>              
+      <td>Invited By</td>
     </tr>
   </thead>
   <% @invites = User.invitation_not_accepted %>  
@@ -15,8 +15,8 @@
         <td><%= i.email %></td>
         <td><%= i.invitation_sent_at %></td>
          <% invitee = User.find(i.invited_by_id) %>
-    		<td><%= invitee.name %></td>
-   		</tr>
+        <td><%= invitee.name %></td>
+       </tr>
     <% end %>
   </tbody>
 </table> 

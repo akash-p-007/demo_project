@@ -1,5 +1,4 @@
 <center><h1>Edit Post</h1></center>
-
     <%= bootstrap_form_for [@group, @post], url: group_post_path do |f|%>
     <% if @post.errors.any? %>
       <div class="error">

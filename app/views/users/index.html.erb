@@ -1,43 +1,26 @@
 <!--This is index page visible to only superadmin and admin.It consists of all the registered user in Table.Panel gived various status information about user depending upon their Approval status-->
-<<<<<<< HEAD
-<br>
-<h3>Listing Users</h3>
-<div id="invitation-button">  
-  <%= link_to 'Invitation Panel', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
-</div>  
-=======
 <div class='btn-toolbar pull-right'>
   
 </div>
 <br>
 <h2>Listing Users</h2>
->>>>>>> group
 <br>
 
 <div class="table-responsive">  
 <div id="exTab1" class="container"> 
   <ul  class="nav nav-pills">
     <li class="active">
-    <a  href="#1a" data-toggle="tab" id="tab">All Users</a>
+      <a  href="#1a" data-toggle="tab" id="tab">All Users</a>
     </li>
-    <li>
-    <a href="#2a" data-toggle="tab" id="tab">Un-Approved Users</a>
+    <li><a href="#2a" data-toggle="tab" id="tab">Un-Approved Users</a>
     </li>
-    <li>
-    <a href="#3a" data-toggle="tab" id="tab">Approved Users</a>
+    <li><a href="#3a" data-toggle="tab" id="tab">Approved Users</a>
     </li>
-<<<<<<< HEAD
-
-  <div class="tab-content clearfix">
-    <div class="tab-pane active" id="1a">        
-      <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">    
-=======
   
 
   <div class="tab-content clearfix">
     <div class="tab-pane active" id="1a">        
       <table id="users-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
->>>>>>> group
         <%= render 'tablehead' %>
         <tbody>
           <% @users.each do |user| %>
@@ -55,17 +38,12 @@
               
             <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user),"data-toggle" => "modal", 'data-target' => '#edit_modal' unless user.name == "Superadmin" %></td>
             
-<<<<<<< HEAD
-            <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, id: "delete#{user.id}", remote: true, data: { confirm: 'Are you sure?' } if user.role_id !='3' %></td>
-=======
             <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role_id !='3'  %></td>
->>>>>>> group
           </tr>
-          <% end %>
+              <% end %>
         </tbody>
       </table>
     </div>
-
     <div class="tab-pane" id="2a">
       <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
        <%= render 'tablehead' %>
@@ -81,17 +59,16 @@
                 </div>
               </div>
             <td><%= user.role.name %></td>
-            <td><%= user.email %></td>
-            <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
-            <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role_id = 3 %></td>
-            <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name != '3' %></td>
+              <td><%= user.email %></td>
+              <td><%= check_box_tag :approved ,  user.id, user.approved, data: { url: unapproved_user_path(user.id) }, class: 'user-approved', id: "approved_#{user.id.to_s}" %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-pencil'></i>&nbsp; Edit".html_safe , edit_user_path(user) if user.role_id = 3 %></td>
+              <td><%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } if user.role.name != '3' %></td>
           </tr>
           <% end %>
           <% end %>
         </tbody>
       </table>
     </div>
-
       <div class="tab-pane" id="3a">
         <table id="users-table"  class="table table-striped table-bordered dt-responsive nowrap" cellspacing="10" width="100%">
           <%= render 'tablehead' %>
@@ -117,33 +94,11 @@
         </table>
       </div>      
     </div>
-<<<<<<< HEAD
-  </div>
-
-<div class="modal fade" id="editModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">                      
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="showModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">                      
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="showModal2">
-=======
 </div>
 
 <div class="modal fade" id="edit_modal">
->>>>>>> group
   <div class="modal-dialog modal-lg">
     <div class="modal-content" aria-hidden="true">                      
     </div>
   </div>
 </div>
-
-
-
-                         

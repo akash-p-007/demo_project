@@ -52,7 +52,6 @@
 <% if false %>
 <!-- 
 <div class="container" id="posts">
-
 	<% @groups.order(updated_at: :desc).each do |group| %>
 		<div class="post_wrapper">
 			<div class='btn-toolbar pull-right'>
@@ -62,7 +61,6 @@
 				</div>
 	  	<% end %>	
 			</div>
-
 			<div class='btn-toolbar pull-left'>
 				<h4>
 				<% if can? :read, group %>	<%= link_to "#{group.name}".html_safe,group_posts_path(group)%>
@@ -84,4 +82,3 @@
 
 </div>
 <%end%>
-

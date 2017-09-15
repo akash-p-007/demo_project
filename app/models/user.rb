@@ -17,8 +17,8 @@ class User < ActiveRecord::Base # This model handles everything realted to users
   has_many :events
   has_many :contacts
   validates_presence_of :name # Name is mandatory
-	before_save :assign_role # By default role will be regular if not specified 
-	
+  before_save :assign_role # By default role will be regular if not specified 
+  
   def after_confirmation   # Send welcome mail after user is successfully registered
      send_user_mail
   end           
@@ -28,23 +28,23 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     super
   end
 
-	def assign_role          # for assigning role to the newly registered user which is regular by default. 
+  def assign_role          # for assigning role to the newly registered user which is regular by default. 
     self.role = Role.find_by name: "Regular" if self.role.nil? #Access to any role is controlled by CanCan in ability.rb
-	end
+  end
 
-	def admin?
+  def admin?
   self.role.name == "Admin"
-	end
+  end
 
-	def superadmin?
+  def superadmin?
   self.role.name == "Superadmin"
-	end
+  end
 
-	def regular?
+  def regular?
   self.role.name == "Regular"
-	end
+  end
 
-	def active_for_authentication? 
+  def active_for_authentication? 
     super && approved? 
   end 
   
@@ -57,24 +57,19 @@ class User < ActiveRecord::Base # This model handles everything realted to users
   end
 
 
-  def self.from_omniauth(auth)              # getting info from user facebook account and assigning them in table
+  def self.from_omniauth(auth)              # getting info from user social account and assigning them in table
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.nickname || auth.info.name
       user.skip_confirmation!
-<<<<<<< HEAD
-      @user = user               # if user is following facebook account registration,then email confirmation is ignonred 
-    end
-=======
       @user = user               # if user is following social account registration,then email confirmation is ignonred 
     end 
->>>>>>> group
   end
 
 
-  def self.new_with_session(params, session)         #creating session for an existing user signed with facebook
+  def self.new_with_session(params, session)         #creating session for an existing user
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"], without_protection: true) do |user|
       user.email = data["email"] if user.email.blank? and params[:provider] == 'facebook'
@@ -86,11 +81,11 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     end
   end
 
-  def password_required?    # password validation is avoided as authentication is done using registered accounts
+  def password_required?                            # password validation is avoided as authentication is done using registered accounts
     super && provider.blank?
   end
 
-  def update_with_password(params, *options)   # to handle field which need current password in order to update to a new password
+  def update_with_password(params, *options)        # to handle field which need current password in order to update to a new password
     if encrypted_password.blank?
       update_attributes(params, *options)
     else
@@ -98,7 +93,7 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     end
   end  
 
-  def self.find_for_google_oauth2(oauth, signed_in_resource=nil) # for autheticating user with his google account
+  def self.find_for_google_oauth2(oauth, signed_in_resource=nil)
     credentials = oauth.credentials
     data = oauth.info
     user = User.where(email: data["email"]).first
@@ -115,86 +110,14 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     end
     user.skip_confirmation!
     user.save!
-<<<<<<< HEAD
-    #user.get_google_contacts # to fetch contacts stored in gmail, uncomment this  
-    user.get_google_calendars unless user.persisted?
-    user 
-    
-=======
-    #user.get_google_contacts   # Uncomment this to get contacts stored in google account
     user.get_google_calendars  
     user
->>>>>>> group
-  end
-
-  # Uncomment this for getting the contacts stored in one's gmail account
-  # def get_google_contacts
-  #   url = "https://www.google.com/m8/feeds/contacts/default/full?access_token=#{token}&alt=json&max-results=100"
-  #   response = open(url)
-  #   json = JSON.parse(response.read)
-  #   my_contacts = json['feed']['entry']
-
-  #   my_contacts.each do |contact|
-  #     name = contact['title']['$t'] || nil
-  #     email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
-  #     tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
-  #     if contact['link'][1]['type'] == "image/*"
-  #       picture = "#{contact['link'][1]['href']}?access_token=#{token}"
-  #     else
-  #       picture = nil
-  #     end
-  #     contacts.create(name: name, email: email, tel: tel)
-  #   end
-  # end
-
-  def get_google_calendars
-    url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
-    response = open(url)
-    json = JSON.parse(response.read)
-<<<<<<< HEAD
-    my_contacts = json['feed']['entry']
-    my_contacts.each do |contact|
-      name = contact['title']['$t'] || nil
-      email = contact['gd$email'] ? contact['gd$email'][0]['address'] : nil
-      tel = contact['gd$phoneNumber'] ? contact["gd$phoneNumber"][0]["$t"] : nil
-      if contact['link'][1]['type'] == "image/*"
-        picture = "#{contact['link'][1]['href']}?access_token=#{token}"
-      else
-        picture = nil
-      end
-      contacts.create(name: name, email: email, tel: tel)
-    end
   end
 
   def get_google_calendars
     url = "https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=#{token}"
     response = open(url)
     json = JSON.parse(response.read)
-    calendars = json["items"]
-    calendars.each { |cal| get_events_for_calendar(cal) }
-  end
-
-  def get_events_for_calendar(cal)
-    url = "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal["id"])}/events?access_token=#{token}"
-    response = open(url)
-    json = JSON.parse(response.read)
-    my_events = json["items"]
-    my_events.each do |event|
-      name = event["summary"] || "no name"
-      creator = event["creator"] ? event["creator"]["email"] : nil
-      start = event["start"] ? event["start"]["dateTime"] : nil
-      status = event["status"] || nil
-      link = event["htmlLink"] || nil
-      calendar = cal["summary"] || nil
-      events.find_or_create_by(name: name,
-                    creator: creator,
-                    status: status,
-                    start: start,
-                    link: link,
-                    calendar: calendar
-                    ) 
-  
-=======
     calendars = json["items"]
     calendars.each { |cal| get_events_for_calendar(cal) }
   end
@@ -221,7 +144,6 @@ def get_events_for_calendar(cal)
                   link: link,
                   calendar: calendar
                   )
->>>>>>> group
     end
   end
 

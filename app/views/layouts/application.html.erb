@@ -15,12 +15,6 @@
  
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
     
-<<<<<<< HEAD
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
-=======
->>>>>>> group
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -63,25 +57,6 @@
                 </div>
               </div>
             </li>
-<<<<<<< HEAD
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Team<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Link One</a></li>
-                  <li><a href="#">Link Two</a></li>
-                  <li><a href="#">Link Three</a></li>
-                  <li><a href="#">Link Four</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <% if user_signed_in? %>
-              <li>Signed in as <%= current_user.email %>. Not you?</li>
-              <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
-              <li> <%= link_to "Edit profile", edit_user_registration_path %></li>
-              <li> <%= link_to "My events", events_path if current_user.email.include? "gmail.com" %></li> 
-              <% else %>
-=======
             <% if user_signed_in? %>
               <li><%= link_to "Groups", groups_path %></li>
                 <li class="dropdown">
@@ -114,7 +89,6 @@
                     </ul>    
                 </li>  
             <% else %>
->>>>>>> group
               <li><%= link_to "Sign up", new_user_registration_path , class: "btn" %></li> 
               <li><%= link_to "Sign in", new_user_session_path , class: "btn"  %></li>      
             <% end %>
@@ -132,7 +106,7 @@
       <div id="content">
       <%= yield %>
       </div>
-    	<footer id="footer">
+      <footer id="footer">
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>&copy; 2017 Company, Inc. &middot; Privacy</a> &middot; Terms</p>
       </footer>

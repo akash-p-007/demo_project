@@ -52,7 +52,7 @@ class UsersController < ApplicationController # controller for handling users.
                                @user.update(user_params)
                              else
                                @user.update_without_password(user_params)
-                            end  
+                             end  
     end
       respond_to do |format|
       if successfully_updated

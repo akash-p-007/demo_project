@@ -1,44 +1,43 @@
 <!-- Button to invite unregisted user is disabled for regular user -->
 <% if !current_user.regular?%>
-	<div class='btn-group' id="invitation">
-	  <%= link_to 'Invite Unregistered Users', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
-	  <br>
+  <div class='btn-group' id="invitation">
+    <%= link_to 'Invite Unregistered Users', invitations_path(invitation_accepted_at: nil), class: "btn btn-success"%>    
+    <br>
 </div>
 <% end %>  
 <!-- Displays list of groups members with button for adding/removing particular members from that group -->
 <h5>Edit Group Members</h5>
 <center>
-	<div class="table-responsive">
-	<div class="container">
-		
-		<table id="users-table">
-			<thead>
-				<td>Name</td>
-				<td>Add/Remove</td>
-			</thead>
-			<tbody>
-			<% @users.each do |user| %>
-				<tr>
-					<td><center><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></center></td>
-						<% if @group.users.include? user %> 
-							<td>
-								<center>
-								<%= link_to "Remove",remove_member_group_path(:group_id => @group.id, :user_id => user.id), class: "btn btn-danger", method: :patch %>								
-								</center>
-							</td>	
-						<% else %>
-							<td>
-								<center>
-									<%= link_to "Add",group_path(:group_id => @group.id, :user_id => user.id), class: "btn btn-success", method: :put %>
-								</center>
-							</td>	
-						<% end %>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<%= link_to "Back",groups_path, class:"btn btn-default"%>
-		<%= link_to "Finished",groups_path, class:"btn btn-default"%>     
-	</div>
-	</div>
+  <div class="table-responsive">
+  <div class="container">
+    <table id="users-table">
+      <thead>
+        <td>Name</td>
+        <td>Add/Remove</td>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><center><%= link_to "#{user.name}".html_safe, user, "data-toggle" => "modal", 'data-target' => '#showModal' %></center></td>
+            <% if @group.users.include? user %> 
+              <td>
+                <center>
+                <%= link_to "Remove",remove_member_group_path(:group_id => @group.id, :user_id => user.id), class: "btn btn-danger", method: :patch %>                
+                </center>
+              </td>  
+            <% else %>
+              <td>
+                <center>
+                  <%= link_to "Add",group_path(:group_id => @group.id, :user_id => user.id), class: "btn btn-success", method: :put %>
+                </center>
+              </td>  
+            <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to "Back",groups_path, class:"btn btn-default"%>
+    <%= link_to "Finished",groups_path, class:"btn btn-default"%>     
+  </div>
+  </div>
 </center>

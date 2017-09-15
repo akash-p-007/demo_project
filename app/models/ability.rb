@@ -52,11 +52,6 @@ class Ability             # model which tells the part of accessible to user dep
 
     if user.regular?  # Regular user can only view Groups.It cant even access admin panel
       can :read, Event
-<<<<<<< HEAD
-      can :create, Event
-      can :update, Item do |item|
-        item.try(:user) == user
-=======
       can :read, Group
       can [:update,:create,:destroy,:edit,:add_members], Group do |group|
          group.try(:user) == user || group.created_by== (user.name)
@@ -66,7 +61,6 @@ class Ability             # model which tells the part of accessible to user dep
       can :create, Comment
       can :update, Comment do |comment|
          comment.try(:user) == user || comment.name == (user.name)
->>>>>>> group
       end
       can :destroy, Comment do |comment|
          comment.try(:user) == user || comment.name == (user.name)
@@ -75,26 +69,5 @@ class Ability             # model which tells the part of accessible to user dep
          comment.try(:user) == user || comment.name == (user.name)
       end   
     end
-
-    
-
-
-
-
-
-
-
-    # can :update, Group do |group|
-    #   group.owners.include?(user)
-    # end
-    # can :destroy, Group do |group|
-    #   group.owners.include?(user)
-    # end
-    # can :read, Group do |group|
-    #   group.owners.include?(user)
-    # end
-    # can :destroy, Post do |post|
-    #   post.user_id.include?(current_user.id)
-    # end  
   end
 end
