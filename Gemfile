@@ -21,19 +21,19 @@ gem 'devise_invitable', '~> 1.7.0'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+# For handling roles in admin panel
 gem 'cancancan','~> 1.10'
-
+# Data Table to display data
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
-
+# For facebook Authentication
 gem 'omniauth-facebook'
-
+# Google plus authenticaton
 gem 'omniauth-google-oauth2'
-
+# For having Google captcha
 gem 'recaptcha', :require => 'recaptcha/rails'
 
 gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'
-
+# To have proper pagination
 gem 'will_paginate', '~> 3.1.0'
 
 gem 'acts_as_votable', '~> 0.10.0'

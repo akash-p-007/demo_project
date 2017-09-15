@@ -3,8 +3,8 @@ class ApplicationMailer < ActionMailer::Base
   layout 'mailer'
 
   def send_welcome_email(user)      # send welcome mail to new registered users
-  	@user = user
-  	mail(:to => @user.email, :subject => 'Welcome')
-  end	
-  
+    @user = user
+    mail(:to => @user.email, :subject => 'Welcome')
+  end  
+
 end

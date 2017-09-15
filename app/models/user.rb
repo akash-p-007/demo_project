@@ -9,7 +9,6 @@ class User < ActiveRecord::Base # This model handles everything realted to users
           # Invitable module is added as invitations is to be send to users by admin
   has_many :memberships, :dependent => :destroy
   has_many :groups, through: :memberships
-
   acts_as_voter        
   belongs_to :role
   belongs_to :group
@@ -20,7 +19,7 @@ class User < ActiveRecord::Base # This model handles everything realted to users
   before_save :assign_role # By default role will be regular if not specified 
   
   def after_confirmation   # Send welcome mail after user is successfully registered
-     send_user_mail
+    send_user_mail
   end           
 
   def accept_invitation!   # when invite is accepted then admin is informed reagrding this
@@ -33,15 +32,15 @@ class User < ActiveRecord::Base # This model handles everything realted to users
   end
 
   def admin?
-  self.role.name == "Admin"
+    self.role.name == "Admin"
   end
 
   def superadmin?
-  self.role.name == "Superadmin"
+    self.role.name == "Superadmin"
   end
 
   def regular?
-  self.role.name == "Regular"
+    self.role.name == "Regular"
   end
 
   def active_for_authentication? 
@@ -56,7 +55,6 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     end 
   end
 
-
   def self.from_omniauth(auth)              # getting info from user social account and assigning them in table
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -67,7 +65,6 @@ class User < ActiveRecord::Base # This model handles everything realted to users
       @user = user               # if user is following social account registration,then email confirmation is ignonred 
     end 
   end
-
 
   def self.new_with_session(params, session)         #creating session for an existing user
     if session["devise.user_attributes"]
@@ -101,11 +98,11 @@ class User < ActiveRecord::Base # This model handles everything realted to users
       user.token = credentials.token
     end
     unless user
-     user = User.new({
-        name: data["name"],
-        email: data["email"],
-        password: Devise.friendly_token[0,20],
-        token: credentials.token
+      user = User.new({
+      name: data["name"],
+      email: data["email"],
+      password: Devise.friendly_token[0,20],
+      token: credentials.token
      })
     end
     user.skip_confirmation!
@@ -122,28 +119,25 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     calendars.each { |cal| get_events_for_calendar(cal) }
   end
 
-def get_events_for_calendar(cal)
-
-  url = "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal["id"])}/events?access_token=#{token}"
-  response = open(url)
-  json = JSON.parse(response.read)
-  my_events = json["items"]
-
-  my_events.each do |event|
-    name = event["summary"] || "no name"
-    creator = event["creator"] ? event["creator"]["email"] : nil
-    start = event["start"] ? event["start"]["dateTime"] : nil
-    status = event["status"] || nil
-    link = event["htmlLink"] || nil
-    calendar = cal["summary"] || nil
-
-    events.create(name: name,
-                  creator: creator,
-                  status: status,
-                  start: start,
-                  link: link,
-                  calendar: calendar
-                  )
+  def get_events_for_calendar(cal)
+    url = "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal["id"])}/events?access_token=#{token}"
+    response = open(url)
+    json = JSON.parse(response.read)
+    my_events = json["items"]
+    my_events.each do |event|
+      name = event["summary"] || "no name"
+      creator = event["creator"] ? event["creator"]["email"] : nil
+      start = event["start"] ? event["start"]["dateTime"] : nil
+      status = event["status"] || nil
+      link = event["htmlLink"] || nil
+      calendar = cal["summary"] || nil
+      events.create(name: name,
+                    creator: creator,
+                    status: status,
+                    start: start,
+                    link: link,
+                    calendar: calendar
+                    )
     end
   end
 
@@ -156,7 +150,6 @@ def get_events_for_calendar(cal)
     end
     recoverable
   end
-
 
   private
     def send_user_mail                        # sending welcome mail to newly registered user

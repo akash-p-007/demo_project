@@ -5,17 +5,17 @@ class ApplicationController < ActionController::Base
 
 
   rescue_from CanCan::AccessDenied do |exception|  # denying access until user signs in
-  flash[:error] = "Access denied!"
-  redirect_to root_path
+    flash[:error] = "Access denied!"
+    redirect_to root_path
   end
    
-   def after_sign_in_path_for(resource) # after sigin admin or super admin are directed to admin dashboard
-      if current_user.role.name == "Admin" or current_user.role.name == "Superadmin"
-        users_path
-      else
-        root_url
-      end
-   end 
+  def after_sign_in_path_for(resource) # after sigin admin or super admin are directed to admin dashboard
+    if current_user.role.name == "Admin" or current_user.role.name == "Superadmin"
+      users_path
+    else
+      root_url
+    end
+  end 
 
   protected
 
@@ -30,9 +30,9 @@ class ApplicationController < ActionController::Base
       member = Membership.where(user_id: current_user.id)
       @group = Group.find(params[:group_id])
       if (@group.is_public) || (member.where(group_id: @group.id).present?) || current_user.superadmin? # 
-      return true
+        return true
       else
-      return false
+        return false
       end  
     end  
 

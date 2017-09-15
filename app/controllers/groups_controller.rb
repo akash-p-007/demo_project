@@ -59,15 +59,15 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
   def add_members
     @users = User.all 
   end
-  
+
   def destroy # for destroying complete group
-      @group.destroy
-      respond_to do |format|
+    @group.destroy
+    respond_to do |format|
       format.html { 
         redirect_to groups_url, notice: 'Group was successfully destroyed.'
-       }
+        }
       format.js 
-     end
+    end
   end
 
   private

@@ -21,7 +21,7 @@ class CommentsController < ApplicationController #Controller for handling CRUD f
   end
 
   def new
-      @comment = Comment.new
+    @comment = Comment.new
   end
 
   def destroy
