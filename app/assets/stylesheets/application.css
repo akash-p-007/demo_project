@@ -184,7 +184,7 @@ body {
   height: 100%;
   background-color: #000;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 body {
   color: #fff;

@@ -52,6 +52,7 @@ $(document).ready(function() {
 	$('.carousel').carousel({
   	interval: 6000,
   	pause: "false"
+  	
 	});
 $('#EditModal').on('hidden', function () {
   document.location.reload();
