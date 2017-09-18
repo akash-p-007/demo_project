@@ -16,39 +16,17 @@ ActiveRecord::Schema.define(version: 20170911140713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comment_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id",   null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations",   null: false
-  end
-
-  add_index "comment_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "comment_anc_desc_udx", unique: true, using: :btree
-  add_index "comment_hierarchies", ["descendant_id"], name: "comment_desc_idx", using: :btree
-
   create_table "comments", force: :cascade do |t|
     t.string   "name"
     t.text     "body"
     t.integer  "post_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "paredn_id"
-    t.integer  "parent_id"
     t.integer  "commentable_id"
     t.string   "commentable_type"
   end
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
-
-  create_table "contacts", force: :cascade do |t|
-    t.string   "email"
-    t.string   "name"
-    t.string   "tel"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -74,17 +52,6 @@ ActiveRecord::Schema.define(version: 20170911140713) do
   end
 
   add_index "groups", ["is_public"], name: "index_groups_on_is_public", using: :btree
-
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.decimal  "price",       precision: 5, scale: 2
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "user_id"
@@ -188,9 +155,7 @@ ActiveRecord::Schema.define(version: 20170911140713) do
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   add_foreign_key "comments", "posts"
-  add_foreign_key "contacts", "users"
   add_foreign_key "events", "users"
-  add_foreign_key "items", "users"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "posts", "groups"

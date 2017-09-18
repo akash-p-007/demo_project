@@ -16,11 +16,11 @@
 //= require_tree .
 $(document).ready(function() {
 
-  $('.fa').click(function(){
+  $('.fa').click(function(){                              // like button color change
     $(this).toggleClass('blue');
   });
 
-  $("#users-table").dataTable({
+  $("#users-table").dataTable({                           // No of items per page in data table is altered
     "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
     "iDisplayLength": 5,
   });
@@ -28,6 +28,7 @@ $(document).ready(function() {
   bJQueryUI: true     
   
   $("#unapproved_status").html('Approved');
+
   var $item = $('.carousel .item'); 
   var $wHeight = $(window).height();
   $item.eq(0).addClass('active');
@@ -54,9 +55,9 @@ $(document).ready(function() {
     pause: "false"  
   });
 
-  $('#EditModal').on('hidden', function () {
+  $('#EditModal').on('hidden', function () {            // On the exit of Modal, reload is performed
     document.location.reload();
   })
-  
+
   onclick="javascript:window.location.reload()"
 });

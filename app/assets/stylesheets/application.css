@@ -193,20 +193,15 @@ body {
   
 }
 
-/* Extra markup and styles for table-esque vertical and horizontal centering */
-
-
 body,
 html {
     width: 100%;
     height: 100%;
 }
 
-
 p.copyright {
     margin: 15px 0 0;
-}
-
+}ss
 
 #exTab1 .tab-content {
   color : white;
@@ -311,8 +306,8 @@ label{
     margin-left: -10px;
     margin-right: -10px;
 }
-
-.carousel-inner {
-    height: 100%;
-    z-index: -1;
-}
+.carousel-inner{
+  width:100%;
+  max-height: 900px !important;
+  z-index: -1;
+  }
