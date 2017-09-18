@@ -40,6 +40,8 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'bullet', group: :development
 # To keep a check on usused css
 gem 'deadweight'
+# to have HAML in place of erb
+gem 'haml-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server
