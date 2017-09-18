@@ -9,12 +9,10 @@ User has ability to create groups and add registered members to it.
 User can create posts that members can view
 Users can Comment for posts and reply for comments
 Comments and replies have been implemented in nested format.
-Composed of 3 types of users.
-1. Regular User
-2. Admin User
-3. Superadmin
+Composed of 3 types of users:1. Regular User 2. Admin User 2. Superadmin
 
 * Ruby version : 2.3.0
+
 * Rails version : 4.2.9
 
   * Gem File should include
@@ -31,7 +29,7 @@ Composed of 3 types of users.
       gem 'cancancan', '~> 1.10'
 
 About:
-It is a simple ruby on rails project consisting for following: User registration to access the application.This can be done using facebook,google+ or by signinig up manually.
+It is a simple ruby on rails project consisting of following: User registration to access the application.This can be done using facebook,google+ or by signinig up manually.
 Then is Group Creation.Group consists of only registered members and it can be public or private type.
 Each Group can have several Posts created by members of that group.Post have only title and description.
 It is like a discussion forum on a particular topic for the members present in that group.
