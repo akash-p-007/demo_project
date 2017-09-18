@@ -53,8 +53,10 @@ $(document).ready(function() {
     interval: 6000,
     pause: "false"  
   });
+
   $('#EditModal').on('hidden', function () {
     document.location.reload();
   })
+  
   onclick="javascript:window.location.reload()"
 });

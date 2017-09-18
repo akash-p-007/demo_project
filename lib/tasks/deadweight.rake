@@ -1,6 +1,8 @@
+# To keep a check on Unused CSS which may be present
+
 begin
   require 'deadweight'
-rescue LoadError
+	rescue LoadError
 end
 
 desc "run Deadweight CSS check (requires script/server)"

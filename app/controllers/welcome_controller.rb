@@ -1,4 +1,4 @@
-class WelcomeController < ApplicationController # a controller for welcome page which remains open until user signs in
+class WelcomeController < ApplicationController # Controller for welcome page which remains open until user signs in
   def index
   # Displays welcome page contents i.e. Caraousel  	
   end

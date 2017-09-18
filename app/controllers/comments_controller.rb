@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController #Controller for handling CRUD for comments
   
-  before_action :find_commentable # First a comment is checked whether Comment is done dor Post or a Comment
+  before_action :find_commentable # First a comment is checked whether Comment is done for Post or a Comment
   load_and_authorize_resource
 
   def create # For creating New Comment

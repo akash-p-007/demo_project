@@ -40,17 +40,17 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
   def update       #This is to change the group membership after the group is created.
     respond_to do |format|
     @group = Group.find(params[:group_id])  
-    @user = User.find(params[:user_id]) 
-    @group.users << @user unless @group.users.include? @user 
-      format.html { redirect_to add_members_group_path(@group), notice: 'Member was successfully Added.' }
+    user = User.find(params[:user_id]) 
+    @group.users << user unless @group.users.include? user 
+      format.html { redirect_to add_members_group_path(@group), notice: 'Members successfully Updated.' }
     end
   end
 
   def remove_member # this will remove members from the group member list after the creation of the group is done
     @group = Group.find(params[:group_id])  
-    @user = User.find(params[:user_id])
+    user = User.find(params[:user_id])
     respond_to do |format|
-      member = Membership.where(user_id:@user.id,group_id:@group.id)
+      member = Membership.where(user_id:user.id,group_id:@group.id)
       Membership.delete(member)
       format.html { redirect_to add_members_group_path(@group), notice: 'Member was successfully destroyed.' }
     end
@@ -61,12 +61,13 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
   end
 
   def destroy # for destroying complete group
-    @group.destroy
     respond_to do |format|
-      format.html { 
-        redirect_to groups_url, notice: 'Group was successfully destroyed.'
-        }
-      format.js 
+      if @group.destroy
+        format.html {redirect_to groups_url, notice: 'Group was successfully destroyed.'}
+        format.js 
+      else
+        format.html {redirect_to groups_url, notice: "Group can't be destroyed."}  
+      end
     end
   end
 

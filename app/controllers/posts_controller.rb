@@ -59,7 +59,7 @@ class PostsController < ApplicationController # A controller for handling Posts 
     end   
   end
 
-  def vote
+  def vote             # To upvote or downvote the post using Like Button
     if !current_user.liked? @post
       @post.liked_by current_user
     elsif current_user.liked? @post

@@ -32,10 +32,8 @@ class UsersController < ApplicationController # controller for handling users.
       if verify_recaptcha(model: @user) && @user.save
         #User.invite!(:email => @user.email, :name=> @user.name) 
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -45,7 +43,7 @@ class UsersController < ApplicationController # controller for handling users.
       user_params.delete(:password)
       user_params.delete(:password_confirmation)
     end
-    if @user == current_user
+    if @user == current_user # Current user can't edit his profile details i.e. Roles
       successfully_updated = @user.update(user_params_restricted)
     else   
       successfully_updated = if needs_password?(@user, user_params)

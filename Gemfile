@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.9'
 # Use postgresql as the database for Active Record
@@ -35,11 +34,11 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'google-api-client', '~> 0.11', require: 'google/apis/calendar_v3'
 # To have proper pagination
 gem 'will_paginate', '~> 3.1.0'
-
+# To have a like button for posts, acts_as_votable gem is used
 gem 'acts_as_votable', '~> 0.10.0'
-
+# To keep a check on eager loading and caching
 gem 'bullet', group: :development
-
+# To keep a check on usused css
 gem 'deadweight'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

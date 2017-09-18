@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20170911140713) do
     t.text     "description"
     t.decimal  "price",       precision: 5, scale: 2
     t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
