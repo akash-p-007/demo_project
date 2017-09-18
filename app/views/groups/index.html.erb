@@ -1,52 +1,52 @@
 <!-- Table displaying all the groups created.Superadmin can see all groups whereas others can see who belongs to that group -->
 <h1>Listing Groups</h1>
 <div class='btn-group'>
-    <%= link_to 'Create New Group', new_group_path, class: "btn btn-default"%>    
+  <%= link_to 'Create New Group', new_group_path, class: "btn btn-default"%>    
 </div>
 <div class="container">
-	<div class="table-responsive">
-	<table id="users-table"  class="table-condensed table-hover" cellspacing="10" width="100%" >
-		<thead>
-			<th>Group Name</th>
-			<th>Group Creator</th>
-			<th>Add/Delete Members</th>
-			<th>View Posts</th>
-			<th>Delete Group</th>
-		</thead>
-		<tbody>
-			<% @groups.each do |group|%>
-			<% if (group.is_public) || (@member.where(group_id: group.id).present?) || current_user.superadmin?%>
-			<tr class="row_<%= group.id %>">
-				<td>
-					<%= link_to "#{group.name}".html_safe, group, "data-toggle" => "modal", 'data-target' => "#show_modal_#{group.id}"%>
-					<div class="modal fade" id="show_modal_<%= group.id %>">
-  					<div class="modal-dialog modal-lg">
-    					<div class="modal-content">                      
-    					</div>
-  					</div>
-					</div>
-				</td>
-				<td>
-					<%= group.created_by %>						
-				</td>
-				<td>
-					<% if can? :add_members, group %>	<%= link_to "Edit",add_members_group_path(group) %>
-					<% end %>
-				</td>
-				<td>
-					<% if can? :read, group %>	<%= link_to "Posts for this Group",group_posts_path(group)%>
-		 			<% end %>
-				</td>						
-				<td>
-					<% if can? :destroy, group %> <%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, group,remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
-					<% end %>
-				</td>		
-			</tr>	
-			<% end %>
-			<% end %>
-		</tbody>
-	</table>
-	</div>
+  <div class="table-responsive">
+  <table id="users-table"  class="table-condensed table-hover" cellspacing="10" width="100%" >
+    <thead>
+      <th>Group Name</th>
+      <th>Group Creator</th>
+      <th>Add/Delete Members</th>
+      <th>View Posts</th>
+      <th>Delete Group</th>
+    </thead>
+    <tbody>
+      <% @groups.each do |group|%>
+      <% if (group.is_public) || (@member.where(group_id: group.id).present?) || current_user.superadmin?%>
+      <tr class="row_<%= group.id %>">
+        <td>
+          <%= link_to "#{group.name}".html_safe, group, "data-toggle" => "modal", 'data-target' => "#show_modal_#{group.id}"%>
+          <div class="modal fade" id="show_modal_<%= group.id %>">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">                      
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <%= group.created_by %>            
+        </td>
+        <td>
+          <% if can? :add_members, group %>  <%= link_to "Edit",add_members_group_path(group) %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :read, group %>  <%= link_to "Posts for this Group",group_posts_path(group)%>
+           <% end %>
+        </td>            
+        <td>
+          <% if can? :destroy, group %> <%= link_to "<i class='glyphicon glyphicon-remove-sign'></i>&nbsp; Destroy".html_safe, group,remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>    
+      </tr>  
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
 </div>
 
 </div>

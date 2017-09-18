@@ -77,7 +77,7 @@ class User < ActiveRecord::Base # This model handles everything realted to users
     end
   end
 
-  def password_required?                            # password validation is avoided as authentication is done using registered accounts
+  def password_required?               # password validation is avoided as authentication is done using registered accounts
     super && provider.blank?
   end
 
