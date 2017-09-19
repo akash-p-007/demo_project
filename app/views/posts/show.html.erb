@@ -13,7 +13,11 @@
     <div>  
       <span>
         <p>
-          <i class="fa fa-thumbs-up fa-3x"></i>
+          <%if @post.get_upvotes.size>0 %>
+            <i class="fa fa-thumbs-up fa-3x blue"></i>
+          <% else %>
+            <i class="fa fa-thumbs-up fa-3x"></i>
+          <% end %>
         </p>
       </span>
     </div>
