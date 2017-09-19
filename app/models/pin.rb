@@ -5,7 +5,7 @@ class Pin < ActiveRecord::Base
 	has_attached_file :image, styles: { :medium => "300x300>",:thumb => '50x50>', :preview => '270x270>'}
 	validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 	after_post_process :compress
-	private
+private
   def compress
     current_format = File.extname(image.queued_for_write[:original].path)
 
@@ -42,5 +42,4 @@ class Pin < ActiveRecord::Base
     logger.debug("#{current_size} - #{compressed_size} - #{compressed_ratio}")
     logger.debug("PNG family compressed, compressed: #{ '%.2f' % (compressed_ratio * 100) }%")   
   end                              
-end
 end
