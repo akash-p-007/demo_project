@@ -13,7 +13,8 @@
     <div>  
       <span>
         <p>
-          <%if @post.get_upvotes.size>0 %>
+          <% @likes_count = @post.get_upvotes.size %>
+          <%if @likes_count>0 %>
             <i class="fa fa-thumbs-up fa-3x blue"></i>
           <% else %>
             <i class="fa fa-thumbs-up fa-3x"></i>
@@ -22,7 +23,7 @@
       </span>
     </div>
   <% end %>
-  Likes:<span class="likes-count"><%= @post.get_upvotes.size %></span>
+  Likes:<span class="likes-count"><%= @likes_count %></span>
   </p>
   
   <p class="body">

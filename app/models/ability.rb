@@ -4,25 +4,18 @@ class Ability             # model which tells the part of accessible to user dep
   def initialize(user)    # For handling access to certain modules using cancan gem
     user ||= User.new     # Guest user
 
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     if user.superadmin?   # Super Admin can access all 
       can :manage, :all
     end
 
     if user.admin?     # Admin have limited access.It can read read and create user but deleting power is only to super admin
-      can :read, User
-      can :create, User
-      can :update, User
-
+      can :crud, User
       can :read, Event
-      
       can :read, Group
       can :new, Group
-
-      can :new, Post
-      can :read, Post
-      can :create, Post
-      can :like, Post
-      
+      can :crud, Post
       can :create, Comment
       can :update, Group do |group|
         group.try(:user) == user || group.created_by == (user.name)
@@ -61,6 +54,7 @@ class Ability             # model which tells the part of accessible to user dep
         group.try(:user) == user || group.created_by== (user.name)
       end 
       can :like, Post
+      can :update, Post
       can :read, Post
       can :create, Comment
       can :update, Comment do |comment|
