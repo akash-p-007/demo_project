@@ -14,7 +14,14 @@ class User < ActiveRecord::Base # This model handles everything realted to users
   acts_as_voter        
   belongs_to :role
   belongs_to :group
-  validates_presence_of :name # Name is mandatory
+  
+  NAME_REGEX = /\A[^0-9`!@#\$%\^&*+_=]+\z/
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i         
+ 
+  validates :name, presence: true 
+  validates_format_of :name, :with => NAME_REGEX, message: "Name can't be blank"  
+  validates :email, presence: true
+  validates_format_of :email, :with => EMAIL_REGEX , message: "Please enter a valid email id"  
   before_save :assign_role # By default role will be regular if not specified 
   
   def after_confirmation   # Send welcome mail after user is successfully registered
