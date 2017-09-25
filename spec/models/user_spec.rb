@@ -44,6 +44,6 @@ RSpec.describe User, type: :model do
       email:"johndoe@example.com",
     )
     expect(user.name).to eq "Chandler Bing"
-  end  
+  end
 
 end

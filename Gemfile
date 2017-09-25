@@ -44,14 +44,24 @@ gem 'deadweight'
 gem 'haml-rails'
 
 group :development, :test do
+	#rspec-rails includes RSpec itself in a wrapper to make it play nicely with Rails 3.
   gem 'rspec-rails'
+  #factory_girl_rails replaces Rails’ default fixtures for feeding test data to the test suite with much more preferable factories.
+  gem 'factory_girl_rails'
 end
 
 group :test do
-	gem 'database_cleaner'
-	gem 'capybara'
-end	
-
+	#faker generates names, email addresses, and other placeholders for factories.
+  gem 'faker'
+  #capybara makes it easy to programatically simulate your users’ interactions with your application.
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  #guard-rspec watches your application and tests and runs specs for you automatically when it detects changes.
+  gem 'guard-rspec'
+  #launchy does one thing, but does it well: It opens your default web browser upon failed integration specs to show you what your application is rendering.
+  gem 'launchy'
+  gem 'database_cleaner'
+end
 group :development, :test do
   gem 'byebug'
 end
