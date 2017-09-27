@@ -3,8 +3,8 @@ require './spec/support/controller_macros'
 RSpec.describe  UsersController, :type => :controller do 
 
   describe "GET #index" do
-  	login_user
-  	it "responds successfully with an HTTP 200 status code" do
+    login_user
+    it "responds successfully with an HTTP 200 status code" do
       get :index
       expect(response).to be_success
       expect(response).to have_http_status(200)
@@ -16,7 +16,7 @@ RSpec.describe  UsersController, :type => :controller do
     end
     
     it "matches the index of users" do
-      expect(:get => '/admin/users').to route_to(:controller => "users", :action => "index")
+      expect(:get => '/admin/users').to route_to("format"=>"html", "controller"=>"users", "action"=>"index")
     end
   end
 end    

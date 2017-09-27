@@ -14,13 +14,17 @@ describe  PostsController do
       
   describe "GET #index" do
     it "populates an array of posts" do
-    	post = FactoryGirl.create(:post)
-    	get :index
-    	assigns(:post).should eq([post])
+    	FactoryGirl.create(:group)
+      post = FactoryGirl.create(:post)
+      get :index
+      assigns(:post).should eq([post])
     end
     it "matches the routes" do
-    	expect(:get => '/groups/:group_id/posts(.:format)').to route_to(:controller => "posts", :action => "index", :group_id => "1")
- 		end
+
+    	FactoryGirl.create(:group)
+    	FactoryGirl.create(:post)  	
+      expect(:get => '/groups/:group_id/posts(.:format)').to route_to(:format => "html", :controller => "posts", :action => "index", :group_id => "1")
+     end
   end
 
 end

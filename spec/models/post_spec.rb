@@ -10,12 +10,12 @@ RSpec.describe Post, type: :model do
     expect(post).to be_valid
   end
 
-  # it "is invalid without a title" do
-  #   post = Post.new(
-  #   title: nil)
-  #   post.valid?
-  #   expect(post.errors[:title]).to include("can't be blank")
-  # end
+  it "is invalid without a title" do
+    post = Post.new(
+    title: nil)
+    post.valid?
+    expect(post.errors[:title]).to include("can't be blank")
+  end
   
   it "cant have nil comments" do
     post = Post.new(title:"abcdef",body:"dottle-nouveau-pavilion-tights-furze",)
@@ -31,25 +31,24 @@ RSpec.describe Post, type: :model do
     comment2 = post.comments.create!(:body => "second comment")
     expect(post.reload.comments).to eq([comment1, comment2])
   end
-  
 
   it "has a valid factory" do
-    post = FactoryGirl.create(:post)
+    FactoryGirl.create(:group)
+    post = FactoryGirl.build(:post)
     post.valid?
   end
   
   it "does not allow duplicate title per post" do
+    FactoryGirl.create(:group)
     post1 = FactoryGirl.create(:post, title: "abcdef",body: "abc")
-    post2 = FactoryGirl.create(:post,title: "abcdef",body: "abc")
-    post2.not_valid?
+    post2 = FactoryGirl.build(:post,title: "abcdef",body: "abc")
+    post2.valid?
   end
 
   it "is invalid without a title" do
     post = FactoryGirl.build(:post, title: nil)
-
     post.valid?
     expect(post.errors[:title]).to include("can't be blank")
-
   end
 
 end  

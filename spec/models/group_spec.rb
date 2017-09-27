@@ -3,15 +3,11 @@ require 'rails_helper'
 RSpec.describe Group do
   
   it "is valid with a name and description" do
-     group = Group.new(
-    name: "Aron Sumner",
-    desc:"dottle-nouveau-pavilion-tights-furze",
-    )
+     group = FactoryGirl.build(:group)
     expect(group).to be_valid
   end
   it "is invalid without a name" do
-    group = Group.new(
-    name: nil)
+    group = FactoryGirl.build(:group, name: nil)
     group.valid?
     expect(group.errors[:name]).to include("can't be blank")
   end
