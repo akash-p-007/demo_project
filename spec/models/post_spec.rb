@@ -34,17 +34,22 @@ RSpec.describe Post, type: :model do
   
 
   it "has a valid factory" do
-    FactoryGirl.create(:post).should be_valid
+    post = FactoryGirl.create(:post)
+    post.valid?
   end
   
   it "does not allow duplicate title per post" do
-    #post = FactoryGirl(:post)
-    FactoryGirl.create(:post, title: "abcdef",body: "abc")
-    FactoryGirl.create(:post,title: "abcdef",body: "abc").should_not be_valid
+    post1 = FactoryGirl.create(:post, title: "abcdef",body: "abc")
+    post2 = FactoryGirl.create(:post,title: "abcdef",body: "abc")
+    post2.not_valid?
   end
 
   it "is invalid without a title" do
-    FactoryGirl.build(:post, title: nil).should_not be_valid
+    post = FactoryGirl.build(:post, title: nil)
+
+    post.valid?
+    expect(post.errors[:title]).to include("can't be blank")
+
   end
 
 end  

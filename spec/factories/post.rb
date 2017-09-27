@@ -1,10 +1,10 @@
-require 'faker'
-
 FactoryGirl.define do
 
-	factory :post do
-	  title "abcdef"
-	  body  "this is body for abcdef"
-	end
+  factory :post do
 
-end	
+    title "abcdef"
+    body  "this is body for abcdef"
+  
+  end
+
+end  
