@@ -27,17 +27,11 @@ describe  PostsController do
   end  
       
   describe "GET #index" do
-    # it "populates an array of posts" do
-    # 	FactoryGirl.create(:group)
-    #   post = FactoryGirl.create(:post)
-    #   get :index
-     
-    # end
     it "matches the routes" do
     	FactoryGirl.create(:group)
     	FactoryGirl.create(:post)  	
       expect(:get => '/groups/:group_id/posts').to route_to(:controller => "posts", :action => "index", :group_id => ":group_id")
-     end
+    end
   end
 
   describe "GET #show" do
@@ -53,5 +47,4 @@ describe  PostsController do
       expect(response).to render_template("show")
     end
   end
-
 end
