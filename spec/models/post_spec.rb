@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'factory_girl'
 RSpec.describe Post, type: :model do
   
   it "is valid with a title and body" do
@@ -15,6 +14,13 @@ RSpec.describe Post, type: :model do
     title: nil)
     post.valid?
     expect(post.errors[:title]).to include("can't be blank")
+  end
+
+  it "is invalid without a body" do
+    post = Post.new(
+    body: nil)
+    post.valid?
+    expect(post.errors[:body]).to include("can't be blank")
   end
   
   it "cant have nil comments" do
@@ -49,6 +55,21 @@ RSpec.describe Post, type: :model do
     post = FactoryGirl.build(:post, title: nil)
     post.valid?
     expect(post.errors[:title]).to include("can't be blank")
+  end
+
+  it "can have many comments" do                 #Checking association: posts has many comments
+    t = Post.reflect_on_association(:comments)
+    expect(t.macro).to eq(:has_many)
+  end
+
+  it "should belongs to user" do                 #Checking association: posts belongs to user user
+    t = Post.reflect_on_association(:user)
+    expect(t.macro).to eq(:belongs_to)
+  end
+
+  it "should belongs to group" do                 #Checking association: posts belongs to user group
+    t = Post.reflect_on_association(:group)
+    expect(t.macro).to eq(:belongs_to)
   end
 
 end  

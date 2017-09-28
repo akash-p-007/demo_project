@@ -61,6 +61,9 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
   end
 
   def destroy # for destroying complete group
+    if @group.nil? 
+      redirect_to root_path
+    end  
     respond_to do |format|
       if @group.destroy
         format.html {redirect_to groups_url, notice: 'Group was successfully destroyed.'}

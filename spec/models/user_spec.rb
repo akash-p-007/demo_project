@@ -41,4 +41,26 @@ RSpec.describe User, type: :model do
     expect(user.name).to eq "Chandler Bing"
   end
 
+  it "should have many groups" do                 #Checking association user has many groups
+    t = User.reflect_on_association(:groups)
+    expect(t.macro).to eq(:has_many)
+  end
+  it "should have many posts" do                 #Checking association user has many posts
+    t = User.reflect_on_association(:posts)
+    expect(t.macro).to eq(:has_many)
+  end
+  it "should have many events" do                 #Checking association user has many events
+    t = User.reflect_on_association(:events)
+    expect(t.macro).to eq(:has_many)
+  end
+  it "should belong to role" do                 #Checking association belongs to role
+    t = User.reflect_on_association(:role)
+    expect(t.macro).to eq(:belongs_to)
+  end
+
+  it "should belong to group" do                 #Checking association user belongs to group
+    t = User.reflect_on_association(:group)
+    expect(t.macro).to eq(:belongs_to)
+  end
+
 end

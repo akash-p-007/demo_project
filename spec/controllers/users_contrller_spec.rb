@@ -1,15 +1,17 @@
 require 'rails_helper'
-require './spec/support/controller_macros'
+require 'support/controller_macros'
 RSpec.describe  UsersController, :type => :controller do 
+
+  describe 'GET #new' do
+    it "requires login" do
+      FactoryGirl.create(:group)
+      get :new
+      expect(response).to redirect_to new_user_session_path
+    end
+  end
 
   describe "GET #index" do
     login_user
-    it "responds successfully with an HTTP 200 status code" do
-      get :index
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
-    end
-  	
   	it "renders the index template" do
       get :index
       expect(response).to render_template("index")
