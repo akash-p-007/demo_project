@@ -1,28 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe Group do
-  
-  it "is valid with a name and description" do
-     group = FactoryGirl.build(:group)
-    expect(group).to be_valid
+RSpec.describe Group,type: :model do
+
+  context 'validations' do    
+    before { FactoryGirl.build(:user)}
+
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:desc) }
+    it "is invalid without a name" do
+      group = FactoryGirl.build(:group, name: nil)
+      group.valid?
+      expect(group.errors[:name]).to include("can't be blank")
+    end
+    it "is invalid without a description" do
+      group = FactoryGirl.build(:group, desc: nil)
+      group.valid?
+      expect(group.errors[:desc]).to include("can't be blank")
+    end
   end
-  it "is invalid without a name" do
-    group = FactoryGirl.build(:group, name: nil)
-    group.valid?
-    expect(group.errors[:name]).to include("can't be blank")
+
+  context 'association' do
+    it { should have_many(:posts) }
+    it { should have_many(:users) }
   end
-  it "is invalid without a description" do
-    group = FactoryGirl.build(:group, desc: nil)
-    group.valid?
-    expect(group.errors[:desc]).to include("can't be blank")
-  end
-  it "should have many users" do                 #Checking association group has many users
-    t = Group.reflect_on_association(:users)
-    expect(t.macro).to eq(:has_many)
-  end
-  it "should have many posts" do                 #Checking association group has many post
-    t = Group.reflect_on_association(:posts)
-    expect(t.macro).to eq(:has_many)
-  end
-  
+
 end

@@ -61,6 +61,7 @@ group :test do
   #launchy does one thing, but does it well: It opens your default web browser upon failed integration specs to show you what your application is rendering.
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 group :development, :test do
   gem 'byebug'
