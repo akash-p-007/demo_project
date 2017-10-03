@@ -24,7 +24,7 @@ RSpec.describe Post, type: :model do
     end
     
     it "cant have nil comments" do
-      post = Post.new(title:"abcdef",body:"dottle-nouveau-pavilion-tights-furze",)
+      post = Post.new(title:"abcdef",body:"This is my body for the title abcdef")
       post.save!
       comment = post.comments.create!(body: nil)
       comment.valid?
@@ -45,7 +45,7 @@ RSpec.describe Post, type: :model do
   end  
   
   it "orders them in chronologically" do
-    post = Post.new(title:"abcdef",body:"dottle-nouveau-pavilion-tights-furze",)
+    post = Post.new(title:"abcdef",body:"dottle-nouveau-pavilion-tights-furz")
     post.save!
     comment1 = post.comments.create!(:body => "first comment")
     comment2 = post.comments.create!(:body => "second comment")
