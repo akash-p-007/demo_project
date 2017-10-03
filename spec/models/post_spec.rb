@@ -23,12 +23,12 @@ RSpec.describe Post, type: :model do
       expect(post.errors[:body]).to include("can't be blank")
     end
     
-    it "cant have nil comments" do
+    it "can't have nil comments" do
       post = Post.new(title:"abcdef",body:"This is my body for the title abcdef")
       post.save!
-      comment = post.comments.create!(body: nil)
+      comment = post.comments.create(body: nil)
+      post.valid?
       comment.valid?
-      expect(post.comment.errors[:body]).to include("Body can't be blank")
     end
 
     it "has a valid factory" do
