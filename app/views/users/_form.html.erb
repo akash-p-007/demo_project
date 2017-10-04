@@ -2,7 +2,12 @@
 <div class="container">
 <div id="form">
 <%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
-  <% if @user.errors.any? %>
+  <div class="row">
+  <div class="form-group col-xs-4 col-lg-4 col-md-4">
+  </div>  
+  <div class="form-group col-xs-4 col-lg-4 col-md-4">
+    <div class="field">
+    <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
       <ul>
@@ -11,7 +16,10 @@
       <% end %>
       </ul>
     </div>
+  </div>
   <% end %>
+  </div>
+  </div>
   <div class="row">
     <div class="form-group col-xs-4 col-lg-12 col-md-12">
       <div class="field">

@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController # Controller for handling CRUD in groups
   before_filter :authenticate_user!
- # load_and_authorize_resource
+  load_and_authorize_resource
 
   def index
     @member = Membership.where(user_id: current_user.id)

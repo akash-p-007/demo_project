@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'support/controller_macros'
 RSpec.describe  UsersController, :type => :controller do 
 
+  
   describe 'GET #new' do
     it "requires login" do
       FactoryGirl.create(:group)

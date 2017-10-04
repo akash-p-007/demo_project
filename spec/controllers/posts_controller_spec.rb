@@ -1,7 +1,18 @@
 require 'rails_helper'
 
 describe  PostsController do 
+  #   before do
+  #   	create(:user,id: 1)
+  #   	group(:group,id: 1)
+  #   	post(:post)
+  #   end	
+		# describe 'GET #show' do
+  #   before { get :show }
 
+  #   it { should redirect_to(posts_path) }
+  #   it { should redirect_to(action: :index) }
+  #   end
+  # end
 	# describe 'GET #new' do
  #    it "requires login" do
  #    	FactoryGirl.create(:group)

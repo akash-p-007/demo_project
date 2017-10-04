@@ -9,12 +9,11 @@ RSpec.describe  GroupsController, :type => :controller do
     end
   end
 
-  describe "POST #create" do
+  describe "Group #create" do
     it "requires login" do
-      post :create, post: FactoryGirl.attributes_for(:post)
+      post :create, group: FactoryGirl.attributes_for(:group)
       expect(response).to redirect_to new_user_session_path
     end
-  end
 
   describe "GET #index" do
   	login_user
