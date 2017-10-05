@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 describe  PostsController do 
+
+	before(:each) do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    user = FactoryGirl.create(:user)
+    sign_in user, scope: :user
+  end
+
+  it{
+      expect(response).to be_success
+    }
+
+  describe "GET #index" do
+    it "matches the routes" do
+    	FactoryGirl.create(:group)
+    	FactoryGirl.create(:post)  	
+      expect(:get => '/groups/:group_id/posts').to route_to(:controller => "posts", :action => "index", :group_id => ":group_id")
+    end
+  end  
+
+
   #   before do
   #   	create(:user,id: 1)
   #   	group(:group,id: 1)

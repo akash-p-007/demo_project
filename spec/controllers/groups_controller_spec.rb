@@ -2,50 +2,41 @@ require 'rails_helper'
 require 'support/controller_macros'
 RSpec.describe  GroupsController, :type => :controller do 
 
-	describe 'GET #new' do
+describe 'GET #new' do
     it "requires login" do
     	get :new
       expect(response).to redirect_to new_user_session_path
     end
+    it{      
+      expect(response).to be_success    }
   end
 
-  describe "Group #create" do
-    it "requires login" do
-      post :create, group: FactoryGirl.attributes_for(:group)
-      expect(response).to redirect_to new_user_session_path
-    end
 
   describe "GET #index" do
   	login_user
-  	it "responds successfully with an HTTP 200 status code" do
+  	it "responds successfully with an HTTP 302 status code" do
       get :index
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(302)
     end
-  	
   	it "renders the index template" do
       get :index
-      expect(response).to render_template("index")
+      expect(response).to redirect_to root_path
     end
-    
     it "matches the index of groups" do
       expect(:get => '/groups').to route_to(:controller => "groups", :action => "index")
     end
 
     context "with invalid attributes" do
-    
       it "does not save the new group" do
         expect{
           post :create, group: FactoryGirl.attributes_for(:invalid_group)
         }.to_not change(Group, :count)
       end
-     
       it "re-renders the new method" do
         post :create, group: FactoryGirl.attributes_for(:invalid_group)
-        expect(response).to render_template("new")
+        expect(response).to redirect_to root_path
       end
     end
-
   end
 
   describe "GET #show" do
@@ -56,7 +47,7 @@ RSpec.describe  GroupsController, :type => :controller do
     end
     it "renders the #show view" do
       get :show, id: FactoryGirl.create(:group)
-      expect(response).to render_template("show")
+      expect(response).to redirect_to root_path
     end
   end
 
