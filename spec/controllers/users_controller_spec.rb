@@ -13,7 +13,11 @@ RSpec.describe  UsersController, :type => :controller do
 
   describe "GET #index" do
     login_user
-  	it "renders the index template" do
+    it {
+      expect(:get => 'edit/1'). 
+      should_not render_with_layout 
+    }
+    it "renders the index template" do
       get :index
       expect(response).to redirect_to root_path
     end

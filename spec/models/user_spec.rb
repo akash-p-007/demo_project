@@ -39,8 +39,7 @@ RSpec.describe User, type: :model do
       
   context 'association' do
 
-    it {
-    should have_many(:groups) }
+    it { should have_many(:groups) }
     it { should have_many(:posts) }
     it { should have_many(:events) }
     it { should belong_to(:role) }
@@ -50,6 +49,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  let(:user) { FactoryGirl.create(:user)}
+    it 'is an instance of User' do
+      expect(subject).to be_a User
+    end  
+    it 'is not persisted' do
+      expect(subject).to_not be_persisted
+    end 
+    
   it "returns a user's full name as a string" do
     user = User.new(
       name: "Chandler Bing",
