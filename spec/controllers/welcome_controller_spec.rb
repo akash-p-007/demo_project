@@ -14,6 +14,13 @@ RSpec.describe  WelcomeController, :type => :controller do
       get :index
       expect(response).to render_template("index")
     end
-    
+    it "not render contact us layout"do
+      expect(:get => 'contact'). 
+      not_to render_with_layout 
+    end
+    it "not render about us layout" do
+      expect(:get => 'about'). 
+      not_to render_with_layout 
+    end
   end
 end  

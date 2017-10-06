@@ -13,10 +13,17 @@ RSpec.describe  UsersController, :type => :controller do
 
   describe "GET #index" do
     login_user
-    it {
+    
+    it "do not render edit user" do
       expect(:get => 'edit/1'). 
-      should_not render_with_layout 
-    }
+      not_to render_with_layout 
+    end
+
+    it "do not render show user" do
+      expect(:get => 'show/1'). 
+      not_to render_with_layout 
+    end
+
     it "renders the index template" do
       get :index
       expect(response).to redirect_to root_path
@@ -25,5 +32,6 @@ RSpec.describe  UsersController, :type => :controller do
     it "matches the index of users" do
       expect(:get => '/admin/users').to route_to("format"=>"html", "controller"=>"users", "action"=>"index")
     end
+    
   end
 end    
