@@ -31,7 +31,7 @@ class UsersController < ApplicationController # controller for handling users.
     respond_to do |format|
       if verify_recaptcha(model: @user) && @user.save
         #User.invite!(:email => @user.email, :name=> @user.name) 
-        format.html { redirect_to users_path, notice: 'User was successfully created.' }
+        format.html { redirect_to users_path, flash[:notice] => 'User was successfully created.' }
       else
         format.html { render :new }
       end
@@ -69,13 +69,16 @@ class UsersController < ApplicationController # controller for handling users.
     user.update(approved: params[:approved])
   end
 
-  def destroy                         # deleting user permanently
+  def destroy  
+  @user = User.find_by_id(params[:id])
+    if !! @user                       # deleting user permanently
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: 'User was successfully deleted.' }
       format.json { head :no_content }
       format.js 
     end
+  end
   end
 
   protected

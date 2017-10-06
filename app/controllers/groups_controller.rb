@@ -61,6 +61,7 @@ class GroupsController < ApplicationController # Controller for handling CRUD in
   end
 
   def destroy # for destroying complete group
+    @user = User.find_by_id(params[:id])
     if @group.nil? 
       redirect_to root_path
     end  
