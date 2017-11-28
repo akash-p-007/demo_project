@@ -13,6 +13,9 @@ gem 'devise'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'twilio-ruby', '~> 3.12'
+# for sending voice call,sms etc
+
 gem 'turbolinks'
 gem 'bootstrap_form'
 gem 'devise_invitable', '~> 1.7.0'

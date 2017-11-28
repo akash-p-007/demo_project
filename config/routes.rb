@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  
+  post 'notifications/notify' => 'notifications#notify'  
+  post 'twilio/voice' => 'twilio#voice'
   root to: "welcome#index"
   
   get 'events/index'

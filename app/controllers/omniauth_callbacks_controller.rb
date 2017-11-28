@@ -1,6 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController # Only for authenticating users using their facebook or google account
   
-  def facebook             # all is Alias which will be called for facebook,google+ and twitter login 
+  def facebook             
     user = User.from_omniauth(request.env["omniauth.auth"])
     if user.persisted?          # if user is found then he is logged in otherwise redirected to registration page
       flash.notice = "Account Sccessfully authenticated."
