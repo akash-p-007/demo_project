@@ -1,0 +1,53 @@
+<h1>   Bill/Estimate</h1>
+ <div class="container">
+  <%= bootstrap_form_for bills_path do |f| %>
+     <%= f.select :bill_type, ['Estimate', 'Bill']%>
+     <%= f.text_field :customer_name %>
+     <%= f.telephone_field :customer_contact_number %>
+     <%= f.text_field :customer_address %>
+     <%= f.date_field :date, value:Date.today %>
+     <table class="coolTable transTable" id="bill-table" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th class="sorting">Qty</th>
+            <th class="sorting">Particulars</th>
+            <th class="sorting">Rate</th>
+            <th class="sorting hidden-xs">Amount</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="short"><%= f.number_field :particular_qty, hide_label: true %></td>
+              <td><%= f.text_field :particular_name, hide_label: true %></td>
+              <td><%= f.number_field :particular_rate, hide_label: true %></td>
+              <td><%= f.number_field :particular_amount, hide_label: true  %></td>
+            </tr>
+
+            <tr>
+              <td class="short"><%= f.number_field :particular_qty, hide_label: true %></td>
+              <td><%= f.text_field :particular_name, hide_label: true %></td>
+              <td><%= f.number_field :particular_rate, hide_label: true %></td>
+              <td><%= f.number_field :particular_amount, hide_label: true  %></td>
+            </tr>
+
+
+            <tr>
+              <td class="short"><%= f.number_field :particular_qty, hide_label: true %></td>
+              <td><%= f.text_field :particular_name, hide_label: true %></td>
+              <td><%= f.number_field :particular_rate, hide_label: true %></td>
+              <td><%= f.number_field :particular_amount, hide_label: true  %></td>
+            </tr>
+
+
+            <tr>
+              <td class="short"><%= f.number_field :particular_qty, hide_label: true %></td>
+              <td><%= f.text_field :particular_name, hide_label: true %></td>
+              <td><%= f.number_field :particular_rate, hide_label: true %></td>
+              <td><%= f.number_field :particular_amount, hide_label: true  %></td>
+            </tr>
+        </tbody>
+      </table>
+     <%= f.submit "Generate Bill" %>
+
+  <% end %>
