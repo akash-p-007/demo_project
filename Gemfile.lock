@@ -66,9 +66,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    commontator (4.11.1)
-      jquery-rails
-      rails (>= 3.1)
     concurrent-ruby (1.0.5)
     debug_inspector (0.0.3)
     devise (4.3.0)
@@ -141,7 +138,7 @@ GEM
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
       mime-types
-    pg (0.21.0)
+    pg (0.18.4)
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -233,7 +230,6 @@ DEPENDENCIES
   byebug
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
-  commontator (~> 4.11.1)
   devise
   devise_invitable (~> 1.7.0)
   haml (~> 4.0.5)
@@ -244,7 +240,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   paperclip (~> 4.2.0)
-  pg (~> 0.15)
+  pg (~> 0.18.4)
   rails (= 4.2.9)
   recaptcha
   sass-rails (~> 5.0)
@@ -256,4 +252,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.15.3
+   1.16.2

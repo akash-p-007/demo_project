@@ -7,7 +7,7 @@ class PinsController < ApplicationController
 
 	def show
 		@pin = Pin.find(params[:id])
-		commontator_thread_show(@pin)
+		
 	end
 
 	def new

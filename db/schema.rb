@@ -58,17 +58,6 @@ ActiveRecord::Schema.define(version: 20170822133551) do
 
   add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true, using: :btree
 
-  create_table "events", force: :cascade do |t|
-    t.string   "name"
-    t.string   "creator"
-    t.datetime "start"
-    t.string   "status"
-    t.string   "link"
-    t.string   "calendar"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "items", force: :cascade do |t|
     t.string   "name"
     t.text     "description"

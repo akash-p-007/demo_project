@@ -16,8 +16,7 @@ Rails.application.routes.draw do
     member do
       put "like", to:"pins#upvote"
     end
-    mount Commontator::Engine => '/commontator'
-
+  
   end
    authenticated :user do  
     root :to => 'items#index', as: :authenticated_root  

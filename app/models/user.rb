@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :pins
   validates_presence_of :name
 	before_save :assign_role # By default role will be regular if not specified 
-	acts_as_commontator
+
   
   def after_confirmation   # Send welcome mail after user is successfully registered
      send_user_mail
